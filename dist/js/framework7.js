@@ -1,5 +1,5 @@
 /*
- * Framework7 0.10.0
+ * Framework7 0.9.7
  * Full Featured HTML Framework For Building iOS 7 Apps
  *
  * http://www.idangero.us/framework7
@@ -10,7 +10,7 @@
  *
  * Licensed under MIT
  *
- * Released on: December 8, 2014
+ * Released on: October 7, 2014
 */
 (function () {
 
@@ -24,7 +24,7 @@
         var app = this;
     
         // Version
-        app.version = '0.10.0';
+        app.version = '0.9.7';
     
         // Default Parameters
         app.params = {
@@ -36,7 +36,6 @@
             uniqueHistory: false,
             uniqueHistoryIgnoreGetParameters: false,
             dynamicPageUrl: 'content-{{index}}',
-            allowDuplicateUrls: false,
             router: true,
             // Push State
             pushState: false,
@@ -55,22 +54,19 @@
             swipeBackPage: true,
             swipeBackPageThreshold: 0,
             swipeBackPageActiveArea: 30,
-            swipeBackPageAnimateShadow: true,
-            swipeBackPageAnimateOpacity: true,
+            swipeBackPageBoxShadow: true,
             // Ajax
             ajaxLinks: undefined, // or CSS selector
             // External Links
-            externalLinks: '.external', // CSS selector
+            externalLinks: ['external'], // array of CSS class selectors and/or rel attributes
             // Sortable
             sortable: true,
             // Scroll toolbars
             hideNavbarOnPageScroll: false,
             hideToolbarOnPageScroll: false,
-            hideTabbarOnPageScroll: false,
             showBarsOnPageScrollEnd: true,
             // Swipeout
             swipeout: true,
-            swipeoutActionsNoFold: false,
             swipeoutNoFollow: false,
             // Smart Select Back link template
             smartSelectBackTemplate: '<div class="left sliding"><a href="#" class="back link"><i class="icon icon-back"></i><span>{{backText}}</span></a></div>',
@@ -87,7 +83,6 @@
             swipePanel: false, // or 'left' or 'right'
             swipePanelActiveArea: 0,
             swipePanelCloseOpposite: true,
-            swipePanelOnlyClose: false,
             swipePanelNoFollow: false,
             swipePanelThreshold: 0,
             panelsCloseByOutside: true,
@@ -112,7 +107,7 @@
             animatePages: true,
             // Template7
             templates: {},
-            template7Data: {},
+            templatesData: {},
             template7Pages: false,
             precompileTemplates: false,
             // Auto init
@@ -162,13 +157,10 @@
                 dynamicNavbar: false,
                 domCache: false,
                 linksView: undefined,
-                reloadPages: false,
                 uniqueHistory: app.params.uniqueHistory,
                 uniqueHistoryIgnoreGetParameters: app.params.uniqueHistoryIgnoreGetParameters,
-                allowDuplicateUrls: app.params.allowDuplicateUrls,
                 swipeBackPage: app.params.swipeBackPage,
-                swipeBackPageAnimateShadow: app.params.swipeBackPageAnimateShadow,
-                swipeBackPageAnimateOpacity: app.params.swipeBackPageAnimateOpacity,
+                swipeBackPageBoxShadow: app.params.swipeBackPageBoxShadow,
                 swipeBackPageActiveArea: app.params.swipeBackPageActiveArea,
                 swipeBackPageThreshold: app.params.swipeBackPageThreshold,
                 animatePages: app.params.animatePages,
@@ -390,10 +382,10 @@
                 }
         
                 activePage.transform('translate3d(' + activePageTranslate + 'px,0,0)');
-                if (view.params.swipeBackPageAnimateShadow && app.device.os !== 'android') activePage[0].style.boxShadow = '0px 0px 12px rgba(0,0,0,' + (0.5 - 0.5 * percentage) + ')';
+                if (view.params.swipeBackPageBoxShadow && app.device.os !== 'android') activePage[0].style.boxShadow = '0px 0px 12px rgba(0,0,0,' + (0.5 - 0.5 * percentage) + ')';
         
                 previousPage.transform('translate3d(' + previousPageTranslate + 'px,0,0)');
-                if (view.params.swipeBackPageAnimateOpacity) previousPage[0].style.opacity = 0.9 + 0.1 * percentage;
+                previousPage[0].style.opacity = 0.9 + 0.1 * percentage;
         
                 // Dynamic Navbars Animation
                 if (dynamicNavbar) {
@@ -626,16 +618,16 @@
         
             // Bars methods
             view.hideNavbar = function () {
-                return app.hideNavbar(container.find('.navbar'));
+                return app.hideNavbar(container);
             };
             view.showNavbar = function () {
-                return app.showNavbar(container.find('.navbar'));
+                return app.showNavbar(container);
             };
             view.hideToolbar = function () {
-                return app.hideToolbar(container.find('.toolbar'));
+                return app.hideToolbar(container);
             };
             view.showToolbar = function () {
-                return app.showToolbar(container.find('.toolbar'));
+                return app.showToolbar(container);
             };
         
             // Push State on load
@@ -719,7 +711,7 @@
                     leftWidth = noLeft ? 0 : left.outerWidth(true),
                     rightWidth = noRight ? 0 : right.outerWidth(true),
                     centerWidth = center.outerWidth(true),
-                    navbarWidth = n[0].offsetWidth - parseInt(n.css('padding-left'), 10) - parseInt(n.css('padding-right'), 10),
+                    navbarWidth = n.width(),
                     onLeft = n.hasClass('navbar-on-left'),
                     currLeft, diff;
         
@@ -783,25 +775,25 @@
                 
             });
         };
-        app.hideNavbar = function (navbarContainer) {
-            $(navbarContainer).addClass('navbar-hidden');
+        app.hideNavbar = function (viewContainer) {
+            $(viewContainer).addClass('hidden-navbar');
             return true;
         };
-        app.showNavbar = function (navbarContainer) {
-            var navbar = $(navbarContainer);
-            navbar.addClass('navbar-hiding').removeClass('navbar-hidden').transitionEnd(function () {
-                navbar.removeClass('navbar-hiding');
+        app.showNavbar = function (viewContainer) {
+            var vc = $(viewContainer);
+            vc.addClass('hiding-navbar').removeClass('hidden-navbar').find('.navbar').transitionEnd(function () {
+                vc.removeClass('hiding-navbar');
             });
             return true;
         };
-        app.hideToolbar = function (toolbarContainer) {
-            $(toolbarContainer).addClass('toolbar-hidden');
+        app.hideToolbar = function (viewContainer) {
+            $(viewContainer).addClass('hidden-toolbar');
             return true;
         };
-        app.showToolbar = function (toolbarContainer) {
-            var toolbar = $(toolbarContainer);
-            toolbar.addClass('toolbar-hiding').removeClass('toolbar-hidden').transitionEnd(function () {
-                toolbar.removeClass('toolbar-hiding');
+        app.showToolbar = function (viewContainer) {
+            var vc = $(viewContainer);
+            vc.addClass('hiding-toolbar').removeClass('hidden-toolbar').find('.toolbar').transitionEnd(function () {
+                vc.removeClass('hiding-toolbar');
             });
         };
         
@@ -818,8 +810,6 @@
             var clear = searchbar.find('.searchbar-clear');
             var cancel = searchbar.find('.searchbar-cancel');
             var searchList = $(searchbar.attr('data-search-list'));
-            var isVirtualList = searchList.hasClass('virtual-list');
-            var virtualList;
             var searchIn = searchbar.attr('data-search-in');
             var searchBy = searchbar.attr('data-search-by');
             var found = searchbar.attr('data-searchbar-found');
@@ -840,17 +830,18 @@
             }
         
             // Cancel button
-            var cancelMarginProp = app.rtl ? 'margin-left' : 'margin-right';
+            var cancelWidth, cancelMarginProp = app.rtl ? 'margin-left' : 'margin-right';
             if (cancel.length > 0) {
-                cancel.css(cancelMarginProp, -cancel[0].offsetWidth + 'px');
+                cancelWidth = cancel.width();
+        
+                cancel.css(cancelMarginProp, - cancelWidth + 'px');
             }
-                
         
             // Handlers
             function disableSearchbar() {
                 input.val('').trigger('change');
                 searchbar.removeClass('searchbar-active searchbar-not-empty');
-                if (cancel.length > 0) cancel.css(cancelMarginProp, -cancel[0].offsetWidth + 'px');
+                if (cancel.length > 0) cancel.css(cancelMarginProp, - cancelWidth + 'px');
                 
                 if (searchList) searchbarOverlay.removeClass('searchbar-overlay-active');
                 if (app.device.ios) {
@@ -886,7 +877,7 @@
         
             // Clear
             function clearSearchbar() {
-                input.val('').trigger('change').focus();
+                input.val('').trigger('change');
                 searchList.trigger('clearSearch');
             }
         
@@ -902,7 +893,7 @@
                         searchbar.addClass('searchbar-not-empty');
                         if (searchList && searchbar.hasClass('searchbar-active')) searchbarOverlay.removeClass('searchbar-overlay-active');
                     }
-                    if (searchList.length > 0 && (searchIn || isVirtualList)) search(value);
+                    if (searchList.length > 0 && searchIn) search(value);
                 }, 0);
             }
         
@@ -929,80 +920,59 @@
             attachEvents();
         
             // Search
-            var previousQuery;
             function search(query) {
-                if (query.trim() === previousQuery) return;
-                previousQuery = query.trim();
                 var values = query.trim().toLowerCase().split(' ');
+                searchList.find('li').removeClass('hidden-by-searchbar');
                 var foundItems = [];
-                if (isVirtualList) {
-                    virtualList = searchList[0].f7VirtualList;
-                    if (query.trim() === '') {
-                        virtualList.resetFilter();
-                        notFound.hide();
-                        found.show();
-                        return;
+                searchList.find('li').each(function (index, el) {
+                    el = $(el);
+                    var compareWithEl = el.find(searchIn);
+                    if (compareWithEl.length === 0) return;
+                    var compareWith;
+                    compareWith = compareWithEl.text().trim().toLowerCase();
+                    var wordsMatch = 0;
+                    for (var i = 0; i < values.length; i++) {
+                        if (compareWith.indexOf(values[i]) >= 0) wordsMatch++;
                     }
-                    if (virtualList.params.searchAll) {
-                        foundItems = virtualList.params.searchAll(query, virtualList.items) || [];
+                    if (wordsMatch !== values.length) {
+                        el.addClass('hidden-by-searchbar');
                     }
-                    else if (virtualList.params.searchByItem) {
-                        for (var i = 0; i < virtualList.items.length; i++) {
-                            if(virtualList.params.searchByItem(query, i, virtualList.params.items[i])) {
-                                foundItems.push(i);
+                    else {
+                        foundItems.push(el[0]);
+                    }
+                });
+        
+                if (app.params.searchbarHideDividers) {
+                    searchList.find('.item-divider, .list-group-title').each(function () {
+                        var title = $(this);
+                        var nextElements = title.nextAll('li');
+                        var hide = true;
+                        for (var i = 0; i < nextElements.length; i++) {
+                            var nextEl = $(nextElements[i]);
+                            if (nextEl.hasClass('list-group-title') || nextEl.hasClass('item-divider')) break;
+                            if (!nextEl.hasClass('hidden-by-searchbar')) {
+                                hide = false;
                             }
                         }
-                    }
+                        if (hide) title.addClass('hidden-by-searchbar');
+                        else title.removeClass('hidden-by-searchbar');
+                    });
                 }
-                else {
-                    searchList.find('li').removeClass('hidden-by-searchbar').each(function (index, el) {
-                        el = $(el);
-                        var compareWithEl = el.find(searchIn);
-                        if (compareWithEl.length === 0) return;
-                        var compareWith;
-                        compareWith = compareWithEl.text().trim().toLowerCase();
-                        var wordsMatch = 0;
-                        for (var i = 0; i < values.length; i++) {
-                            if (compareWith.indexOf(values[i]) >= 0) wordsMatch++;
-                        }
-                        if (wordsMatch !== values.length) {
-                            el.addClass('hidden-by-searchbar');
+                if (app.params.searchbarHideGroups) {
+                    searchList.find('.list-group').each(function () {
+                        var group = $(this);
+                        var notHidden = group.find('li:not(.hidden-by-searchbar)');
+                        if (notHidden.length === 0) {
+                            group.addClass('hidden-by-searchbar');
                         }
                         else {
-                            foundItems.push(el[0]);
+                            group.removeClass('hidden-by-searchbar');
                         }
                     });
-        
-                    if (app.params.searchbarHideDividers) {
-                        searchList.find('.item-divider, .list-group-title').each(function () {
-                            var title = $(this);
-                            var nextElements = title.nextAll('li');
-                            var hide = true;
-                            for (var i = 0; i < nextElements.length; i++) {
-                                var nextEl = $(nextElements[i]);
-                                if (nextEl.hasClass('list-group-title') || nextEl.hasClass('item-divider')) break;
-                                if (!nextEl.hasClass('hidden-by-searchbar')) {
-                                    hide = false;
-                                }
-                            }
-                            if (hide) title.addClass('hidden-by-searchbar');
-                            else title.removeClass('hidden-by-searchbar');
-                        });
-                    }
-                    if (app.params.searchbarHideGroups) {
-                        searchList.find('.list-group').each(function () {
-                            var group = $(this);
-                            var notHidden = group.find('li:not(.hidden-by-searchbar)');
-                            if (notHidden.length === 0) {
-                                group.addClass('hidden-by-searchbar');
-                            }
-                            else {
-                                group.removeClass('hidden-by-searchbar');
-                            }
-                        });
-                    }
                 }
+        
                 searchList.trigger('search', {query: query, foundItems: foundItems});
+        
                 if (foundItems.length === 0) {
                     notFound.show();
                     found.hide();
@@ -1010,9 +980,6 @@
                 else {
                     notFound.hide();
                     found.show();
-                }
-                if (isVirtualList) {
-                    virtualList.filterItems(foundItems);
                 }
             }
         
@@ -1261,20 +1228,18 @@
         };
         
         // On Page Init Callback
-        app.pageInitCallback = function (view, params) {
-            var pageContainer = params.pageContainer;
+        app.pageInitCallback = function (view, pageContainer, url, position, navbarInnerContainer) {
             if (pageContainer.f7PageInitialized && !view.params.domCache) return;
         
             // Page Data
             var pageData = {
                 container: pageContainer,
-                url: params.url,
-                query: $.parseUrlQuery(params.url || ''),
+                url: url,
+                query: $.parseUrlQuery(url || ''),
                 name: $(pageContainer).attr('data-page'),
                 view: view,
-                from: params.position,
-                context: params.context,
-                navbarInnerContainer: params.navbarInnerContainer
+                from: position,
+                navbarInnerContainer: navbarInnerContainer
             };
         
             if (pageContainer.f7PageInitialized && view.params.domCache) {
@@ -1317,8 +1282,6 @@
                 container: pageContainer,
                 name: $(pageContainer).attr('data-page'),
                 view: view,
-                url: pageContainer.f7PageData && pageContainer.f7PageData.url,
-                query: pageContainer.f7PageData && pageContainer.f7PageData.query,
                 from: position
             };
             // Before Init Callback
@@ -1338,7 +1301,6 @@
                 query: pageContainer.f7PageData && pageContainer.f7PageData.query,
                 view: view,
                 from: params.position,
-                context: params.context,
                 swipeBack: params.swipeBack
             };
         
@@ -1365,7 +1327,6 @@
                 name: $(params.pageContainer).attr('data-page'),
                 view: view,
                 from: params.position,
-                context: params.context,
                 swipeBack: params.swipeBack
             };
             var oldPage = params.oldPage,
@@ -1402,19 +1363,6 @@
                 if (!newPage.hasClass('no-toolbar') && (oldPage.hasClass('no-toolbar') || oldPage.hasClass('no-toolbar-by-scroll'))) {
                     view.showToolbar();
                 }
-                // Hide/show tabbar
-                var tabBar;
-                if (newPage.hasClass('no-tabbar') && !oldPage.hasClass('no-tabbar')) {
-                    tabBar = $(view.container).find('.tabbar');
-                    if (tabBar.length === 0) tabBar = $(view.container).parents('.' + app.params.viewsClass).find('.tabbar');
-                    app.hideToolbar(tabBar);
-                }
-                if (!newPage.hasClass('no-tabbar') && (oldPage.hasClass('no-tabbar') || oldPage.hasClass('no-tabbar-by-scroll'))) {
-                    tabBar = $(view.container).find('.tabbar');
-                    if (tabBar.length === 0) tabBar = $(view.container).parents('.' + app.params.viewsClass).find('.tabbar');
-                    app.showToolbar(tabBar);
-                }
-        
                 oldPage.removeClass('no-navbar-by-scroll no-toolbar-by-scroll');
                 // Callbacks
                 app.pluginHook('pageBeforeAnimation', pageData);
@@ -1608,10 +1556,10 @@
                 var t7_ctx, t7_template;
                 if (typeof content === 'string') {
                     if (url) {
-                        if (app.template7Cache[url]) t7_template = t7.cache[url];
+                        if (app.templatesCache[url]) t7_template = t7.templatesCache[url];
                         else {
                             t7_template = t7.compile(content);
-                            t7.cache[url] = t7_template;
+                            t7.templatesCache[url] = t7_template;
                         }
                     }
                     else t7_template = t7.compile(content);
@@ -1652,7 +1600,7 @@
                     }
                     if (!t7_ctx) t7_ctx = {};
                 }
-        
+                
                 if (t7_template && t7_ctx) {
                     if (typeof t7_ctx === 'function') t7_ctx = t7_ctx();
                     if (url) {
@@ -1666,7 +1614,7 @@
                     t7_rendered_content = t7_template(t7_ctx);
                 }
         
-                return {content: t7_rendered_content, context: t7_ctx};
+                return t7_rendered_content;
             }
         };
         
@@ -1676,7 +1624,7 @@
             
             var url = options.url,
                 content = options.content, //initial content
-                t7_rendered = {content: options.content},
+                t7_rendered_content = options.content, // will be rendered using Template7
                 template = options.template, // Template 7 compiled template
                 pageName = options.pageName,
                 viewContainer = $(view.container), 
@@ -1693,9 +1641,9 @@
         
             // Render with Template7
             if (app.params.template7Pages && typeof content === 'string' || template) {
-                t7_rendered = app.router.template7Render(view, options);
-                if (t7_rendered.content && !content) {
-                    content = t7_rendered.content;
+                t7_rendered_content = app.router.template7Render(view, options);
+                if (t7_rendered_content && !content) {
+                    content = t7_rendered_content;
                 }
             }
         
@@ -1704,7 +1652,7 @@
             // Parse DOM
             if (!pageName) {
                 if (url || (typeof content === 'string')) {
-                    app.router.temporaryDom.innerHTML = t7_rendered.content;
+                    app.router.temporaryDom.innerHTML = t7_rendered_content;
                 } else {
                     if ('length' in content && content.length > 1) {
                         for (var ci = 0; ci < content.length; ci++) {
@@ -1902,13 +1850,7 @@
             }
         
             // Page Init Events
-            app.pageInitCallback(view, {
-                pageContainer: newPage[0], 
-                url: url, 
-                position: options.reload ? reloadPosition : 'right', 
-                navbarInnerContainer: dynamicNavbar ? newNavbarInner[0] : undefined, 
-                context: t7_rendered.context
-            });
+            app.pageInitCallback(view, newPage[0], url, options.reload ? reloadPosition : 'right', dynamicNavbar ? newNavbarInner[0] : undefined);
         
             // Navbar init event
             if (dynamicNavbar) {
@@ -1928,7 +1870,7 @@
             var clientLeft = newPage[0].clientLeft;
         
             // Before Anim Callback
-            app.pageAnimCallbacks('before', view, {pageContainer: newPage[0], url: url, position: 'right', oldPage: oldPage, newPage: newPage, context: t7_rendered.context});
+            app.pageAnimCallbacks('before', view, {pageContainer: newPage[0], url: url, position: 'right', oldPage: oldPage, newPage: newPage});
         
             function afterAnimation() {
                 view.allowPageChange = true;
@@ -1938,7 +1880,7 @@
                     newNavbarInner.removeClass('navbar-from-right-to-center navbar-on-right').addClass('navbar-on-center');
                     oldNavbarInner.removeClass('navbar-from-center-to-left navbar-on-center').addClass('navbar-on-left');
                 }
-                app.pageAnimCallbacks('after', view, {pageContainer: newPage[0], url: url, position: 'right', oldPage: oldPage, newPage: newPage, context: t7_rendered.context});
+                app.pageAnimCallbacks('after', view, {pageContainer: newPage[0], url: url, position: 'right', oldPage: oldPage, newPage: newPage});
                 if (app.params.pushState) app.pushStateClearQueue();
                 if (!(view.params.swipeBackPage || view.params.preloadPreviousPage)) {
                     if (view.params.domCache) {
@@ -1979,15 +1921,13 @@
         };
         
         app.router.load = function (view, options) {
-            options = options || {};
             var url = options.url;
             var content = options.content;
             var pageName = options.pageName;
             var template = options.template;
-            if (view.params.reloadPages === true) options.reload = true;
         
             if (!view.allowPageChange) return false;
-            if (url && view.url === url && !options.reload && !view.params.allowDuplicateUrls) return false;
+            if (url && view.url === url && !options.reload) return false;
             view.allowPageChange = false;
             if (app.xhr && view.xhr && view.xhr === app.xhr) {
                 app.xhr.abort();
@@ -2025,7 +1965,7 @@
             options = options || {};
             var url = options.url,
                 content = options.content, 
-                t7_rendered = {content: options.content}, // will be rendered using Template7
+                t7_rendered_content = options.content, // will be rendered using Template7
                 template = options.template, // Template 7 compiled template
                 animatePages = options.animatePages, 
                 preloadOnly = options.preloadOnly, 
@@ -2045,9 +1985,9 @@
         
             // Render with Template7
             if (app.params.template7Pages && typeof content === 'string' || template) {
-                t7_rendered = app.router.template7Render(view, options);
-                if (t7_rendered.content && !content) {
-                    content = t7_rendered.content;
+                t7_rendered_content = app.router.template7Render(view, options);
+                if (t7_rendered_content && !content) {
+                    content = t7_rendered_content;
                 }
             }
         
@@ -2061,14 +2001,14 @@
         
             // Animation
             function afterAnimation() {
-                app.pageBackCallbacks('after', view, {pageContainer: oldPage[0], url: url, position: 'center', oldPage: oldPage, newPage: newPage, context: t7_rendered.context});
-                app.pageAnimCallbacks('after', view, {pageContainer: newPage[0], url: url, position: 'left', oldPage: oldPage, newPage: newPage, context: t7_rendered.context});
+                app.pageBackCallbacks('after', view, {pageContainer: oldPage[0], url: url, position: 'center', oldPage: oldPage, newPage: newPage});
+                app.pageAnimCallbacks('after', view, {pageContainer: newPage[0], url: url, position: 'left', oldPage: oldPage, newPage: newPage});
                 app.router.afterBack(view, oldPage[0], newPage[0]);
             }
             function animateBack() {
                 // Page before animation callback
-                app.pageBackCallbacks('before', view, {pageContainer: oldPage[0], url: url, position: 'center', oldPage: oldPage, newPage: newPage, context: t7_rendered.context});
-                app.pageAnimCallbacks('before', view, {pageContainer: newPage[0], url: url, position: 'left', oldPage: oldPage, newPage: newPage, context: t7_rendered.context});
+                app.pageBackCallbacks('before', view, {pageContainer: oldPage[0], url: url, position: 'center', oldPage: oldPage, newPage: newPage});
+                app.pageAnimCallbacks('before', view, {pageContainer: newPage[0], url: url, position: 'left', oldPage: oldPage, newPage: newPage});
         
                 if (animatePages) {
                     // Set pages before animation
@@ -2095,7 +2035,7 @@
                 app.router.temporaryDom.innerHTML = '';
                 // Parse DOM
                 if (url || (typeof content === 'string')) {
-                    app.router.temporaryDom.innerHTML = t7_rendered.content;
+                    app.router.temporaryDom.innerHTML = t7_rendered_content;
                 } else {
                     if ('length' in content && content.length > 1) {
                         for (var ci = 0; ci < content.length; ci++) {
@@ -2118,7 +2058,7 @@
                     view.allowPageChange = true;
                     return;
                 }
-                if (view.params.dynamicNavbar && typeof dynamicNavbar === 'undefined') {
+                if (view.params.dynamicNavbar) {
                     if (!newNavbarInner || newNavbarInner.length === 0) {
                         dynamicNavbar = false;
                     }
@@ -2133,21 +2073,21 @@
                     navbarInners = viewContainer.find('.navbar-inner:not(.cached)');
                     newNavbarInner.addClass('navbar-on-left').removeClass('cached');
                 }
+                
                 // Remove/hide previous page in force mode
                 if (force) {
                     var pageToRemove, navbarToRemove;
                     pageToRemove = $(pagesInView[pagesInView.length - 2]);
-                    
-                    if (dynamicNavbar) navbarToRemove = $(pageToRemove[0] && pageToRemove[0].f7RelatedNavbar || navbarInners[navbarInners.length - 2]);
+                    if (dynamicNavbar) navbarToRemove = $(pageToRemove[0].f7RelatedNavbar || navbarInners[navbarInners.length - 2]);
                     if (view.params.domCache && view.initialPages.indexOf(pageToRemove[0]) >= 0) {
-                        if (pageToRemove.length && pageToRemove[0] !== newPage[0]) pageToRemove.addClass('cached');
-                        if (dynamicNavbar && navbarToRemove.length && navbarToRemove[0] !== newNavbarInner[0]) {
+                        pageToRemove.addClass('cached');
+                        if (dynamicNavbar) {
                             navbarToRemove.addClass('cached');
                         }
                     }
                     else {
-                        if (pageToRemove.length) pageToRemove.remove();
-                        if (dynamicNavbar && navbarToRemove.length) {
+                        pageToRemove.remove();
+                        if (dynamicNavbar) {
                             navbarToRemove.remove();
                         } 
                     }
@@ -2159,34 +2099,14 @@
                         view.history = view.history.slice(0, view.history.indexOf(url) + 2);
                     }
                     else {
-                        if (view.history[[view.history.length - 2]]) {
-                            view.history[view.history.length - 2] = url;    
-                        }
-                        else {
-                            view.history.unshift(url);
-                        }
+                        view.history[view.history.length - 2] = url;
                     }
                 }
         
                 oldPage = $(pagesInView[pagesInView.length - 1]);
-                if (view.params.domCache) {
-                    if (oldPage[0] === newPage[0]) {
-                        oldPage = pagesContainer.children('.page.page-on-center');
-                        if (oldPage.length === 0 && view.activePage) oldPage = $(view.activePage.container);
-                    }
-                }
                     
-                if (dynamicNavbar && !oldNavbarInner) {
+                if (dynamicNavbar) {
                     oldNavbarInner = $(navbarInners[navbarInners.length - 1]);
-                    if (view.params.domCache) {
-                        if (oldNavbarInner[0] === newNavbarInner[0]) {
-                            oldNavbarInner = navbar.children('.navbar-inner.navbar-on-center:not(.cached)');
-                        }
-                        if (oldNavbarInner.length === 0) {
-                            oldNavbarInner = navbar.children('.navbar-inner[data-page="'+oldPage.attr('data-page')+'"]');
-                        }
-                    }
-                    if (oldNavbarInner.length === 0 || newNavbarInner[0] === oldNavbarInner[0]) dynamicNavbar = false;
                 }
         
                 if (dynamicNavbar) {
@@ -2197,13 +2117,7 @@
                 if (manipulateDom) newPage.insertBefore(oldPage);
         
                 // Page Init Events
-                app.pageInitCallback(view, {
-                    pageContainer: newPage[0], 
-                    url: url, 
-                    position: 'left', 
-                    navbarInnerContainer: dynamicNavbar ? newNavbarInner[0] : undefined, 
-                    context: t7_rendered.context
-                });
+                app.pageInitCallback(view, newPage[0], url, 'left', dynamicNavbar ? newNavbarInner[0] : undefined);
                 if (dynamicNavbar) {
                     app.navbarInitCallback(view, newPage[0], navbar[0], newNavbarInner[0], url, 'right');
                 }
@@ -2249,9 +2163,6 @@
                     navbarInners = viewContainer.find('.navbar-inner:not(.cached)');
                     newNavbarInner = $(navbarInners[0]);
                     oldNavbarInner = $(navbarInners[1]);
-                    if (newNavbarInner.length === 0 || oldNavbarInner.length === 0 || oldNavbarInner[0] === newNavbarInner[0]) {
-                        dynamicNavbar = false;
-                    }
                 }
                 manipulateDom = false;
                 setPages();
@@ -2261,11 +2172,8 @@
             
             if (!force) {
                 // Go back when there is no pages on left
-                if (!preloadOnly) {
-                    view.url = view.history[view.history.length - 2];
-                    url = view.url;
-                }
-                    
+                view.url = view.history[view.history.length - 2];
+                url = view.url;
                 if (content) {
                     parseNewPage();
                     setPages();
@@ -2339,6 +2247,7 @@
                     app.router._back(view, options);
                 });
             }
+            
             if (pagesInView.length > 1 && !force) {
                 // Simple go back to previos page in view
                 app.router._back(view, options);
@@ -2359,7 +2268,7 @@
                     proceed();
                     return;
                 }
-                else if (url.indexOf('#') !== 0) {
+                else if (url.indexOf('#') < 0) {
                     // Load ajax page
                     app.get(options.url, view, options.ignoreCache, function (content, error) {
                         if (error) {
@@ -2458,6 +2367,7 @@
                     var preloadUrl = view.history[view.history.length - 2];
                     var previousPage;
                     var previousNavbar;
+        
                     if (preloadUrl && view.pagesCache[preloadUrl]) {
                         // Load by page name
                         previousPage = $(view.container).find('.page[data-page="' + view.pagesCache[preloadUrl] + '"]');
@@ -2465,7 +2375,6 @@
                         if (newNavbar) {
                             previousNavbar = $(view.container).find('.navbar-inner[data-page="' + view.pagesCache[preloadUrl] + '"]');
                             previousNavbar.insertBefore(newNavbar);
-                            if(!previousNavbar || previousNavbar.length === 0) previousNavbar = newNavbar.prev('.navbar-inner.cached');
                         }
                     }
                     else {
@@ -2503,8 +2412,7 @@
                 var textHTML = params.text ? '<div class="modal-text">' + params.text + '</div>' : '';
                 var afterTextHTML = params.afterText ? params.afterText : '';
                 var noButtons = !params.buttons || params.buttons.length === 0 ? 'modal-no-buttons' : '';
-                var verticalButtons = params.verticalButtons ? 'modal-buttons-vertical' : '';
-                modalHTML = '<div class="modal ' + noButtons + '"><div class="modal-inner">' + (titleHTML + textHTML + afterTextHTML) + '</div><div class="modal-buttons ' + verticalButtons + '">' + buttonsHTML + '</div></div>';
+                modalHTML = '<div class="modal ' + noButtons + '"><div class="modal-inner">' + (titleHTML + textHTML + afterTextHTML) + '</div><div class="modal-buttons">' + buttonsHTML + '</div></div>';
             }
             
             _modalTemplateTempDiv.innerHTML = modalHTML;
@@ -2676,7 +2584,7 @@
                             '{{#if label}}' +
                             '<li class="actions-popover-label {{#if color}}color-{{color}}{{/if}} {{#if bold}}actions-popover-bold{{/if}}">{{text}}</li>' +
                             '{{else}}' +
-                            '<li><a href="#" class="item-link list-button {{#if color}}color-{{color}}{{/if}} {{#if bg}}bg-{{bg}}{{/if}} {{#if bold}}actions-popover-bold{{/if}}">{{text}}</a></li>' +
+                            '<li><a href="#" class="item-link list-button {{#if color}}color-{{color}}{{/if}} {{#if bold}}actions-popover-bold{{/if}}">{{text}}</a></li>' +
                             '{{/if}}' +
                             '{{/each}}' +
                           '</ul>' +
@@ -2706,7 +2614,6 @@
                             var buttonClass = button.label ? 'actions-modal-label' : 'actions-modal-button';
                             if (button.bold) buttonClass += ' actions-modal-button-bold';
                             if (button.color) buttonClass += ' color-' + button.color;
-                            if (button.bg) buttonClass += ' bg-' + button.bg;
                             buttonsHTML += '<span class="' + buttonClass + '">' + button.text + '</span>';
                             if (j === params[i].length - 1) buttonsHTML += '</div>';
                         }
@@ -2745,7 +2652,7 @@
             if (typeof removeOnClose === 'undefined') removeOnClose = true;
             if (typeof modal === 'string' && modal.indexOf('<') >= 0) {
                 var _modal = document.createElement('div');
-                _modal.innerHTML = modal.trim();
+                _modal.innerHTML = $.trim(modal);
                 if (_modal.childNodes.length > 0) {
                     modal = _modal.childNodes[0];
                     if (removeOnClose) modal.classList.add('remove-on-close');
@@ -2767,7 +2674,6 @@
                 var modalHeight =  modal.height(); // 13 - height of angle
                 var modalAngle = modal.find('.popover-angle');
                 var modalAngleSize = modalAngle.width() / 2;
-                var modalAngleLeft, modalAngleTop;
                 modalAngle.removeClass('on-left on-right on-top on-bottom').css({left: '', top: ''});
         
                 var targetWidth = target.outerWidth();
@@ -2818,9 +2724,7 @@
                     if (modalPosition === 'top') modalAngle.addClass('on-bottom');
                     if (modalPosition === 'bottom') modalAngle.addClass('on-top');
                     diff = diff - modalLeft;
-                    modalAngleLeft = (modalWidth / 2 - modalAngleSize + diff);
-                    modalAngleLeft = Math.max(Math.min(modalAngleLeft, modalWidth - modalAngleSize * 2 - 6), 6);
-                    modalAngle.css({left: modalAngleLeft + 'px'});
+                    modalAngle.css({left: (modalWidth / 2 - modalAngleSize + diff) + 'px'});
                 }
                 else if (modalPosition === 'middle') {
                     modalLeft = targetOffset.left - modalWidth - modalAngleSize;
@@ -2833,9 +2737,7 @@
                         modalLeft = windowWidth - modalWidth - 5;
                         modalAngle.removeClass('on-right').addClass('on-left');
                     }
-                    modalAngleTop = (modalHeight / 2 - modalAngleSize + diff);
-                    modalAngleTop = Math.max(Math.min(modalAngleTop, modalHeight - modalAngleSize * 2 - 6), 6);
-                    modalAngle.css({top: modalAngleTop + 'px'});
+                    modalAngle.css({top: (modalHeight / 2 - modalAngleSize + diff) + 'px'});
                 }
         
                 // Apply Styles
@@ -2859,7 +2761,7 @@
             if (typeof removeOnClose === 'undefined') removeOnClose = true;
             if (typeof modal === 'string' && modal.indexOf('<') >= 0) {
                 var _modal = document.createElement('div');
-                _modal.innerHTML = modal.trim();
+                _modal.innerHTML = $.trim(modal);
                 if (_modal.childNodes.length > 0) {
                     modal = _modal.childNodes[0];
                     if (removeOnClose) modal.classList.add('remove-on-close');
@@ -3035,32 +2937,23 @@
         ************   Swipe panels   ************
         ======================================================*/
         app.initSwipePanels = function () {
-            var panel, side;
-            if (app.params.swipePanel) {
-                panel = $('.panel.panel-' + app.params.swipePanel);
-                side = app.params.swipePanel;
-                if (panel.length === 0) return;
-            }
-            else {
-                if (app.params.swipePanelOnlyClose) {
-                    if ($('.panel').length === 0) return;
-                }
-                else return;
-            }
-            
+            var panel = $('.panel.panel-' + app.params.swipePanel);
+            if (panel.length === 0) return;
+        
             var panelOverlay = $('.panel-overlay');
-            var isTouched, isMoved, isScrolling, touchesStart = {}, touchStartTime, touchesDiff, translate, opened, panelWidth, effect, direction;
+            var isTouched, isMoved, isScrolling, touchesStart = {}, touchStartTime, touchesDiff, translate, opened, panelWidth, effect, direction, side;
             var views = $('.' + app.params.viewsClass);
+            side = app.params.swipePanel;
         
             function handleTouchStart(e) {
-                if (!app.allowPanelOpen || (!app.params.swipePanel && !app.params.swipePanelOnlyClose) || isTouched) return;
+                if (!app.allowPanelOpen || !app.params.swipePanel || isTouched) return;
                 if ($('.modal-in, .photo-browser-in').length > 0) return;
-                if (!(app.params.swipePanelCloseOpposite || app.params.swipePanelOnlyClose)) {
+                if (!app.params.swipePanelCloseOpposite) {
                     if ($('.panel.active').length > 0 && !panel.hasClass('active')) return;
                 }
                 touchesStart.x = e.type === 'touchstart' ? e.targetTouches[0].pageX : e.pageX;
                 touchesStart.y = e.type === 'touchstart' ? e.targetTouches[0].pageY : e.pageY;
-                if (app.params.swipePanelCloseOpposite || app.params.swipePanelOnlyClose) {
+                if (app.params.swipePanelCloseOpposite) {
                     if ($('.panel.active').length > 0) {
                         side = $('.panel.active').hasClass('panel-left') ? 'left' : 'right';
                     }
@@ -3069,8 +2962,7 @@
                     }
                 }
                 panel = $('.panel.panel-' + side);
-                opened = panel.hasClass('active');
-                if (app.params.swipePanelActiveArea && !opened) {
+                if (app.params.swipePanelActiveArea) {
                     if (side === 'left') {
                         if (touchesStart.x > app.params.swipePanelActiveArea) return;
                     }
@@ -3140,11 +3032,10 @@
         
                 if (!isMoved) {
                     effect = panel.hasClass('panel-cover') ? 'cover' : 'reveal';
-                    if (!opened) {
-                        panel.show();
-                        panelOverlay.show();
-                    }
-                    panelWidth = panel[0].offsetWidth;
+                    panel.show();
+                    panelOverlay.show();
+                    opened = panel.hasClass('active');
+                    panelWidth = panel.width();
                     panel.transition(0);
                     if (panel.find('.' + app.params.viewClass).length > 0) {
                         if (app.sizeNavbars) app.sizeNavbars(panel.find('.' + app.params.viewClass)[0]);
@@ -3280,8 +3171,8 @@
             var messages = page.find('.messages');
             if (messages.length === 0) return;
             var pageContent = page.find('.page-content');
+            if (!messages.hasClass('new-messages-first')) pageContent[0].scrollTop = messages.height() - pageContent.height();
             if (messages.hasClass('messages-auto-layout')) app.updateMessagesLayout(messages);
-            if (!messages.hasClass('new-messages-first')) pageContent[0].scrollTop = pageContent[0].scrollHeight - pageContent[0].offsetHeight;
         };
         app.addMessage = function (props) {
             props = props || {};
@@ -3302,7 +3193,6 @@
                         (props.name ? '<div class="message-name">' + props.name + '</div>' : '') +
                         '<div class="message-text">' + props.text + '</div>' +
                         (props.avatar ? '<div class="message-avatar" style="background-image:url(' + props.avatar + ')"></div>' : '') +
-                        (props.label ? '<div class="message-label">' + props.label + '</div>' : '') +
                     '</div>';
             if (newOnTop) messages.prepend(html);
             else messages.append(html);
@@ -3365,7 +3255,7 @@
             var messages = messagesContent.find('.messages');
             var newOnTop = messages.hasClass('new-messages-first');
             var currentScroll = messagesContent[0].scrollTop;
-            var newScroll = newOnTop ? 0 : messagesContent[0].scrollHeight - messagesContent[0].offsetHeight;
+            var newScroll = newOnTop ? 0 : messages.height() - messagesContent.height();
             if (newScroll === currentScroll) return;
             messagesContent.scrollTop(newScroll, 300);
         };
@@ -3376,7 +3266,7 @@
         app.swipeoutOpenedEl = undefined;
         app.allowSwipeout = true;
         app.initSwipeout = function (swipeoutEl) {
-            var isTouched, isMoved, isScrolling, touchesStart = {}, touchStartTime, touchesDiff, swipeOutEl, swipeOutContent, actionsRight, actionsLeft, actionsLeftWidth, actionsRightWidth, translate, opened, openedActions, buttonsLeft, buttonsRight, direction, overswipeLeftButton, overswipeRightButton, overswipeLeft, overswipeRight, noFoldLeft, noFoldRight;
+            var isTouched, isMoved, isScrolling, touchesStart = {}, touchStartTime, touchesDiff, swipeOutEl, swipeOutContent, actionsRight, actionsLeft, actionsLeftWidth, actionsRightWidth, translate, opened, openedActions, buttonsLeft, buttonsRight, direction, overswipeLeftButton, overswipeRightButton, overswipeLeft, overswipeRight;
             $(document).on(app.touchEvents.start, function (e) {
                 if (app.swipeoutOpenedEl) {
                     var target = $(e.target);
@@ -3384,13 +3274,14 @@
                         app.swipeoutOpenedEl.is(target[0]) ||
                         target.parents('.swipeout').is(app.swipeoutOpenedEl) ||
                         target.hasClass('modal-in') ||
-                        target.parents('.modal.modal-in').length > 0 ||
+                        target.parents('.modal-in').length > 0 ||
                         target.hasClass('modal-overlay')
                         )) {
                         app.swipeoutClose(app.swipeoutOpenedEl);
                     }
                 }
             });
+            
         
             function handleTouchStart(e) {
                 if (!app.allowSwipeout) return;
@@ -3421,15 +3312,13 @@
                     actionsRight = swipeOutEl.find('.swipeout-actions-right');
                     actionsLeft = swipeOutEl.find('.swipeout-actions-left');
                     actionsLeftWidth = actionsRightWidth = buttonsLeft = buttonsRight = overswipeRightButton = overswipeLeftButton = null;
-                    noFoldLeft = actionsLeft.hasClass('swipeout-actions-no-fold') || app.params.swipeoutActionsNoFold;
-                    noFoldRight = actionsRight.hasClass('swipeout-actions-no-fold') || app.params.swipeoutActionsNoFold;
                     if (actionsLeft.length > 0) {
-                        actionsLeftWidth = actionsLeft.outerWidth();
+                        actionsLeftWidth = actionsLeft.width();
                         buttonsLeft = actionsLeft.children('a');
                         overswipeLeftButton = actionsLeft.find('.swipeout-overswipe');
                     }
                     if (actionsRight.length > 0) {
-                        actionsRightWidth = actionsRight.outerWidth();
+                        actionsRightWidth = actionsRight.width();
                         buttonsRight = actionsRight.children('a');
                         overswipeRightButton = actionsRight.find('.swipeout-overswipe');
                     }
@@ -3504,6 +3393,7 @@
                         if (overswipeRightButton.length > 0) {
                             overswipeRight = true;
                         }
+        
                     }
                     for (i = 0; i < buttonsRight.length; i++) {
                         if (typeof buttonsRight[i]._buttonOffset === 'undefined') {
@@ -3535,10 +3425,7 @@
                         if (overswipeLeftButton.length > 0 && $button.hasClass('swipeout-overswipe')) {
                             $button.css({left: (overswipeLeft ? buttonOffset : 0) + 'px'});
                         }
-                        if (buttonsLeft.length > 1) {
-                            $button.css('z-index', buttonsLeft.length - i); 
-                        }
-                        $button.transform('translate3d(' + (translate + buttonOffset * (1 - Math.min(progress, 1))) + 'px,0,0)');
+                        $button.css('z-index', buttonsLeft.length - i).transform('translate3d(' + (translate + buttonOffset * (1 - Math.min(progress, 1))) + 'px,0,0)');
                     }
                 }
                 swipeOutContent.transform('translate3d(' + translate + 'px,0,0)');
@@ -3549,13 +3436,11 @@
                     isMoved = false;
                     return;
                 }
-        
                 isTouched = false;
                 isMoved = false;
                 var timeDiff = (new Date()).getTime() - touchStartTime;
-                var action, actionsWidth, actions, buttons, i, noFold;
+                var action, actionsWidth, actions, buttons, i;
                 
-                noFold = direction === 'to-left' ? noFoldRight : noFoldLeft;
                 actions = direction === 'to-left' ? actionsRight : actionsLeft;
                 actionsWidth = direction === 'to-left' ? actionsRightWidth : actionsLeftWidth;
         
@@ -3657,11 +3542,10 @@
             }
             var swipeOutActions = el.find('.swipeout-actions-' + dir);
             if (swipeOutActions.length === 0) return;
-            var noFold = swipeOutActions.hasClass('swipeout-actions-no-fold') || app.params.swipeoutActionsNoFold;
             el.trigger('open').addClass('swipeout-opened').removeClass('transitioning');
             swipeOutActions.addClass('swipeout-actions-opened');
             var buttons = swipeOutActions.children('a');
-            var swipeOutActionsWidth = swipeOutActions.outerWidth();
+            var swipeOutActionsWidth = swipeOutActions.width();
             var translate = dir === 'right' ? -swipeOutActionsWidth : swipeOutActionsWidth;
             var i;
             if (buttons.length > 1) {
@@ -3675,9 +3559,10 @@
                 }
                 var clientLeft = buttons[1].clientLeft;
             }
+            
             el.addClass('transitioning');
             for (i = 0; i < buttons.length; i++) {
-                $(buttons[i]).transform('translate3d(' + (translate) + 'px,0,0)');
+                $(buttons[i]).transform('translate3d(' + (translate) + 'px,0,0');
             }
             el.find('.swipeout-content').transform('translate3d(' + translate + 'px,0,0)').transitionEnd(function () {
                 el.trigger('opened');
@@ -3690,12 +3575,12 @@
             if (!el.hasClass('swipeout-opened')) return;
             var dir = el.find('.swipeout-actions-opened').hasClass('swipeout-actions-right') ? 'right' : 'left';
             var swipeOutActions = el.find('.swipeout-actions-opened').removeClass('swipeout-actions-opened');
-            var noFold = swipeOutActions.hasClass('swipeout-actions-no-fold') || app.params.swipeoutActionsNoFold;
             var buttons = swipeOutActions.children('a');
-            var swipeOutActionsWidth = swipeOutActions.outerWidth();
+            var swipeOutActionsWidth = swipeOutActions.width();
             app.allowSwipeout = false;
             el.trigger('close');
             el.removeClass('swipeout-opened').addClass('transitioning');
+        
             el.find('.swipeout-content').transform('translate3d(' + 0 + 'px,0,0)').transitionEnd(function () {
                 el.trigger('closed');
                 buttons.transform('');
@@ -3722,14 +3607,7 @@
             var clientLeft = el[0].clientLeft;
             el.css({height: 0 + 'px'}).addClass('deleting transitioning').transitionEnd(function () {
                 el.trigger('deleted');
-                if (el.parents('.virtual-list').length > 0) {
-                    var virtualList = el.parents('.virtual-list')[0].f7VirtualList;
-                    var virtualIndex = el[0].f7VirtualListIndex;
-                    if (virtualList && typeof virtualIndex !== 'undefined') virtualList.deleteItem(virtualIndex);
-                }
-                else {
-                    el.remove();
-                }
+                el.remove();
             });
             var translate = '-100%';
             el.find('.swipeout-content').transform('translate3d(' + translate + ',0,0)');
@@ -3765,7 +3643,7 @@
             return sortableContainer;
         };
         app.initSortable = function () {
-            var isTouched, isMoved, touchStartY, touchesDiff, sortingEl, sortingElHeight, sortingItems, minTop, maxTop, insertAfter, insertBefore, sortableContainer;
+            var isTouched, isMoved, touchStartY, touchesDiff, sortingEl, sortingItems, minTop, maxTop, insertAfter, insertBefore, sortableContainer;
             
             function handleTouchStart(e) {
                 isMoved = false;
@@ -3776,7 +3654,7 @@
                 sortingItems = sortingEl.parent().find('li');
                 sortableContainer = sortingEl.parents('.sortable');
                 e.preventDefault();
-                app.allowPanelOpen = app.allowSwipeout = false;
+                app.allowsPanelOpen = app.allowSwipeout = false;
             }
             function handleTouchMove(e) {
                 if (!isTouched || !sortingEl) return;
@@ -3787,7 +3665,7 @@
                     sortableContainer.addClass('sortable-sorting');
                     minTop = sortingEl[0].offsetTop;
                     maxTop = sortingEl.parent().height() - sortingEl[0].offsetTop - sortingEl.height();
-                    sortingElHeight = sortingEl[0].offsetHeight;
+                    
                 }
                 isMoved = true;
         
@@ -3809,12 +3687,12 @@
                     var sortingElOffset = sortingEl[0].offsetTop + translate;
         
                     if ((sortingElOffset >= currentElOffset - currentElHeight / 2) && sortingEl.index() < currentEl.index()) {
-                        currentEl.transform('translate3d(0, '+(-sortingElHeight)+'px,0)');
+                        currentEl.transform('translate3d(0,-100%,0)');
                         insertAfter = currentEl;
                         insertBefore = undefined;
                     }
                     else if ((sortingElOffset <= currentElOffset + currentElHeight / 2) && sortingEl.index() > currentEl.index()) {
-                        currentEl.transform('translate3d(0, '+(sortingElHeight)+'px,0)');
+                        $(this).transform('translate3d(0,100%,0)');
                         insertAfter = undefined;
                         if (!insertBefore) insertBefore = currentEl;
                     }
@@ -3824,7 +3702,7 @@
                 });
             }
             function handleTouchEnd(e) {
-                app.allowPanelOpen = app.allowSwipeout = true;
+                app.allowsPanelOpen = app.allowSwipeout = true;
                 if (!isTouched || !isMoved) {
                     isTouched = false;
                     isMoved = false;
@@ -3834,7 +3712,6 @@
                 sortingItems.transform('');
                 sortingEl.removeClass('sorting');
                 sortableContainer.removeClass('sortable-sorting');
-                var virtualList, oldIndex, newIndex;
                 if (insertAfter) {
                     sortingEl.insertAfter(insertAfter);
                     sortingEl.trigger('sort');
@@ -3842,12 +3719,6 @@
                 if (insertBefore) {
                     sortingEl.insertBefore(insertBefore);
                     sortingEl.trigger('sort');
-                }
-                if ((insertAfter || insertBefore) && sortableContainer.hasClass('virtual-list')) {
-                    virtualList = sortableContainer[0].f7VirtualList;
-                    oldIndex = sortingEl[0].f7VirtualListIndex;
-                    newIndex = insertBefore ? insertBefore[0].f7VirtualListIndex : insertAfter[0].f7VirtualListIndex;
-                    if (virtualList) virtualList.moveItem(oldIndex, newIndex);
                 }
                 insertAfter = insertBefore = undefined;
                 isTouched = false;
@@ -3910,7 +3781,27 @@
             view = view[0].f7View;
             if (!view) return;
         
-            // Parameters
+            // Collect all values
+            var select = smartSelect.find('select')[0];
+            var $select = $(select);
+            if (select.disabled || smartSelect.hasClass('disabled') || $select.hasClass('disabled')) {
+                return;
+            }
+            var values = {};
+            values.length = select.length;
+            var option;
+            for (var i = 0; i < select.length; i++) {
+                option = $(select[i]);
+                values[i] = {
+                    value: select[i].value,
+                    text: select[i].textContent.trim(),
+                    selected: select[i].selected,
+                    group: option.parent('optgroup')[0],
+                    image: option.attr('data-option-image') || $select.attr('data-option-image'),
+                    icon: option.attr('data-option-icon') || $select.attr('data-option-icon'),
+                    disabled: select[i].disabled
+                };
+            }
             var openIn = smartSelect.attr('data-open-in');
             if (!openIn) openIn = app.params.smartSelectInPopup ? 'popup' : 'page';
         
@@ -3918,112 +3809,61 @@
             var backText = smartSelect.attr('data-back-text') || app.params.smartSelectBackText;
             var closeText = smartSelect.attr('data-popup-close-text') || smartSelect.attr('data-back-text') || app.params.smartSelectPopupCloseText ;
             var backOnSelect = smartSelect.attr('data-back-onselect') ? (smartSelect.attr('data-back-onselect') === 'true' ? true : false) : app.params.smartSelectBackOnSelect;
-            var formTheme = smartSelect.attr('data-form-theme') || app.params.smartSelectFormTheme;
-            var navbarTheme = smartSelect.attr('data-navbar-theme') || app.params.smartSelectNavbarTheme;
-            var virtualList = smartSelect.attr('data-virtual-list') === 'true';
-            var virtualListItemHeight = smartSelect.attr('data-virtual-list-height');
         
-            // Collect all options/values
-            var select = smartSelect.find('select')[0];
-            var $select = $(select);
-            if (select.disabled || smartSelect.hasClass('disabled') || $select.hasClass('disabled')) {
-                return;
-            }
-            var values = [];
+            // Generate dynamic page layout
             var id = (new Date()).getTime();
             var inputType = select.multiple ? 'checkbox' : 'radio';
             var inputName = inputType + '-' + id;
-            var option, optionHasMedia, optionImage, optionIcon, optionGroup, optionGroupLabel, optionPreviousGroup, optionShowGroupLabel, previousGroup;
-            for (var i = 0; i < select.length; i++) {
-                option = $(select[i]);
-                if (option[0].disabled) continue;
-                optionImage = option.attr('data-option-image') || $select.attr('data-option-image');
-                optionIcon = option.attr('data-option-icon') || $select.attr('data-option-icon');
-                optionHasMedia = optionImage || optionIcon || inputType === 'checkbox';
-                optionGroup = option.parent('optgroup')[0];
-                optionGroupLabel = optionGroup && optionGroup.label;
-                optionShowGroupLabel = false;
-                if (optionGroup) {
-                    if (optionGroup !== previousGroup) {
-                        optionShowGroupLabel = true;
-                        previousGroup = optionGroup;
+            var inputsHTML = '';
+            var previousGroup;
+            for (var j = 0; j < values.length; j++) {
+                if (values[j].disabled) continue;
+                var checked = values[j].selected ? 'checked' : '';
+                if (values[j].group) {
+                    if (values[j].group !== previousGroup) {
+                        inputsHTML += '<li class="item-divider">' + values[j].group.label + '</li>';
+                        previousGroup = values[j].group;
                     }
                 }
-                values.push({
-                    value: option[0].value,
-                    text: option[0].textContent.trim(),
-                    selected: option[0].selected,
-                    group: optionGroup,
-                    groupLabel: optionGroupLabel,
-                    showGroupLabel: optionShowGroupLabel,
-                    image: optionImage,
-                    icon: optionIcon,
-                    disabled: option[0].disabled,
-                    inputType: inputType,
-                    id: id,
-                    hasMedia: optionHasMedia,
-                    checkbox: inputType === 'checkbox',
-                    inputName: inputName,
-                    test: this
-                });
-            }
-        
-        
-            // Item template/HTML
-            if (!app._compiledTemplates.smartSelectItem) {
-                app._compiledTemplates.smartSelectItem = t7.compile(app.params.smartSelectItemTemplate || 
-                    '{{#if showGroupLabel}}' +
-                    '<li class="item-divider">{{groupLabel}}</li>' +
-                    '{{/if}}' +
+                var media = '';
+                if (inputType === 'checkbox') media += '<i class="icon icon-form-checkbox"></i>';
+                if (values[j].icon) media += '<i class="icon ' + values[j].icon + '"></i>';
+                if (values[j].image) media += '<img src="' + values[j].image + '">';
+                inputsHTML +=
                     '<li>' +
-                        '<label class="label-{{inputType}} item-content">' +
-                            '<input type="{{inputType}}" name="{{inputName}}" value="{{value}}" {{#if selected}}checked{{/if}}>' +
-                            '{{#if hasMedia}}' +
-                            '<div class="item-media">' +
-                                '{{#if checkbox}}<i class="icon icon-form-checkbox"></i>{{/if}}' +
-                                '{{#if icon}}<i class="icon {{icon}}"></i>{{/if}}' +
-                                '{{#if image}}<img src="{{image}}">{{/if}}' +
-                            '</div>' +
-                            '{{/if}}' +
+                        '<label class="label-' + inputType + ' item-content">' +
+                            '<input type="' + inputType + '" name="' + inputName + '" value="' + values[j].value + '" ' + checked + '>' +
+                            (media !== '' ? '<div class="item-media">' + media + '</div>' : '') +
                             '<div class="item-inner">' +
-                                '<div class="item-title">{{text}}</div>' +
+                                '<div class="item-title">' + values[j].text + '</div>' +
                             '</div>' +
                         '</label>' +
-                    '</li>'
-                );
+                    '</li>';
             }
-            var smartSelectItemTemplate = app._compiledTemplates.smartSelectItem;
-            
-            var inputsHTML = '';
-            if (!virtualList) {
-                for (var j = 0; j < values.length; j++) {
-                    inputsHTML += smartSelectItemTemplate(values[j]);
-                }
-            }
-        
             // Navbar HTML
-            if (!app._compiledTemplates.smartSelectNavbar) {
-                app._compiledTemplates.smartSelectNavbar = t7.compile(app.params.smartSelectNavbarTemplate || 
-                    '<div class="navbar {{#if navbarTheme}}theme-{{navbarTheme}}{{/if}}">' +
-                        '<div class="navbar-inner">' +
-                            '{{leftTemplate}}' +
-                            '<div class="center sliding">{{pageTitle}}</div>' +
-                        '</div>' +
-                    '</div>'
-                );
-            }
-            var navbarHTML = app._compiledTemplates.smartSelectNavbar({
-                pageTitle: pageTitle,
-                backText: backText,
-                closeText: closeText,
-                openIn: openIn,
-                navbarTheme: navbarTheme,
-                inPopup: openIn === 'popup',
-                inPage: openIn === 'page',
-                leftTemplate: openIn === 'popup' ? app.params.smartSelectPopupCloseTemplate.replace(/{{closeText}}/g, closeText) : app.params.smartSelectBackTemplate.replace(/{{backText}}/g, backText)
-            });
+            var navbarLeftTemplate = openIn === 'popup' ? app.params.smartSelectPopupCloseTemplate.replace(/{{closeText}}/g, closeText) : app.params.smartSelectBackTemplate.replace(/{{backText}}/g, backText);
+            var navbarHTML =
+                '<div class="navbar">' +
+                '  <div class="navbar-inner">' +
+                    navbarLeftTemplate +
+                '    <div class="center sliding">' + pageTitle + '</div>' +
+                '  </div>' +
+                '</div>';
         
-            
+            if (app.params.smartSelectNavbarTemplate) {
+                if (!app._compiledTemplates.smartSelectNavbar) {
+                    app._compiledTemplates.smartSelectNavbar = t7.compile(app.params.smartSelectNavbarTemplate);
+                }
+                navbarHTML = app._compiledTemplates.smartSelectNavbar({
+                    pageTitle: pageTitle,
+                    backText: backText,
+                    openIn: openIn,
+                    inPopup: openIn === 'popup',
+                    inPage: openIn === 'page',
+                    id: id,
+                    inputType: inputType
+                });
+            }
             // Determine navbar layout type - static/fixed/through
             var noNavbar = '', noToolbar = '', navbarLayout;
             if (openIn === 'page') {
@@ -4066,35 +3906,18 @@
                      (useSearchbar ? searchbarHTML : '') +
                 '    <div class="page-content">' +
                        (navbarLayout === 'static' ? navbarHTML : '') +
-                '      <div class="list-block ' + (virtualList ? 'virtual-list' : '') + ' smart-select-list-' + id + ' ' + (formTheme ? 'theme-' + formTheme : '') + '">' +
+                '      <div class="list-block smart-select-list-' + id + '">' +
                 '        <ul>' +
-                            (virtualList ? '' : inputsHTML) +
+                            inputsHTML +
                 '        </ul>' +
                 '      </div>' +
                 '    </div>' +
                 '  </div>' +
                 '</div>';
         
-            // Define popup
-            var popup;
-        
             // Event Listeners on new page
             function handleInputs(container) {
-                if (virtualList) {
-                    var virtualListInstance = app.virtualList($(container).find('.virtual-list'), {
-                        items: values,
-                        template: smartSelectItemTemplate,
-                        height: virtualListItemHeight || undefined,
-                        searchByItem: function (query, index, item) {
-                            if (item.text.toLowerCase().indexOf(query.trim()) >=0 ) return true;
-                            return false;
-                        }
-                    });
-                    $(container).once(openIn === 'popup' ? 'closed': 'pageBeforeRemove', function () {
-                        if (virtualListInstance && virtualListInstance.destroy) virtualListInstance.destroy();
-                    });
-                }
-                $(container).on('change', 'input[name="' + inputName + '"]', function () {
+                $(container).find('input[name="' + inputName + '"]').on('change', function () {
                     var input = this;
                     var value = input.value;
                     var optionText = [];
@@ -4118,8 +3941,7 @@
                     $select.trigger('change');
                     smartSelect.find('.item-after').text(optionText.join(', '));
                     if (backOnSelect && inputType === 'radio') {
-                        if (openIn === 'popup') app.closeModal(popup);
-                        else view.router.back();
+                        view.router.back();
                     }
                 });
             }
@@ -4130,452 +3952,20 @@
                     handleInputs(page.container);
                 }
             }
-            
+            $(document).on('pageInit', pageInit);
+        
             // Load content
             if (openIn === 'popup') {
-                popup = app.popup(
-                        '<div class="popup smart-select-popup smart-select-popup-' + inputName + '">' +
+                var popup = app.popup('<div class="popup smart-select-popup smart-select-popup-' + inputName + '">' +
                             '<div class="view navbar-fixed">' +
                                 pageHTML +
                             '</div>' +
-                        '</div>'
-                        );
-                app.initPage($(popup).find('.page'));
+                        '</div>');
                 handleInputs(popup);
             }
-            else {
-                $(document).on('pageInit', pageInit);
-                view.router.load({content: pageHTML});
-            }
+            else view.router.load({content: pageHTML});
         };
         
-        /*===============================================================================
-        ************   Virtual List   ************
-        ===============================================================================*/
-        var VirtualList = function (listBlock, params) {
-            var defaults = {
-                cols: 1,
-                height: 44,
-                cache: true
-            };
-            params = params || {};
-            for (var def in defaults) {
-                if (typeof params[def] === 'undefined') {
-                    params[def] = defaults[def];
-                }
-            }
-        
-            // Preparation
-            var vl = this;
-            vl.listBlock = $(listBlock);
-            vl.params = params;
-            vl.items = params.items;
-            if (params.template) {
-                if (typeof params.template === 'string') vl.template = t7.compile(params.template);
-                else if (typeof params.template === 'function') vl.template = params.template;
-            }
-            vl.pageContent = vl.listBlock.parents('.page-content');
-        
-            // Bad scroll
-            var updatableScroll;
-            if (typeof vl.params.updatableScroll !== 'undefined') {
-                updatableScroll = vl.params.updatableScroll;
-            }
-            else {
-                updatableScroll = true;
-                if (app.device.ios && app.device.osVersion.split('.')[0] < 8) {
-                    updatableScroll = false;
-                }
-            }
-                
-            // Append <ul>
-            vl.ul = vl.params.ul ? $(vl.params.ul) : vl.listBlock.children('ul');
-            if (vl.ul.length === 0) {
-                vl.listBlock.append('<ul></ul>');
-                vl.ul = vl.listBlock.children('ul');
-            }
-        
-            // DOM cached items
-            vl.domCache = {};
-            vl.displayDomCache = {};
-        
-            // Temporary DOM Element
-            vl.tempDomElement = document.createElement('ul');
-        
-            // Last repain position
-            vl.lastRepaintY = null;
-        
-            // Fragment
-            vl.fragment = document.createDocumentFragment();
-        
-            // Filter
-            vl.filterItems = function (indexes, resetScrollTop) {
-                vl.filteredItems = [];
-                var firstIndex = indexes[0];
-                var lastIndex = indexes[indexes.length - 1];
-                for (var i = 0; i < indexes.length; i++) {
-                    vl.filteredItems.push(vl.items[indexes[i]]);
-                }
-                if (typeof resetScrollTop === 'undefined') resetScrollTop = true;
-                if (resetScrollTop) {
-                    vl.pageContent[0].scrollTop = 0;
-                }
-                vl.update();
-            };
-            vl.resetFilter = function () {
-                vl.filteredItems = null;
-                delete vl.filteredItems;
-                vl.update();
-            };
-        
-            var pageHeight, rowsPerScreen, rowsBefore, rowsAfter, rowsToRender, maxBufferHeight = 0, listHeight;
-            var dynamicHeight = typeof vl.params.height === 'function';
-        
-            // Set list size
-            vl.setListSize = function () {
-                var items = vl.filteredItems || vl.items;
-                pageHeight = vl.pageContent[0].offsetHeight;
-                if (dynamicHeight) {
-                    listHeight = 0;
-                    vl.heights = [];
-                    for (var i = 0; i < items.length; i++) {
-                        var itemHeight = vl.params.height(items[i]);
-                        listHeight += itemHeight;
-                        vl.heights.push(itemHeight);
-                    }
-                }
-                else {
-                    listHeight = items.length * vl.params.height / vl.params.cols;
-                    rowsPerScreen = Math.ceil(pageHeight / vl.params.height);
-                    rowsBefore = vl.params.rowsBefore || rowsPerScreen * 2;
-                    rowsAfter = vl.params.rowsAfter || rowsPerScreen;
-                    rowsToRender = (rowsPerScreen + rowsBefore + rowsAfter);
-                    maxBufferHeight = rowsBefore / 2 * vl.params.height;
-                }
-        
-                if (updatableScroll) {
-                    vl.ul.css({height: listHeight + 'px'});
-                }
-            };
-        
-            // Render items
-            vl.render = function (force) {
-                if (force) vl.lastRepaintY = null;
-                // var scrollTop = vl.pageContent[0].scrollTop;
-                var scrollTop = -(vl.listBlock[0].getBoundingClientRect().top + vl.pageContent[0].getBoundingClientRect().top);
-                if (vl.lastRepaintY === null || Math.abs(scrollTop - vl.lastRepaintY) > maxBufferHeight || (!updatableScroll && (vl.pageContent[0].scrollTop + pageHeight >= vl.pageContent[0].scrollHeight))) {
-                    vl.lastRepaintY = scrollTop;
-                }
-                else {
-                    return;
-                }
-        
-                var items = vl.filteredItems || vl.items, 
-                    fromIndex, toIndex, heightBeforeFirstItem = 0, heightBeforeLastItem = 0;
-                if (dynamicHeight) {
-                    var itemTop = 0, j, itemHeight; 
-                    maxBufferHeight = pageHeight;
-                    for (j = 0; j < vl.heights.length; j++) {
-                        itemHeight = vl.heights[j];
-                        if (typeof fromIndex === 'undefined') {
-                            if (itemTop + itemHeight >= scrollTop - pageHeight * 2) fromIndex = j;
-                            else heightBeforeFirstItem += itemHeight;
-                        }
-                        
-                        if (typeof toIndex === 'undefined') {
-                            if (itemTop + itemHeight >= scrollTop + pageHeight * 2 || j === vl.heights.length - 1) toIndex = j + 1;
-                            heightBeforeLastItem += itemHeight;
-                        }
-                        itemTop += itemHeight;
-                    }
-                    toIndex = Math.min(toIndex, items.length);
-                }
-                else {
-                    fromIndex = (parseInt(scrollTop / vl.params.height) - rowsBefore) * vl.params.cols;
-                    if (fromIndex < 0) {
-                        fromIndex = 0;
-                    }
-                    toIndex = Math.min(fromIndex + rowsToRender * vl.params.cols, items.length);
-                }
-        
-                var topPosition;
-                vl.reachEnd = false;
-                for (var i = fromIndex; i < toIndex; i++) {
-                    var item, index;
-                    // Define real item index
-                    index = vl.items.indexOf(items[i]);
-        
-                    if (i === fromIndex) vl.currentFromIndex = index;
-                    if (i === toIndex - 1) vl.currentToIndex = index;
-                    if (index === vl.items.length - 1) vl.reachEnd = true;
-                    
-                    // Find items
-                    if (vl.domCache[index]) {
-                        item = vl.domCache[index];
-                    }
-                    else {
-                        if (vl.template) {
-                            vl.tempDomElement.innerHTML = vl.template(items[i], {index: index});
-                        }
-                        else if (vl.params.renderItem) {
-                            vl.tempDomElement.innerHTML = vl.params.renderItem(index, items[i]);   
-                        }
-                        else {
-                            vl.tempDomElement.innerHTML = items[i];
-                        }
-                        item = vl.tempDomElement.childNodes[0];
-                        if (vl.params.cache) vl.domCache[index] = item;
-                    }
-                    item.f7VirtualListIndex = index;
-        
-                    // Set item top position
-                    if (i === fromIndex) {
-                        if (dynamicHeight) {
-                            topPosition = heightBeforeFirstItem;
-                        }
-                        else {
-                            topPosition = (i * vl.params.height / vl.params.cols);
-                        }
-                    }
-                    item.style.top = topPosition + 'px';
-                    
-                    // Before item insert
-                    if (vl.params.onItemBeforeInsert) vl.params.onItemBeforeInsert(vl, item);
-        
-                    // Append item to fragment
-                    vl.fragment.appendChild(item);
-        
-                
-                }
-        
-                // Update list height with not updatable scroll
-                if (!updatableScroll) {
-                    if (dynamicHeight) {
-                        vl.ul[0].style.height = heightBeforeLastItem + 'px';
-                    }
-                    else {
-                        vl.ul[0].style.height = i * vl.params.height / vl.params.cols + 'px';
-                    }
-                }
-                    
-        
-                // Update list html
-                if (vl.params.onBeforeClear) vl.params.onBeforeClear(vl, vl.fragment);
-                vl.ul[0].innerHTML = '';
-        
-                if (vl.params.onItemsBeforeInsert) vl.params.onItemsBeforeInsert(vl, vl.fragment);
-                vl.ul[0].appendChild(vl.fragment);
-                if (vl.params.onItemsAfterInsert) vl.params.onFragmentAfterInsert(vl, vl.fragment);
-            };
-        
-            // Handle scroll event
-            vl.handleScroll = function (e) {
-                vl.render();
-            };
-            // Handle resize event
-            vl.handleResize = function (e) {
-                vl.setListSize();
-                vl.render(true);
-            };
-        
-            vl.attachEvents = function (detach) {
-                var action = detach ? 'off' : 'on';
-                vl.pageContent[action]('scroll', vl.handleScroll);
-                $(window)[action]('resize', vl.handleResize);
-            };
-        
-            // Init Virtual List
-            vl.init = function () {
-                vl.attachEvents();
-                vl.setListSize();
-                vl.render();
-            };
-        
-            // Append
-            vl.appendItems = function (items) {
-                for (var i = 0; i < items.length; i++) {
-                    vl.items.push(items[i]);
-                }
-                vl.update();
-            };
-            vl.appendItem = function (item) {
-                vl.appendItems([item]);
-            };
-            // Replace
-            vl.replaceAllItems = function (items) {
-                vl.items = items;
-                delete vl.filteredItems;
-                vl.domCache = {};
-                vl.update();
-            };
-            vl.replaceItem = function (index, item) {
-                vl.items[index] = item;
-                if (vl.params.cache) delete vl.domCache[index];
-                vl.update();
-            };
-            // Prepend
-            vl.prependItems = function (items) {
-                for (var i = items.length - 1; i >= 0; i--) {
-                    vl.items.unshift(items[i]);
-                }
-                if (vl.params.cache) {
-                    var newCache = {};
-                    for (var cached in vl.domCache) {
-                        newCache[parseInt(cached, 10) + items.length] = vl.domCache[cached];
-                    }
-                    vl.domCache = newCache;
-                }
-                vl.update();
-            };
-            vl.prependItem = function (item) {
-                vl.prependItems([item]);
-            };
-        
-            // Move
-            vl.moveItem = function (oldIndex, newIndex) {
-                if (oldIndex === newIndex) return;
-                // remove item from array
-                var item = vl.items.splice(oldIndex, 1)[0];
-                if (newIndex >= vl.items.length) {
-                    // Add item to the end
-                    vl.items.push(item);
-                    newIndex = vl.items.length - 1;
-                }
-                else {
-                    // Add item to new index
-                    vl.items.splice(newIndex, 0, item);
-                }
-                // Update cache
-                if (vl.params.cache) {
-                    var newCache = {};
-                    for (var cached in vl.domCache) {
-                        var cachedIndex = parseInt(cached, 10);
-                        var leftIndex = oldIndex < newIndex ? oldIndex : newIndex;
-                        var rightIndex = oldIndex < newIndex ? newIndex : oldIndex;
-                        var indexShift = oldIndex < newIndex ? -1 : 1;
-                        if (cachedIndex < leftIndex || cachedIndex > rightIndex) newCache[cachedIndex] = vl.domCache[cachedIndex];
-                        if (cachedIndex === leftIndex) newCache[rightIndex] = vl.domCache[cachedIndex];
-                        if (cachedIndex > leftIndex && cachedIndex <= rightIndex) newCache[cachedIndex + indexShift] = vl.domCache[cachedIndex];
-                    }
-                    vl.domCache = newCache;
-                }
-                vl.update();
-            };
-            // Insert before
-            vl.insertItemBefore = function (index, item) {
-                if (index === 0) {
-                    vl.prependItem(item);
-                    return;
-                }
-                if (index >= vl.items.length) {
-                    vl.appendItem(item);
-                    return;
-                }
-                vl.items.splice(index, 0, item);
-                // Update cache
-                if (vl.params.cache) {
-                    var newCache = {};
-                    for (var cached in vl.domCache) {
-                        var cachedIndex = parseInt(cached, 10);
-                        if (cachedIndex >= index) {
-                            newCache[cachedIndex + 1] = vl.domCache[cachedIndex];
-                        }
-                    }
-                    vl.domCache = newCache;
-                }
-                vl.update();
-            };
-            // Delete
-            vl.deleteItems = function (indexes) {
-                var prevIndex, indexShift = 0;
-                for (var i = 0; i < indexes.length; i++) {
-                    var index = indexes[i];
-                    if (typeof prevIndex !== 'undefined') {
-                        if (index > prevIndex) {
-                            indexShift = -i;
-                        }
-                    }
-                    index = index + indexShift;
-                    prevIndex = indexes[i];
-                    // Delete item
-                    var deletedItem = vl.items.splice(index, 1)[0];
-                    
-                    // Delete from filtered
-                    if (vl.filteredItems && vl.filteredItems.indexOf(deletedItem) >= 0) {
-                        vl.filteredItems.splice(vl.filteredItems.indexOf(deletedItem), 1);
-                    }
-                    // Update cache
-                    if (vl.params.cache) {
-                        var newCache = {};
-                        for (var cached in vl.domCache) {
-                            var cachedIndex = parseInt(cached, 10);
-                            if (cachedIndex === index) {
-                                delete vl.domCache[index];
-                            }
-                            else if (parseInt(cached, 10) > index) {
-                                newCache[cachedIndex - 1] = vl.domCache[cached];
-                            }
-                            else {
-                                newCache[cachedIndex] = vl.domCache[cached];   
-                            }
-                        }
-                        vl.domCache = newCache;
-                    }
-                }
-                vl.update();
-            };
-            vl.deleteAllItems = function () {
-                vl.items = [];
-                delete vl.filteredItems;
-                if (vl.params.cache) vl.domCache = {};
-                vl.update();
-            };
-            vl.deleteItem = function (index) {
-                vl.deleteItems([index]);
-            };
-        
-            // Clear cache
-            vl.clearCache = function () {
-                vl.domCache = {};
-            };
-        
-            // Update Virtual List
-            vl.update = function () {
-                vl.setListSize();
-                vl.render(true);
-            };
-        
-            // Destroy
-            vl.destroy = function () {
-                vl.attachEvents(true);
-                delete vl.items;
-                delete vl.domCache;
-            };
-        
-            // Init Virtual List
-            vl.init();
-        
-            // Store vl in container
-            vl.listBlock[0].f7VirtualList = vl;
-            return vl;
-        };
-        
-        // App Method
-        app.virtualList = function (listBlock, params) {
-            return new VirtualList(listBlock, params);
-        };
-        
-        app.reinitVirtualList = function (pageContainer) {
-            var page = $(pageContainer);
-            var vlists = page.find('.virtual-list');
-            if (vlists.length === 0) return;
-            for (var i = 0; i < vlists.length; i++) {
-                var vlistInstance = vlistInstance[0].f7VirtualList;
-                if (vlistInstance) {
-                    vlistInstance.update();
-                }
-            }
-        };
         /*======================================================
         ************   Pull To Refresh   ************
         ======================================================*/
@@ -4584,7 +3974,7 @@
             if (!eventsTarget.hasClass('pull-to-refresh-content')) {
                 eventsTarget = eventsTarget.find('.pull-to-refresh-content');
             }
-            if (!eventsTarget || eventsTarget.length === 0) return;
+            if (eventsTarget.length === 0) return;
         
             var isTouched, isMoved, touchesStart = {}, isScrolling, touchesDiff, touchStartTime, container, refresh = false, useTranslate = false, startTranslate = 0, translate, scrollTop, wasScrolled, layer;
             var page = eventsTarget.hasClass('page') ? eventsTarget : eventsTarget.parents('.page');
@@ -4592,6 +3982,8 @@
             if (page.find('.navbar').length > 0 || page.parents('.navbar-fixed, .navbar-through').length > 0 || page.hasClass('navbar-fixed') || page.hasClass('navbar-through')) hasNavbar = true;
             if (page.hasClass('no-navbar')) hasNavbar = false;
             if (!hasNavbar) eventsTarget.addClass('pull-to-refresh-no-navbar');
+        
+            if (eventsTarget)
         
             container = eventsTarget;
         
@@ -4707,14 +4099,11 @@
         
             // Detach Events on page remove
             if (page.length === 0) return;
-            function destroyPullToRefresh() {
+            function detachEvents() {
                 eventsTarget.off(app.touchEvents.start, handleTouchStart);
                 eventsTarget.off(app.touchEvents.move, handleTouchMove);
                 eventsTarget.off(app.touchEvents.end, handleTouchEnd);
-            }
-            eventsTarget[0].f7DestroyPullToRefresh = destroyPullToRefresh;
-            function detachEvents() {
-                destroyPullToRefresh();
+        
                 page.off('pageBeforeRemove', detachEvents);
             }
             page.on('pageBeforeRemove', detachEvents);
@@ -4741,36 +4130,23 @@
             });
         };
         
-        app.destroyPullToRefresh = function (pageContainer) {
-            pageContainer = $(pageContainer);
-            var pullToRefreshContent = pageContainer.hasClass('pull-to-refresh-content') ? pageContainer : pageContainer.find('.pull-to-refresh-content');
-            if (pullToRefreshContent.length === 0) return;
-            if (pullToRefreshContent[0].f7DestroyPullToRefresh) pullToRefreshContent[0].f7DestroyPullToRefresh();
-        };
-        
         /* ===============================================================================
         ************   Infinite Scroll   ************
         =============================================================================== */
         function handleInfiniteScroll() {
             /*jshint validthis:true */
-            var inf = $(this);
-            var scrollTop = inf[0].scrollTop;
-            var scrollHeight = inf[0].scrollHeight;
-            var height = inf[0].offsetHeight;
-            var distance = inf[0].getAttribute('data-distance');
-            var virtualListContainer = inf.find('.virtual-list');
-            var virtualList;
+            var inf = this;
+            var scrollTop = inf.scrollTop;
+            var scrollHeight = inf.scrollHeight;
+            var height = inf.offsetHeight;
+            var distance = inf.getAttribute('data-distance');
             if (!distance) distance = 50;
             if (typeof distance === 'string' && distance.indexOf('%') >= 0) {
                 distance = parseInt(distance, 10) / 100 * height;
             }
             if (distance > height) distance = height;
             if (scrollTop + height >= scrollHeight - distance) {
-                if (virtualListContainer.length > 0) {
-                    virtualList = virtualListContainer[0].f7VirtualList;
-                    if (virtualList && !virtualList.reachEnd) return;
-                }
-                inf.trigger('infinite');
+                $(inf).trigger('infinite');
             }
         }
         app.attachInfiniteScroll = function (infiniteContent) {
@@ -4800,44 +4176,29 @@
             if (scrollContent.length === 0) return;
             var hideNavbar = app.params.hideNavbarOnPageScroll || scrollContent.hasClass('hide-navbar-on-scroll') || scrollContent.hasClass('hide-bars-on-scroll');
             var hideToolbar = app.params.hideToolbarOnPageScroll || scrollContent.hasClass('hide-toolbar-on-scroll') || scrollContent.hasClass('hide-bars-on-scroll');
-            var hideTabbar = app.params.hideTabbarOnPageScroll || scrollContent.hasClass('hide-tabbar-on-scroll');
-        
-            if (!(hideNavbar || hideToolbar || hideTabbar)) return;
+            if (!(hideNavbar || hideToolbar)) return;
             
             var viewContainer = scrollContent.parents('.' + app.params.viewClass);
             if (viewContainer.length === 0) return;
         
-            var navbar = viewContainer.find('.navbar'), 
-                toolbar = viewContainer.find('.toolbar'), 
-                tabbar;
-            if (hideTabbar) {
-                tabbar = viewContainer.find('.tabbar');
-                if (tabbar.length === 0) tabbar = viewContainer.parents('.' + app.params.viewsClass).find('.tabbar');
-            }
-        
-            var hasNavbar = navbar.length > 0,
-                hasToolbar = toolbar.length > 0,
-                hasTabbar = tabbar && tabbar.length > 0;
+            var hasNavbar = viewContainer.find('.navbar').length > 0;
+            var hasToolbar = viewContainer.find('.toolbar').length > 0;
         
             var previousScroll, currentScroll;
                 previousScroll = currentScroll = scrollContent[0].scrollTop;
         
-            var scrollHeight, offsetHeight, reachEnd, action, navbarHidden, toolbarHidden, tabbarHidden;
+            var scrollHeight, offsetHeight, reachEnd, action, navbarHidden, toolbarHidden;
         
-            var toolbarHeight = (hasToolbar && hideToolbar) ? toolbar[0].offsetHeight : 0;
-            var tabbarHeight = (hasTabbar && hideTabbar) ? tabbar[0].offsetHeight : 0;
-            var bottomBarHeight = tabbarHeight || toolbarHeight;
+            var toolbarHeight = (hasToolbar && hideToolbar) ? viewContainer.find('.toolbar')[0].offsetHeight : 0;
         
             function handleScroll(e) {
                 if (pageContainer.hasClass('page-on-left')) return;
                 currentScroll = scrollContent[0].scrollTop;
                 scrollHeight = scrollContent[0].scrollHeight;
                 offsetHeight = scrollContent[0].offsetHeight;
-                reachEnd = app.params.showBarsOnPageScrollEnd && (currentScroll + offsetHeight >= scrollHeight - bottomBarHeight);
-                navbarHidden = navbar.hasClass('navbar-hidden');
-                toolbarHidden = toolbar.hasClass('toolbar-hidden');
-                tabbarHidden = tabbar && tabbar.hasClass('toolbar-hidden');
-        
+                reachEnd = app.params.showBarsOnPageScrollEnd && (currentScroll + offsetHeight >= scrollHeight - toolbarHeight);
+                navbarHidden = viewContainer.hasClass('hidden-navbar');
+                toolbarHidden = viewContainer.hasClass('hidden-toolbar');
         
                 if (previousScroll > currentScroll || reachEnd) {
                     action = 'show';
@@ -4853,36 +4214,26 @@
         
                 if (action === 'show') {
                     if (hasNavbar && hideNavbar && navbarHidden) {
-                        app.showNavbar(navbar);
+                        app.showNavbar(viewContainer);
                         pageContainer.removeClass('no-navbar-by-scroll'); 
                         navbarHidden = false;
                     }
                     if (hasToolbar && hideToolbar && toolbarHidden) {
-                        app.showToolbar(toolbar);
+                        app.showToolbar(viewContainer);
                         pageContainer.removeClass('no-toolbar-by-scroll'); 
                         toolbarHidden = false;
-                    }
-                    if (hasTabbar && hideTabbar && tabbarHidden) {
-                        app.showToolbar(tabbar);
-                        pageContainer.removeClass('no-tabbar-by-scroll'); 
-                        tabbarHidden = false;
                     }
                 }
                 else {
                     if (hasNavbar && hideNavbar && !navbarHidden) {
-                        app.hideNavbar(navbar);
+                        app.hideNavbar(viewContainer);
                         pageContainer.addClass('no-navbar-by-scroll'); 
                         navbarHidden = true;
                     }
                     if (hasToolbar && hideToolbar && !toolbarHidden) {
-                        app.hideToolbar(toolbar);
+                        app.hideToolbar(viewContainer);
                         pageContainer.addClass('no-toolbar-by-scroll'); 
                         toolbarHidden = true;
-                    }
-                    if (hasTabbar && hideTabbar && !tabbarHidden) {
-                        app.hideToolbar(tabbar);
-                        pageContainer.addClass('no-tabbar-by-scroll'); 
-                        tabbarHidden = true;
                     }
                 }
                     
@@ -4980,10 +4331,9 @@
         };
         app.accordionOpen = function (item) {
             item = $(item);
-            var list = item.parents('.accordion-list').eq(0);
-            var content = item.children('.accordion-item-content');
-            if (content.length === 0) content = item.find('.accordion-item-content');
-            var expandedItem = list.length > 0 && item.parent().children('.accordion-item-expanded');
+            var list = item.parents('.accordion-list');
+            var content = item.find('.accordion-item-content');
+            var expandedItem = list.find('.accordion-item-expanded');
             if (expandedItem.length > 0) {
                 app.accordionClose(expandedItem);
             }
@@ -5005,8 +4355,7 @@
         };
         app.accordionClose = function (item) {
             item = $(item);
-            var content = item.children('.accordion-item-content');
-            if (content.length === 0) content = item.find('.accordion-item-content');
+            var content = item.find('.accordion-item-content');
             item.removeClass('accordion-item-expanded');
             content.transition(0);
             content.css('height', content[0].scrollHeight + 'px');
@@ -5360,7 +4709,16 @@
                 }
                 // Check if link is external 
                 if (isLink) {
-                    if (clicked.is(app.params.externalLinks)) return;
+                    /*jshint shadow:true */
+                    for (var i = 0; i < app.params.externalLinks.length; i++) {
+                        if (clicked.hasClass(app.params.externalLinks[i])) {
+                            return;
+                        }
+        
+                        if (clicked[0].rel === app.params.externalLinks[i]) {
+                            return;
+                        }
+                    }
                 }
         
                 // Smart Select
@@ -5480,8 +4838,7 @@
                 }
                 // Accordion
                 if (clicked.hasClass('accordion-item-toggle') || (clicked.hasClass('item-link') && clicked.parent().hasClass('accordion-item'))) {
-                    var accordionItem = clicked.parent('.accordion-item');
-                    if (accordionItem.length === 0) accordionItem = clicked.parents('.accordion-item');
+                    var accordionItem = clicked.parents('.accordion-item');
                     if (accordionItem.length === 0) accordionItem = clicked.parents('li');
                     app.accordionToggle(accordionItem);
                 }
@@ -5504,12 +4861,13 @@
                     else {
                         view = clicked.parents('.' + app.params.viewClass)[0] && clicked.parents('.' + app.params.viewClass)[0].f7View;
                         if (view && view.params.linksView) {
-                            if (typeof view.params.linksView === 'string') view = $(view.params.linksView)[0].f7View;
-                            else if (view.params.linksView instanceof View) view = view.params.linksView;
+                            view = $(view.params.linksView)[0].f7View;
                         }
                     }
                     if (!view) {
-                        if (app.mainView) view = app.mainView;
+                        for (var i = 0; i < app.views.length; i++) {
+                            if (app.views[i].main) view = app.views[i];
+                        }
                     }
                     if (!view) return;
         
@@ -5816,7 +5174,10 @@
             });
             function handlePopState(e) {
                 if (blockPopstate) return;
-                var mainView = app.mainView;
+                var mainView;
+                for (var i = 0; i < app.views.length; i++) {
+                    if (app.views[i].main) mainView = app.views[i];
+                }
                 if (!mainView) return;
                 var state = e.state;
                 if (!state) {
@@ -5973,8 +5334,8 @@
                     }
                 }
                 // First/last
-                s.isFirst = s.isBeginning = s.activeSlideIndex === 0;
-                s.isLast = s.isEnd = s.activeSlideIndex === s.slides.length - s.params.slidesPerView;
+                s.isFirst = s.activeSlideIndex === 0;
+                s.isLast = s.activeSlideIndex === s.slides.length - s.params.slidesPerView;
             };
         
             s.updatePagination = function () {
@@ -6037,17 +5398,8 @@
                     }
                 }
             };
-        
-            function isFormElement(el) {
-                var nn = el.nodeName.toLowerCase();
-                if (nn === 'input' || nn === 'textarea' || nn === 'select') return true;
-                return false;
-            }
-            s.touchedTarget = null;
-            var hasFocused, hasBlured;
             s.onTouchStart = function (e) {
                 if (s.params.onlyExternal) return;
-                s.touchedTarget = e.target;
                 isTouched = true;
                 isMoved = false;
                 isScrolling = undefined;
@@ -6057,11 +5409,7 @@
                 s.allowClick = true;
                 s.updateSize();
                 if (s.params.onTouchStart) s.params.onTouchStart(s, e);
-                hasFocused = hasBlured = false;
-                if (e.type === 'mousedown') {
-                    if (!isFormElement(e.target)) e.preventDefault();
-                }
-                
+                if (e.type === 'mousedown') e.preventDefault();
             };
             s.onTouchMove = function (e) {
                 if (s.params.onTouchMove) s.params.onTouchMove(s, e);
@@ -6120,17 +5468,12 @@
                 if (s.params.onTouchEnd) s.params.onTouchEnd(s, e);
                 var touchEndTime = Date.now();
                 var timeDiff = touchEndTime - touchStartTime;
-                if (isFormElement(s.touchedTarget)) hasFocused = true;
-                if (document.activeElement && document.activeElement !== s.touchedTarget && isFormElement(document.activeElement)) {
-                    document.activeElement.blur();
-                    hasBlured = true;
-                }
                 if (s.allowClick) {
                     if (timeDiff < 300 && (touchEndTime - lastClickTime) > 300) {
                         if (clickTimeout) clearTimeout(clickTimeout);
                         clickTimeout = setTimeout(function () {
                             if (!s) return;
-                            if (s.params.paginationHide && s.paginationContainer && !hasBlured && !hasFocused) {
+                            if (s.params.paginationHide && s.paginationContainer) {
                                 s.paginationContainer.toggleClass('slider-pagination-hidden');
                             }
                             if (s.params.onClick) s.params.onClick(s, e);
@@ -6221,8 +5564,8 @@
                 if (typeof speed === 'undefined') speed = s.params.speed;
                 s.previousSlideIndex = s.activeSlideIndex;
                 s.activeSlideIndex = Math.round(index);
-                s.isFirst = s.isBeginning = s.activeSlideIndex === 0;
-                s.isLast = s.isEnd = s.activeSlideIndex === s.slides.length - s.params.slidesPerView;
+                s.isFirst = s.activeSlideIndex === 0;
+                s.isLast = s.activeSlideIndex === s.slides.length - s.params.slidesPerView;
                 s.onTransitionStart();
                 var translateX = isH ? translate * inverter : 0, translateY = isH ? 0 : translate;
                 if (speed === 0) {
@@ -6324,14 +5667,9 @@
                     s.wrapper.transitionEnd(function () {
                         s.startAutoplay();
                     });
-                    if (s.params.loop) {
-                        s.slideNext();
-                    }
-                    else {
-                        var index = s.activeSlideIndex + 1;
-                        if (index > s.slides.length - s.params.slidesPerView) index = 0;
-                        s.slideTo(index);
-                    }
+                    var index = s.activeSlideIndex + 1;
+                    if (index > s.slides.length - s.params.slidesPerView) index = 0;
+                    s.slideTo(index);
                 }, s.params.autoplay);
             };
             s.stopAutoplay = function () {
@@ -6397,9 +5735,6 @@
                 else s.updateClasses();
                 s.attachEvents();
                 if (s.params.autoplay) s.startAutoplay();
-                if (typeof s.params.onInit === 'function') {
-        	        s.params.onInit();
-                }
             };
             s.update = function () {
                 if (s.params.loop) s.createLoop();
@@ -6518,6 +5853,14 @@
         
             pb.params = params;
             
+            function findView() {
+                var view;
+                for (i = 0; i < app.views.length; i ++) {
+                    if (app.views[i].main) view = app.views[i];
+                }
+                return view;
+            }
+        
             var iconColor = pb.params.theme === 'dark' ? 'color-white' : '';
         
             var navbarTemplate = pb.params.navbarTemplate ||
@@ -6633,7 +5976,7 @@
                 if (pb.params.type === 'page') {
                     $(document).on('pageBeforeInit', pb.onPageBeforeInit);
                     $(document).on('pageBeforeRemove', pb.onPageBeforeRemove);
-                    if (!pb.params.view) pb.params.view = app.mainView;
+                    if (!pb.params.view) pb.params.view = findView();
                     pb.params.view.loadContent(htmlTemplate);
                     return;
                 }
@@ -7188,7 +6531,7 @@
             list.prepend(item[0]);
             container.show();
             
-            var itemHeight = item.outerHeight();
+            var itemHeight = item.height();
             item.css('marginTop', -itemHeight + 'px');
             item.transition(0);
         
@@ -7207,7 +6550,7 @@
             if (item.hasClass('notification-item-removing')) return;
             var container = $('.notifications');
         
-            var itemHeight = item.outerHeight();
+            var itemHeight = item.height();
             item.css('height', itemHeight + 'px').transition(0);
             var clientLeft = item[0].clientLeft;
         
@@ -7232,11 +6575,11 @@
             if (!window.Template7) return;
             Template7.templates = Template7.templates || app.params.templates || {};
             Template7.data = Template7.data || app.params.template7Data || {};
-            Template7.cache = Template7.cache || {};
+            Template7.templatesCache = {};
         
             app.templates = Template7.templates;
             app.template7Data = Template7.data;
-            app.template7Cache = Template7.cache;
+            app.templatesCache = Template7.templatesCache;
         
             // Precompile templates on app init
             if (!app.params.precompileTemplates) return;
@@ -7312,7 +6655,7 @@
                 if (viewContainer) {
                     viewContainer.attr('data-page', pageContainer.attr('data-page') || undefined);
                 }
-                app.pageInitCallback(view, {pageContainer: this, url: url, position: 'center'});
+                app.pageInitCallback(view, this, url, 'center');
             });
             
             // Init resize events
@@ -7328,7 +6671,7 @@
             if (app.initSortable && app.params.sortable) app.initSortable();
         
             // Init Live Swipe Panels
-            if (app.initSwipePanels && (app.params.swipePanel || app.params.swipePanelOnlyClose)) app.initSwipePanels();
+            if (app.initSwipePanels && app.params.swipePanel) app.initSwipePanels();
             
             // App Init callback
             if (app.params.onAppInit) app.params.onAppInit();
@@ -7369,32 +6712,9 @@
             if (selector) {
                 // String
                 if (typeof selector === 'string') {
-                    var els, tempParent, html = selector.trim();
-                    if (html.indexOf('<') >= 0 && html.indexOf('>') >= 0) {
-                        var toCreate = 'div';
-                        if (html.indexOf('<li') === 0) toCreate = 'ul';
-                        if (html.indexOf('<tr') === 0) toCreate = 'tbody';
-                        if (html.indexOf('<td') === 0 || html.indexOf('<th') === 0) toCreate = 'tr';
-                        if (html.indexOf('<tbody') === 0) toCreate = 'table';
-                        if (html.indexOf('<option') === 0) toCreate = 'select';
-                        tempParent = document.createElement(toCreate);
-                        tempParent.innerHTML = selector;
-                        for (i = 0; i < tempParent.childNodes.length; i++) {
-                            arr.push(tempParent.childNodes[i]);
-                        }
-                    }
-                    else {
-                        if (!context && selector[0] === '#' && !selector.match(/[ .<>:~]/)) {
-                            // Pure ID selector
-                            els = [document.getElementById(selector.split('#')[1])];
-                        }
-                        else {
-                            // Other selectors
-                            els = (context || document).querySelectorAll(selector);
-                        }
-                        for (i = 0; i < els.length; i++) {
-                            if (els[i]) arr.push(els[i]);
-                        }
+                    var els = (context || document).querySelectorAll(selector);
+                    for (i = 0; i < els.length; i++) {
+                        arr.push(els[i]);
                     }
                 }
                 // Node/element
@@ -7446,26 +6766,14 @@
                 }
                 return this;
             },
-            attr: function (attrs, value) {
-                if (arguments.length === 1 && typeof attrs === 'string') {
-                    // Get attr
-                    if (this[0]) return this[0].getAttribute(attrs);
+            attr: function (attr, value) {
+                if (typeof value === 'undefined') {
+                    if (this[0]) return this[0].getAttribute(attr);
                     else return undefined;
                 }
                 else {
-                    // Set attrs
                     for (var i = 0; i < this.length; i++) {
-                        if (arguments.length === 2) {
-                            // String
-                            this[i].setAttribute(attrs, value);
-                        }
-                        else {
-                            // Object
-                            for (var attrName in attrs) {
-                                this[i][attrName] = attrs[attrName];
-                                this[i].setAttribute(attrName, attrs[attrName]);
-                            }
-                        }
+                        this[i].setAttribute(attr, value);
                     }
                     return this;
                 }
@@ -7475,25 +6783,14 @@
                     this[i].removeAttribute(attr);
                 }
             },
-            prop: function (props, value) {
-                if (arguments.length === 1 && typeof props === 'string') {
-                    // Get prop
-                    if (this[0]) return this[0][props];
+            prop: function (prop, value) {
+                if (typeof value === 'undefined') {
+                    if (this[0]) return this[0][prop];
                     else return undefined;
                 }
                 else {
-                    // Set props
                     for (var i = 0; i < this.length; i++) {
-                        if (arguments.length === 2) {
-                            // String
-                            this[i][props] = value;
-                        }
-                        else {
-                            // Object
-                            for (var propName in props) {
-                                this[i][propName] = props[propName];
-                            }
-                        }
+                        this[i][prop] = value;
                     }
                     return this;
                 }
@@ -7681,16 +6978,17 @@
                 }
                 else {
                     if (this.length > 0) {
-                        return parseFloat(this.css('width'));
+                        return parseFloat(this.css('width')) - parseFloat(this.css('padding-left')) - parseFloat(this.css('padding-right'));
                     }
                     else {
                         return null;
                     }
                 }
+                    
             },
-            outerWidth: function (includeMargins) {
+            outerWidth: function (margins) {
                 if (this.length > 0) {
-                    if (includeMargins)
+                    if (margins)
                         return this[0].offsetWidth + parseFloat(this.css('margin-right')) + parseFloat(this.css('margin-left'));
                     else
                         return this[0].offsetWidth;
@@ -7703,16 +7001,17 @@
                 }
                 else {
                     if (this.length > 0) {
-                        return parseFloat(this.css('height'));
+                        return this[0].offsetHeight - parseFloat(this.css('padding-top')) - parseFloat(this.css('padding-bottom'));
                     }
                     else {
                         return null;
                     }
                 }
+                    
             },
-            outerHeight: function (includeMargins) {
+            outerHeight: function (margins) {
                 if (this.length > 0) {
-                    if (includeMargins)
+                    if (margins)
                         return this[0].offsetHeight + parseFloat(this.css('margin-top')) + parseFloat(this.css('margin-bottom'));
                     else
                         return this[0].offsetHeight;
@@ -7877,6 +7176,7 @@
                         while (tempDiv.firstChild) {
                             this[i].appendChild(tempDiv.firstChild);
                         }
+                        // this[i].insertAdjacentHTML('beforeend', newChild);
                     }
                     else if (newChild instanceof Dom7) {
                         for (j = 0; j < newChild.length; j++) {
@@ -8810,27 +8110,24 @@ window.Template7 = (function () {
         }
         function getCompileVar(name, ctx) {
             var parents, variable, context;
-            if (name.indexOf('@global') >= 0) {
-                variable = '(Template7.global && Template7.global.' + (name.split('@global.')[1]) + ')';
+            
+            if (name.indexOf('.') > 0) {
+                if (name.indexOf('this') === 0) variable = name.replace('this', ctx);
+                else variable = ctx + '.' + name;
             }
-            else if (name.indexOf('@') >= 0) {
-                variable = '(data && data.' + name.replace('@', '') + ')';
+            else if (name.indexOf('../') === 0) {
+                var levelUp = name.split('../').length - 1;
+                var newName = name.split('../')[name.split('../').length - 1];
+                var newDepth = ctx.split('_')[1] - levelUp;
+                variable = 'ctx_' + (newDepth >= 1 ? newDepth : 1) + '.' + newName;
             }
             else {
-                if (name.indexOf('.') > 0) {
-                    if (name.indexOf('this') === 0) variable = name.replace('this', ctx);
-                    else variable = ctx + '.' + name;
-                }
-                else if (name.indexOf('../') === 0) {
-                    var levelUp = name.split('../').length - 1;
-                    var newName = name.split('../')[name.split('../').length - 1];
-                    var newDepth = ctx.split('_')[1] - levelUp;
-                    variable = 'ctx_' + (newDepth >= 1 ? newDepth : 1) + '.' + newName;
-                }
-                else {
-                    variable = name === 'this' ? ctx : ctx + '.' + name;
-                }
+                variable = name === 'this' ? ctx : ctx + '.' + name;
             }
+            if (name && name.indexOf('@') >= 0) {
+                variable = '(data && data.' + name.replace('@', '') + ')';
+            }
+                
             return variable;
         }
         function getCompiledArguments(contextArray, ctx) {
@@ -8958,7 +8255,7 @@ window.Template7 = (function () {
             },
             'join': function (context, options) {
                 if (isFunction(context)) { context = context.call(this); }
-                return context.join(options.hash.delimiter || options.hash.delimeter);
+                return context.join(options.hash.delimeter);
             }
         }
     };

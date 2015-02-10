@@ -10,8 +10,7 @@
             "src/js/router.js",
             "src/js/clicks.js",
             "src/js/resize.js",
-            "src/js/panels.js",
-            "src/js/lazy-load.js"
+            "src/js/panels.js"
         ],
         "less" : [
             "src/less/mixins.less",
@@ -28,7 +27,6 @@
             "src/less/contacts.less",
             "src/less/forms.less",
             "src/less/panels.less",
-            "src/less/lazy-load.less",
             "src/less/statusbar.less",
             "src/less/preloader.less"
         ]
@@ -47,8 +45,8 @@
             "src/js/proto-support.js",
             "src/js/proto-device.js",
             "src/js/proto-plugins.js",
-            "src/js/template7.js",
-            "src/js/wrap-end.js"
+            "src/js/wrap-end.js",
+            "src/js/template7.js"
         ],
         "less" : [
             "src/less/login-screen.less",
@@ -87,18 +85,8 @@
         "less": [],
         "dependencies" : []
     },
-    "cards": {
-        "js" : [],
-        "less": ["src/less/cards.less"],
-        "dependencies" : []
-    },
     "smart-select": {
         "js" : ["src/js/smart-select.js"],
-        "less": [],
-        "dependencies" : []
-    },
-    "virtual-list": {
-        "js" : ["src/js/virtual-list.js"],
         "less": [],
         "dependencies" : []
     },
@@ -137,29 +125,19 @@
         "less" : [],
         "dependencies" : []
     },
-    "swiper": {
-        "js" : ["src/js/swiper.js", "src/js/swiper-init.js"],
-        "less": ["src/less/swiper.less"],
+    "slider": {
+        "js" : ["src/js/slider.js"],
+        "less": ["src/less/slider.less"],
         "dependencies" : []
     },
     "photo-browser": {
         "js" : ["src/js/photo-browser.js"],
         "less": ["src/less/photo-browser.less"],
-        "dependencies" : ["swiper"]
+        "dependencies" : ["slider"]
     },
     "notifications": {
         "js" : ["src/js/notifications.js"],
         "less": ["src/less/notifications.less"],
-        "dependencies" : []
-    },
-    "picker": {
-        "js" : ["src/js/picker.js"],
-        "less": ["src/less/picker.less"],
-        "dependencies" : []
-    },
-    "calendar": {
-        "js" : ["src/js/calendar.js"],
-        "less": ["src/less/calendar.less"],
         "dependencies" : []
     }
 }

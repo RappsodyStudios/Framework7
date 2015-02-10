@@ -12,7 +12,7 @@ app.initSwipeout = function (swipeoutEl) {
                 app.swipeoutOpenedEl.is(target[0]) ||
                 target.parents('.swipeout').is(app.swipeoutOpenedEl) ||
                 target.hasClass('modal-in') ||
-                target.parents('.modal.modal-in').length > 0 ||
+                target.parents('.modal-in').length > 0 ||
                 target.hasClass('modal-overlay')
                 )) {
                 app.swipeoutClose(app.swipeoutOpenedEl);
@@ -52,12 +52,12 @@ app.initSwipeout = function (swipeoutEl) {
             noFoldLeft = actionsLeft.hasClass('swipeout-actions-no-fold') || app.params.swipeoutActionsNoFold;
             noFoldRight = actionsRight.hasClass('swipeout-actions-no-fold') || app.params.swipeoutActionsNoFold;
             if (actionsLeft.length > 0) {
-                actionsLeftWidth = actionsLeft.outerWidth();
+                actionsLeftWidth = actionsLeft.width();
                 buttonsLeft = actionsLeft.children('a');
                 overswipeLeftButton = actionsLeft.find('.swipeout-overswipe');
             }
             if (actionsRight.length > 0) {
-                actionsRightWidth = actionsRight.outerWidth();
+                actionsRightWidth = actionsRight.width();
                 buttonsRight = actionsRight.children('a');
                 overswipeRightButton = actionsRight.find('.swipeout-overswipe');
             }
@@ -289,7 +289,7 @@ app.swipeoutOpen = function (el, dir) {
     el.trigger('open').addClass('swipeout-opened').removeClass('transitioning');
     swipeOutActions.addClass('swipeout-actions-opened');
     var buttons = swipeOutActions.children('a');
-    var swipeOutActionsWidth = swipeOutActions.outerWidth();
+    var swipeOutActionsWidth = swipeOutActions.width();
     var translate = dir === 'right' ? -swipeOutActionsWidth : swipeOutActionsWidth;
     var i;
     if (buttons.length > 1) {
@@ -320,7 +320,7 @@ app.swipeoutClose = function (el) {
     var swipeOutActions = el.find('.swipeout-actions-opened').removeClass('swipeout-actions-opened');
     var noFold = swipeOutActions.hasClass('swipeout-actions-no-fold') || app.params.swipeoutActionsNoFold;
     var buttons = swipeOutActions.children('a');
-    var swipeOutActionsWidth = swipeOutActions.outerWidth();
+    var swipeOutActionsWidth = swipeOutActions.width();
     app.allowSwipeout = false;
     el.trigger('close');
     el.removeClass('swipeout-opened').addClass('transitioning');
@@ -350,14 +350,7 @@ app.swipeoutDelete = function (el) {
     var clientLeft = el[0].clientLeft;
     el.css({height: 0 + 'px'}).addClass('deleting transitioning').transitionEnd(function () {
         el.trigger('deleted');
-        if (el.parents('.virtual-list').length > 0) {
-            var virtualList = el.parents('.virtual-list')[0].f7VirtualList;
-            var virtualIndex = el[0].f7VirtualListIndex;
-            if (virtualList && typeof virtualIndex !== 'undefined') virtualList.deleteItem(virtualIndex);
-        }
-        else {
-            el.remove();
-        }
+        el.remove();
     });
     var translate = '-100%';
     el.find('.swipeout-content').transform('translate3d(' + translate + ',0,0)');

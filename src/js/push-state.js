@@ -30,7 +30,10 @@ app.initPushState = function () {
     });
     function handlePopState(e) {
         if (blockPopstate) return;
-        var mainView = app.mainView;
+        var mainView;
+        for (var i = 0; i < app.views.length; i++) {
+            if (app.views[i].main) mainView = app.views[i];
+        }
         if (!mainView) return;
         var state = e.state;
         if (!state) {

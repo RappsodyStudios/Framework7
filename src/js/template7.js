@@ -2,6 +2,7 @@
 Template7 Template engine
 ===========================*/
 window.Template7 = (function () {
+    'use strict';
     function isArray(arr) {
         return Object.prototype.toString.apply(arr) === '[object Array]';
     }
@@ -189,27 +190,24 @@ window.Template7 = (function () {
         }
         function getCompileVar(name, ctx) {
             var parents, variable, context;
-            if (name.indexOf('@global') >= 0) {
-                variable = '(Template7.global && Template7.global.' + (name.split('@global.')[1]) + ')';
+            
+            if (name.indexOf('.') > 0) {
+                if (name.indexOf('this') === 0) variable = name.replace('this', ctx);
+                else variable = ctx + '.' + name;
             }
-            else if (name.indexOf('@') >= 0) {
-                variable = '(data && data.' + name.replace('@', '') + ')';
+            else if (name.indexOf('../') === 0) {
+                var levelUp = name.split('../').length - 1;
+                var newName = name.split('../')[name.split('../').length - 1];
+                var newDepth = ctx.split('_')[1] - levelUp;
+                variable = 'ctx_' + (newDepth >= 1 ? newDepth : 1) + '.' + newName;
             }
             else {
-                if (name.indexOf('.') > 0) {
-                    if (name.indexOf('this') === 0) variable = name.replace('this', ctx);
-                    else variable = ctx + '.' + name;
-                }
-                else if (name.indexOf('../') === 0) {
-                    var levelUp = name.split('../').length - 1;
-                    var newName = name.split('../')[name.split('../').length - 1];
-                    var newDepth = ctx.split('_')[1] - levelUp;
-                    variable = 'ctx_' + (newDepth >= 1 ? newDepth : 1) + '.' + newName;
-                }
-                else {
-                    variable = name === 'this' ? ctx : ctx + '.' + name;
-                }
+                variable = name === 'this' ? ctx : ctx + '.' + name;
             }
+            if (name && name.indexOf('@') >= 0) {
+                variable = '(data && data.' + name.replace('@', '') + ')';
+            }
+                
             return variable;
         }
         function getCompiledArguments(contextArray, ctx) {
@@ -337,7 +335,7 @@ window.Template7 = (function () {
             },
             'join': function (context, options) {
                 if (isFunction(context)) { context = context.call(this); }
-                return context.join(options.hash.delimiter || options.hash.delimeter);
+                return context.join(options.hash.delimeter);
             }
         }
     };
