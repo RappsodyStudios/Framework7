@@ -102,7 +102,7 @@
 	height: 80px;
 }
 
-#addition .scan button {
+#addition .scan a {
 	background: #74baa2;
 	border: none;
 	color: #FFF;
@@ -112,7 +112,7 @@
 	width: 100%;
 }
 
-#addition .scan button i.fa-barcode {
+#addition .scan a i.fa-barcode {
 	color: #fff;
 	position: relative;
 	top: 2px;
