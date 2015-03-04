@@ -12,7 +12,6 @@
      	</div>
   </div>
 </div>
-
 <div class="pages">
   <!-- Page, data-page contains page name-->
   <div data-page="anayltics" class="page">
@@ -43,11 +42,10 @@
         	<div id="tab1" class="tab active">
             	<div class="content-block">
             		<div class="activity">
-                    	<canvas id="line_chart" height="200" width="300"></canvas>
+                    	Day
                     </div>
                     
-                    <div class="use-percentage" id="canvas-holder">
-                    	<canvas id="chart-area" width="200" height="200"/>
+                    <div class="use-percentage">
                     </div>
                     
                     <div class="cost">
@@ -116,50 +114,12 @@
           	</div>
         </div>
   </div>
-  
-  <script>
-		var randomScalingFactor = function(){ return Math.round(Math.random()*100)};
-		var lineChartData = {
-			labels : ["January","February","March","April","May","June","July"],
-			datasets : [
-				{
-					label: "My First dataset",
-					fillColor : "rgba(220,220,220,0.2)",
-					strokeColor : "rgba(220,220,220,1)",
-					pointColor : "rgba(220,220,220,1)",
-					pointStrokeColor : "#fff",
-					pointHighlightFill : "#fff",
-					pointHighlightStroke : "rgba(220,220,220,1)",
-					data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor()]
-				},
-				{
-					label: "My Second dataset",
-					fillColor : "rgba(151,187,205,0.2)",
-					strokeColor : "rgba(151,187,205,1)",
-					pointColor : "rgba(151,187,205,1)",
-					pointStrokeColor : "#fff",
-					pointHighlightFill : "#fff",
-					pointHighlightStroke : "rgba(151,187,205,1)",
-					data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor()]
-				}
-			]
-
-		}
-		
-Framework7.prototype.plugins.myPlugin = function (app, params) {
-
-	window.onload = function lineChart(){
-		var ctx = document.getElementById("line_chart").getContext("2d");
-		window.myLine = new Chart(ctx).Line(lineChartData, {
-			responsive: true
-		});
-		
-		return {
-			hooks: {
-				pageInit: lineChart
-			}
-		};
-	}
-};
-	</script>
 </div>
+
+<script src="js/jquery.flot.js"></script>
+<script src="js/jquery.flot.pie.js"></script>
+
+<script type="text/javascript">
+	$(function() {
+	});
+</script>
