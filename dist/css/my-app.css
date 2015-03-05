@@ -423,19 +423,17 @@ a.analytics img {
 }
 
 [data-page="anayltics"] .tabs .tab .activity {
-	border-bottom: 1px solid #CCC;
 	min-height: 120px;
 	margin-top: 5px;
 	padding: 5px 20px;
 	position: relative;
 	left: -20px;
-	width: 100%;
+	width: 85% !important;
 }
 
 [data-page="anayltics"] .tabs .tab .use-percentage {
 	min-height: 150px;
-	margin-top: 5px;
-	padding: 5px 20px;
+	margin-top: 10px;
 }
 
 [data-page="anayltics"] .tabs .tab .cost {
@@ -447,6 +445,15 @@ a.analytics img {
 	position: relative;
 	left: -20px;
 	width: 100%;
+}
+
+[data-page="analytics"] hr {
+	background: #CCC;
+	height: 1px;	
+}
+
+.cost {
+	color: #fff;
 }
 
 .cost h2, .cost h3 {
@@ -463,6 +470,54 @@ a.analytics img {
 	color: #ebc7ad;
 	font-size: 14px;
 }
+
+.cost img { margin-left: 70px; }
+
+.amount {
+	font-size: 48px;
+  	width: 36%;
+  	float: right;
+	position: absolute;
+	top: 0;
+	right: 10px;
+}
+
+.amount sup { font-size: 18px; }
+.cost small { 
+	font-size: 14px;
+  	float: right;
+  	clear: right;
+  	position: absolute;
+  	top: 110px;
+  	right: 45px;
+}
+
+#chart_area {
+	width: 140px !important;
+	height: 140px !important;
+}
+
+ul.legend {
+	float: right;
+	width: 45%;
+	font-size: 11px;
+}
+
+ul.legend li {
+	list-style-type: none;
+	margin-bottom: 8px;
+}
+
+ul.legend li span {
+	padding: 5px 0 0 18px;
+	margin-right: 5px;
+}
+
+ul.legend li span.blue { background: #6aa9d4; }
+ul.legend li span.yellow { background: #f1e786; }
+ul.legend li span.orange { background: #e08f50; }
+ul.legend li span.teal { background: #6ad4b0; }
+ul.legend li span.red { background: #dc5655; }
 
 
 /*=========================================================================
