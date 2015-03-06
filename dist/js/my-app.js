@@ -47,7 +47,7 @@ $$(".checkbox").click(function(){
 //Particular function for the item details screen
 myApp.onPageInit('details', function(page){
 	
-	var randomScalingFactor = function(){ return Math.round(Math.random()*12)};
+	var randomScalingFactor = function(){ return Math.round(Math.random()*5)};
     var purchaseChartData = {
         labels : ["Oct", "Nov"],
         datasets : [
@@ -123,5 +123,4 @@ myApp.onPageInit('anayltics', function(page){
 
 //Particular function for the recipes screen
 myApp.onPageInit('recipes', function(page){
-	
 });
