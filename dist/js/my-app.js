@@ -123,4 +123,5 @@ myApp.onPageInit('anayltics', function(page){
 
 //Particular function for the recipes screen
 myApp.onPageInit('recipes', function(page){
+	
 });
