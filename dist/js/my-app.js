@@ -44,6 +44,32 @@ $$(".checkbox").click(function(){
 	}
 });
 
+//- With callbacks on click
+	$$('.fa-share-alt').on('click', function () {
+		var buttons = [
+			{
+				text: 'Tweet This',
+				onClick: function () {
+					myApp.alert('Button1 clicked');
+				}
+			},
+			{
+				text: 'Share on Facebook',
+				onClick: function () {
+					myApp.alert('Button2 clicked');
+				}
+			},
+			{
+				text: 'Pin This',
+				color: 'red',
+				onClick: function () {
+					myApp.alert('Cancel clicked');
+				}
+			},
+		];
+		myApp.actions(buttons);
+	});
+
 //Particular function for the item details screen
 myApp.onPageInit('details', function(page){
 	
@@ -123,5 +149,5 @@ myApp.onPageInit('anayltics', function(page){
 
 //Particular function for the recipes screen
 myApp.onPageInit('recipes', function(page){
-	
+	  
 });

@@ -24,15 +24,15 @@
 	color: #444;
 }
 
-.clear { clear: both; }
-
-.show { display: block; }
-.hide { display: none; }
+a { color: #444; }
 
 .left { float: left; }
 .right { float: right; }
 
 .clear { clear: both; }
+
+.show { display: block; }
+.hide { display: none; }
 
 /* General UI */
 #title {
@@ -547,6 +547,34 @@ ul.legend li span.red { background: #dc5655; }
 [data-page="recipes"] #card .difficulty, #card .popularity { font-size: 12px; }
 
 #card .popularity { color: #CCC; }
+
+[data-page="recipe-details"] .media {
+	max-height: 200px;
+	overflow: hidden;
+}
+
+[data-page="recipe-details"] .popularity { 
+	color: #FFF;
+	display: none;
+}
+
+[data-page="recipe-details"] .information { 
+	background: #FFF;
+}
+
+[data-page="recipe-details"] .information h2 { 
+	font-size: 18px;
+	margin: 0;
+}
+
+.ingredients li, .nutrition li { border-bottom: 1px solid #CCC; }
+.ingredients li .item-content { padding: 0 0 0 15px; }
+.ingredients li .item-inner { border: none; padding: 0;}
+.ingredients li .item-inner span { background-color: #699c8b; color: #FFF; height: 34px; padding: 10px 0 0 20px; width: 60%; float: right; }
+
+.nutrition li { padding: 0 15px; }
+.nutrition li span { float: right; }
+.nutrition li:last-child { border: none; }
 
 
 /*=========================================================================
