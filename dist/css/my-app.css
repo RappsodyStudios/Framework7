@@ -34,6 +34,8 @@ a { color: #444; }
 .show { display: block; }
 .hide { display: none; }
 
+.inactive { opacity: 0.5; }
+
 /* General UI */
 #title {
 	color: #fff;
@@ -548,14 +550,36 @@ ul.legend li span.red { background: #dc5655; }
 
 #card .popularity { color: #CCC; }
 
-[data-page="recipe-details"] .media {
+/*[data-page="recipe-details"] .media {
 	max-height: 200px;
 	overflow: hidden;
-}
+}*/
+
+.swiper-container { height: 200px; overflow: hidden; }
+.swiper-slide { background: #FFF; }
+.swiper-slide span {
+  	text-align:center;
+  	display:block;
+  	font-size:21px;
+} 
 
 [data-page="recipe-details"] .popularity { 
 	color: #FFF;
 	display: none;
+}
+
+[data-page="recipe-details"] .detail {
+	background: #dbbc94;
+	border-right: 1px solid #FFF;
+	color: #FFF;
+	height: 40px;
+	padding: 5px 0;
+	text-align: center;
+	width: 32.99%;
+}
+
+[data-page="recipe-details"] .detail .2 {
+	background: #907A5D;
 }
 
 [data-page="recipe-details"] .information { 
@@ -567,15 +591,38 @@ ul.legend li span.red { background: #dc5655; }
 	margin: 0;
 }
 
+[data-page="recipe-details"] .missing { margin-bottom: 20px; }
+
+[data-page="recipe-details"] h3.heading { 
+	background: #699C8B;
+	color: #FFF;
+	font-weight: 500;
+	height: 30px;
+	margin: 0;
+	padding: 7px 0 0 15px;
+}
+
+h3.heading small {
+	font-size: 12px;
+	font-style: italic;
+	float: right;
+	padding-right: 15px;
+}
+
 .ingredients li, .nutrition li { border-bottom: 1px solid #CCC; }
 .ingredients li .item-content { padding: 0 0 0 15px; }
 .ingredients li .item-inner { border: none; padding: 0;}
-.ingredients li .item-inner span { background-color: #699c8b; color: #FFF; height: 34px; padding: 10px 0 0 20px; width: 60%; float: right; }
+.ingredients li .item-inner span { background-color: #699c8b; color: #FFF; height: 34px; padding: 10px 0 0 20px; width: 60%; float: right; } 
 
 .nutrition li { padding: 0 15px; }
 .nutrition li span { float: right; }
 .nutrition li:last-child { border: none; }
 
+[data-page="recipe-details"] button { background: #dbbc94; border: none !important; padding: 0 0 5px 0; }
+[data-page="recipe-details"] button i { padding-top: 5px; }
+
+[data-page="recipe-details"] .accordian-item-content p { margin: 0 0 10px 0; }
+[data-page="recipe-details"] .accordian-item-content .commenter { color: #999; }
 
 /*=========================================================================
 	Wishlist Items

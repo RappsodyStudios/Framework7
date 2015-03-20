@@ -16,33 +16,49 @@
 	<div data-page="recipe-details" class="page">
       
   	<div class="page-content">
-    	<div class="media">
-            <i class="fa fa-heart fa-lg popularity">&nbsp; 32</i>
-    		<img src="http://kitchencloud.net/wp-content/uploads/2015/02/arugula-cheese-grinder.jpg" width="100%" height="auto">
-        </div><!-- End of .media -->
+    	<i class="fa fa-heart fa-lg popularity">&nbsp; 32</i>
+        
+    	<div class="swiper-container">
+            <div class="swiper-wrapper">
+            	<div class="swiper-slide">
+                	<img src="http://kitchencloud.net/wp-content/uploads/2015/02/arugula-cheese-grinder.jpg" width="100%" height="auto">
+                </div>
+                
+                <div class="swiper-slide">
+                	Hello Josh
+                </div>
+                
+                <div class="swiper-slide">
+                	<img src="http://kitchencloud.net/wp-content/uploads/2015/02/arugula-cheese-grinder.jpg" width="100%" height="auto">
+                </div>
+         	</div>
+            
+            <div class="swiper-pagination"></div>
+        </div><!-- End of .swiper-container -->
         
         <div class="content-block">
         	<h2>Arugula Cheese Grinder with Basil Mayonnaise</h2>
             
             <p>This sandwich can be made with almost any combination of bread and cheese. French bread and Havarti cheese are ideal though.</p>
             
-            <div class="left">
-            	<small>Time</small>
+            <div class="left detail">
+            	<small>Time</small><br>
                 <span>13 min</span>
             </div>
             
-            <div class="left">
-            	<small>Servings</small>
+            <div class="left detail" style="background: #907A5D;">
+            	<small>Servings</small><br>
                 <span>04</span>
             </div>
             
-            <div class="left">
-            	<small>Nutrition</small>
+            <div class="left detail" style="border: none;">
+            	<small>Nutrition</small><br>
                 <span>300 cal</span>
             </div>
+        	
+            <div class="clear"></div>
         
-        
-            <div class="list-block">
+            <div class="list-block" style="margin: 0 0 10px 0;">
             	<form id="item_form" action="" method="put">
                 <ul class="ingredients">
                     <li class="item">
@@ -62,7 +78,7 @@
                     
                     <li class="item">
                     	<label class="label-checkbox item-content">
-                        	<input type="checkbox" name="my-checkbox" value="Vegetable" checked>
+                        	<input type="checkbox" name="my-checkbox" value="Vegetable">
                             
                             <div class="item-media">
                             	<i class="icon icon-form-checkbox"></i>
@@ -77,7 +93,7 @@
                     
                     <li class="item">
                     	<label class="label-checkbox item-content">
-                        	<input type="checkbox" name="my-checkbox" value="Vegetable" checked>
+                        	<input type="checkbox" name="my-checkbox" value="Vegetable">
                             
                             <div class="item-media">
                             	<i class="icon icon-form-checkbox"></i>
@@ -92,7 +108,7 @@
                   	
                     <li class="item">
                     	<label class="label-checkbox item-content">
-                        	<input type="checkbox" name="my-checkbox" value="Vegetable" checked>
+                        	<input type="checkbox" name="my-checkbox" value="Vegetable">
                             
                             <div class="item-media">
                             	<i class="icon icon-form-checkbox"></i>
@@ -107,7 +123,7 @@
                     
                     <li class="item">
                     	<label class="label-checkbox item-content">
-                        	<input type="checkbox" name="my-checkbox" value="Vegetable" checked>
+                        	<input type="checkbox" name="my-checkbox" value="Vegetable">
                             
                             <div class="item-media">
                             	<i class="icon icon-form-checkbox"></i>
@@ -122,7 +138,7 @@
                     
                     <li class="item">
                     	<label class="label-checkbox item-content">
-                        	<input type="checkbox" name="my-checkbox" value="Vegetable" checked>
+                        	<input type="checkbox" name="my-checkbox" value="Vegetable">
                             
                             <div class="item-media">
                             	<i class="icon icon-form-checkbox"></i>
@@ -137,7 +153,7 @@
                     
                     <li class="item">
                     	<label class="label-checkbox item-content">
-                        	<input type="checkbox" name="my-checkbox" value="Vegetable" checked>
+                        	<input type="checkbox" name="my-checkbox" value="Vegetable">
                             
                             <div class="item-media">
                             	<i class="icon icon-form-checkbox"></i>
@@ -152,7 +168,7 @@
                     
                     <li class="item">
                     	<label class="label-checkbox item-content">
-                        	<input type="checkbox" name="my-checkbox" value="Vegetable" checked>
+                        	<input type="checkbox" name="my-checkbox" value="Condiment">
                             
                             <div class="item-media">
                             	<i class="icon icon-form-checkbox"></i>
@@ -167,7 +183,7 @@
                     
                     <li class="item">
                     	<label class="label-checkbox item-content">
-                        	<input type="checkbox" name="my-checkbox" value="Vegetable" checked>
+                        	<input type="checkbox" name="my-checkbox" value="Vegetable">
                             
                             <div class="item-media">
                             	<i class="icon icon-form-checkbox"></i>
@@ -183,31 +199,65 @@
                 </form>
             </div><!-- End of .list-block -->
             
-            <h3>Directions</h3>
+            <!--<button class="button button-big missing">
+            	<i class="fa fa-plus fa-lg"></i>&nbsp;Ingredients to List
+            </button>-->
+            
+            <div class="clear" style="height: 20px;"></div>
+            
+            <h3 class="heading">Directions</h3>
             
             <article style="background: #FFF; padding: 5px; margin-bottom: 5px;">Combine the first 4 ingredients. Cut the bread loaves in half horizontally; spread the mayonnaise evenly over the cut slices of bread.</article>
             
             <article style="background: #FFF; padding: 5px; margin-bottom: 5px;">Arrange 2 tomato slices over the bottom half of each loaf and top with 3 tablespoons of alfalfa sprouts, 1 cheese slice, and 5 arugula leaves.</article>
         
-        	<article style="background: #FFF; padding: 5px; margin-bottom: 5px;">Top with remaining bread halves and serve immediately.</article>
+        	<article style="background: #FFF; padding: 5px; margin-bottom: 40px;">Top with remaining bread halves and serve immediately.</article>
             
-            <div class="list-block">
+            <h3 class="heading">Nutrition <small>(per serving)</small></h3>
+            
+            <div class="list-block" style="margin: 0 0 10px 0;">
                 <ul class="nutrition">
-          			<h3>Nutrition</h3>
                     <li>Calories<span>315</span></li>
                     <li>Fat<span>3.90 g</span></li>
                     <li>Protein<span>12.00 g</span></li>
-                    <li>Carbohydrates<span>French Bread</span></li>
-                    <li>Fiber<span>Ground Pepper</span></li>
-                    <li>Iron<span>Salt</span></li>
-                    <li>Cholesterol<span>Basil</span></li>
-                    <li>Sodium<span>Light Mayonnaise</span></li>
-                    <li>Calcium<span>Arugula</span></li>
+                    <li>Carbohydrates<span>45.30 g</span></li>
+                    <li>Fiber<span>3.30 g</span></li>
+                    <li>Iron<span>2.60 mg</span></li>
+                    <li>Cholesterol<span>9.00 mg</span></li>
+                    <li>Sodium<span>832.00 mg</span></li>
+                    <li>Calcium<span>180.00 mg</span></li>
                 </ul>
             </div><!-- End of .list-block -->
-        </div><!-- End of .content-block -->
-        
-   		<div class="clear" style="height: 40px;"></div>
+            
+            <button class="button button-big favorite">
+            	<span class="pre-add"><i class="fa fa-heart fa-lg"></i>&nbsp;&nbsp;Add to Favorites</span>
+                <span class="added"><i class="fa fa-heart fa-check"></i>&nbsp;&nbsp;Added</span>
+            </button>
+            
+            <!--<div class="clear" style="height: 20px;"></div>-->
+            
+            <div class="list-block accordion-list">
+                <ul>
+                    <li class="accordion-item">
+                        <a href="" class="item-link">
+                            <h3 class="heading">Comments <small>1 &nbsp;<i class="fa fa-angle-down fa-2x"></i></small></h3>
+                        </a> 
+                        <div class="accordion-item-content">
+                        	<table>
+                            	<tr>
+                                	<td valign="top"><img src="http://gravatar.com/avatar/38e379f9bec6587b8691a5fa5b61116d?d=http://kitchencloud.net/wp-content/themes/SocialChef/images/avatar.jpg" class="profile-pic" width="40" height="auto" /></td>
+                                    <td width="5"></td>
+                                    <td valign="top">
+                                    	<p>This is one of my favorite quick and easy recipes to make for lunch. I'd highly recommend it.</p>
+                                        <small class="commneter right">- Karen Lominack</small>
+                                   	</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </li>
+                </ul>
+            </div><!-- End of .accordian-list -->
+   		</div><!-- End of .content-block -->
   	</div><!-- End of .page-content -->
 
 </div>  

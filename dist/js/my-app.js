@@ -10,6 +10,11 @@ var mainView = myApp.addView('.view-main', {
     dynamicNavbar: true
 });
 
+//Swiping Media Content Left to Right
+var mySwiper = myApp.swiper('.swiper-container', {
+    pagination:'.swiper-pagination'
+});
+
 //Push Notifications 
 /*$$(this).on('load', function () {
 	myApp.addNotification({
@@ -43,32 +48,7 @@ $$(".checkbox").click(function(){
 		$$("#item").show();
 	}
 });
-
-//- With callbacks on click
-	$$('.fa-share-alt').on('click', function () {
-		var buttons = [
-			{
-				text: 'Tweet This',
-				onClick: function () {
-					myApp.alert('Button1 clicked');
-				}
-			},
-			{
-				text: 'Share on Facebook',
-				onClick: function () {
-					myApp.alert('Button2 clicked');
-				}
-			},
-			{
-				text: 'Pin This',
-				color: 'red',
-				onClick: function () {
-					myApp.alert('Cancel clicked');
-				}
-			},
-		];
-		myApp.actions(buttons);
-	});
+	
 
 //Particular function for the item details screen
 myApp.onPageInit('details', function(page){
@@ -148,6 +128,63 @@ myApp.onPageInit('anayltics', function(page){
 });
 
 //Particular function for the recipes screen
-myApp.onPageInit('recipes', function(page){
+myApp.onPageInit('recipe-details', function(page){
+	  //Hidden Objects and Elements
+	  $$('.added').hide();
+	  $$('.comments').hide();
 	  
+	  // Social Sharing Feature
+	  $$('.fa-share-alt').on('click', function () {
+		var buttons = [
+			{
+				text: innerHTML = '<i class="fa fa-twitter"></i> Tweet This',
+				onClick: function () {
+					myApp.alert('Button1 clicked');
+				}
+			},
+			{
+				text: innerHTML = '<i class="fa fa-facebook"></i> Share of Facebook',
+				onClick: function () {
+					myApp.alert('Button2 clicked');
+				}
+			},
+			{
+				text: innerHTML = '<i class="fa fa-pinterest"></i> Pin This',
+				color: 'red',
+				onClick: function () {
+					myApp.alert('Cancel clicked');
+				}
+			},
+		];
+		myApp.actions(buttons);
+	});
+	
+	//Missing Ingridients
+	if($$('.ingredients input[type="checkbox"]').is(':checked')){
+		$$('.ingredients .item-inner span').css({'background' : '#699c8b'});
+	} else {
+		$$('.ingredients .item-inner span').css({'background' : '#999'});
+	};
+	$$('.missing').on('click', function() {
+		/*var buttons = [
+			{
+				text: 'Veiw List',
+				onClick: function() {
+					myApp.alert('Viewed List Aliright');
+				}
+			},
+			{ text: 'Ok' } 
+		];*/
+		
+		myApp.alert('Missing have been added to your shopping list', 'Experience Points Earned!'); 
+		/*function() {
+			myApp.actions(buttons);
+		});*/
+	});
+	
+	//Adding a Favorite
+	$$('.favorite').on('click', function() {
+		$$('.pre-add').hide();
+		$$('.added').show();
+	});
 });
