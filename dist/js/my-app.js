@@ -37,8 +37,13 @@ $$("#scan_btn").on('click', function() {
 	$$(this).hide();
 });
 	
-//Hides notification bubble
-$$(".empty-message").hide();
+//Notification functions
+$$('.empty-message').hide();
+/*if($$('.notification:visible').length === 0){
+	$$('.empty-message').show();
+} else {
+	$$('.empty-message').hide();
+};*/
 
 //Interaction for the list items
 $$(".checkbox").click(function(){
@@ -93,7 +98,7 @@ myApp.onPageInit('list', function(page){
 			myApp.alert('It appears you forgot to add your item', 'Item not Added');
 		} else {
 			$$('ul').append(listItem);
-			$$(this).removeAttr('value');
+			//$$(this).removeAttr('value');
 		}
 	});
 });
@@ -183,10 +188,10 @@ myApp.onPageInit('recipe-details', function(page){
 	});
 	
 	//Missing Ingridients
-	if ($$('li.item .item-inner span').hasClass('absent')) {  
-      	$$('.missing').css({'display' : 'block'});
+	if ($$('li.item .item-inner span.absent').hasClass('absent')) {  
+      	$$('button.missing').show();
    	} else {
-		$$('.missing').css({'display' : 'none'});
+		$$('button.missing').hide();
 	};
    
 	$$('.missing').on('click', function() {
@@ -200,5 +205,23 @@ myApp.onPageInit('recipe-details', function(page){
 	$$('.favorite').on('click', function() {
 		$$('.pre-add').hide();
 		$$('.added').show();
+	});
+});
+
+//Interactions for the Sign-up Page
+myApp.onPageInit('sign-up', function(page){
+	$$('.password-modal').on('click', function () {
+    	myApp.modalPassword('Enter a new password please:', 'Lets change things', function (password) {
+    		myApp.alert('Your new password is: ' + password + '. An email has been forwarded to you. Keep it somewhere safe.', 'Nice!');
+   		});
+	});
+});
+
+//Interactions for the Signed In User
+myApp.onPageInit('signed-in', function(page){
+	$$('.password-modal').on('click', function () {
+    	myApp.modalPassword('Enter a new password please:', 'Lets change things', function (password) {
+    		myApp.alert('Your new password is: ' + password + '. An email has been forwarded to you. Keep it somewhere safe.', 'Nice!');
+   		});
 	});
 });

@@ -15,15 +15,32 @@
 
 <div class="pages toolbar-through">
   <!-- Page, data-page contains page name-->
-  <div data-page="settings" class="page">
+  <div data-page="signed-in" class="page">
     <!-- Scrollable page content-->
     <div class="page-content">
+    	<div class="user-display">
+        	<img src="http://gravatar.com/avatar/38e379f9bec6587b8691a5fa5b61116d?d=http://kitchencloud.net/wp-content/themes/SocialChef/images/avatar.jpg" class="profile-pic left" width="40" height="auto">
+            
+            <div class="left">
+                <h3>Zachary Hall</h3>
+                <p>ZHall</p>
+            </div>
+        </div>
+        
+        <div class="clear"></div>
+        
    		<div class="list-block">
   			<ul>
-    			<li>
-      				<a href="sign-up.html" class="item-link item-content">
+            	<li class="item-content password-modal">
         				<div class="item-inner">
-          					<div class="item-title">Sign-In</div>
+          					<div class="item-title">Change Password</div>
+                            <div class="item-after"><i class="fa fa-unlock-alt"></i></div>
+        				</div>
+    			</li>
+    			<li>
+      				<a href="user-settings.html" class="item-link item-content">
+        				<div class="item-inner">
+          					<div class="item-title">Sign-Out</div>
         				</div>
       				</a>
     			</li>
@@ -39,7 +56,7 @@
                     <div class="item-title label" style="width: 180px;">Facebook</div>
                     <div class="item-input" style="float: right; width: 55px;">
                       <label class="label-switch">
-                        <input type="checkbox"/>
+                        <input type="checkbox" checked/>
                         <div class="checkbox"></div>
                       </label>
                     </div>
@@ -79,6 +96,14 @@
 
         <div class="list-block">
   			<ul>
+            	<li>
+      				<a href="dietary.html" class="item-link item-content">
+        				<div class="item-inner">
+          					<div class="item-title">Dietary Needs</div>
+        				</div>
+      				</a>
+    			</li>
+                
     			<li>
       				<a href="support.html" class="item-link item-content">
         				<div class="item-inner">

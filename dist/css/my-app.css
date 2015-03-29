@@ -11,6 +11,11 @@
 	border-bottom: 4px solid #699c8b;
 }
 
+.navbar a.icon-only {
+	right: 5px;
+	top: 1px;
+}
+
 .navbar a {
 	color: #fff;
 }
@@ -35,6 +40,8 @@ a { color: #444; }
 .hide { display: none; }
 
 .inactive { opacity: 0.5; }
+
+.button { border: none; }
 
 /* General UI */
 #title {
@@ -144,6 +151,7 @@ a { color: #444; }
 	border-radius: 20px;
 	border: 2px solid #ccc;
 	color: #fff;
+	display: block;
 	font-size: 12px;
 	height: 18px;
 	position: relative;
@@ -294,6 +302,15 @@ a.analytics img {
 	padding: 0 5px;
 }
 
+[data-page="signed-in"] .user-display {
+	margin: 10px auto 0 auto;
+	width: 90%;
+}
+
+[data-page="signed-in"] .user-display img { margin: 0 15px 0 0;}
+[data-page="signed-in"] .user-display h3 { margin: 0;}
+[data-page="signed-in"] .user-display p { margin: 5px 0;}
+
 /* User Sign-In/Sign-Up */
 .left-divide {
 	width: 100px;
@@ -325,6 +342,7 @@ a.analytics img {
 
 .facebook-btn {
 	background: #367298 !important;
+	display: none;
 }
 
 /* List Page */
@@ -334,6 +352,7 @@ a.analytics img {
 	background: transparent;
 	border: none;
 	color: #FFF;
+	display: block;
 	font-weight: 700;
 	font-size: 16px; 
 }
@@ -623,4 +642,10 @@ h3.heading small {
     padding: 0 5px 0 0;
 	position: relative;
 	right: 3px;
+}
+
+#speech_input a { 
+	color: #c35e10;
+	position: relative;
+  	top: 2px;
 }
