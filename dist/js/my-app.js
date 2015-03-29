@@ -75,6 +75,29 @@ myApp.onPageInit('details', function(page){
 	
 });
 
+//UI Functionality for the grocery list
+myApp.onPageInit('list', function(page){
+	$$('.add-btn').hide();
+	
+	$$('#add_item').focus(function() {
+		$$('#speech_input').hide();
+		$$('.add-btn').show();
+	});
+	
+	$$('.add-btn').on('click', function(e) {
+		e.preventDefault();
+		
+		var listItem = innerHTML = '<li id="item"> <label class="label-checkbox item-content"> <input type="checkbox" name="my-checkbox" value="Milk"> <div class="item-media"> <i class="icon icon-form-checkbox"></i> </div> <div class="item-inner">'+ $$('#add_item').val(); +'</div> </label> </li>';
+		
+		if($$('#add_item').val().length === 0){
+			myApp.alert('It appears you forgot to add your item', 'Item not Added');
+		} else {
+			$$('ul').append(listItem);
+			$$(this).removeAttr('value');
+		}
+	});
+});
+
 //Initializes the charts on the analytics page
 myApp.onPageInit('anayltics', function(page){
 	
@@ -160,23 +183,14 @@ myApp.onPageInit('recipe-details', function(page){
 	});
 	
 	//Missing Ingridients
-	if($$('.ingredients input[type="checkbox"]').is(':checked')){
-		$$('.ingredients .item-inner span').css({'background' : '#699c8b'});
-	} else {
-		$$('.ingredients .item-inner span').css({'background' : '#999'});
+	if ($$('li.item .item-inner span').hasClass('absent')) {  
+      	$$('.missing').css({'display' : 'block'});
+   	} else {
+		$$('.missing').css({'display' : 'none'});
 	};
+   
 	$$('.missing').on('click', function() {
-		/*var buttons = [
-			{
-				text: 'Veiw List',
-				onClick: function() {
-					myApp.alert('Viewed List Aliright');
-				}
-			},
-			{ text: 'Ok' } 
-		];*/
-		
-		myApp.alert('Missing have been added to your shopping list', 'Experience Points Earned!'); 
+		myApp.alert('Missing ingredients have been added to your shopping list', 'Experience Points Earned!'); 
 		/*function() {
 			myApp.actions(buttons);
 		});*/
