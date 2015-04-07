@@ -25,7 +25,7 @@ var mySwiper = myApp.swiper('.swiper-container', {
 });*/
 
 //Remove Items 
-$$(".fa-times").on('click', function () {
+$$(".fa-times").on('click', function() {
 	$$(this).parent().remove();
 });
 
