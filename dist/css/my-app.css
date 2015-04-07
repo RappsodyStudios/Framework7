@@ -43,6 +43,9 @@ a { color: #444; }
 
 .button { border: none; }
 
+.strikeout { text-decoration: line-through; }
+.checked { background: #E7E7E7; }
+
 /* General UI */
 #title {
 	color: #fff;
@@ -287,7 +290,14 @@ a.analytics img {
 	padding: 5px;
 }
 
-.nutrition-info h1 { margin-top: 0; }
+[data-page="details"] h3.heading { 
+	background: #699C8B;
+	color: #FFF;
+	font-weight: 500;
+	height: 30px;
+	margin: 0;
+	padding: 7px 0 0 15px;
+}
 
 [data-page="details"] .purchase-history .item-content {
 	padding: 5px;
@@ -394,6 +404,14 @@ a.analytics img {
 	width: 90%;
 }
 
+[data-page="list"] .item-after {
+	border: 2px dashed #CCC;
+	border-radius: 10px;
+	padding: 3px 4px;
+}
+
+[data-page="list"] .coupons { padding: 10px; }
+
 /* Analytics Page */
 [data-page="anayltics"] .tabs, [data-page="anayltics"] .buttons-row a.active {
 	background-color: #F1F1F1;
@@ -441,6 +459,8 @@ a.analytics img {
 [data-page="anayltics"] .tabs .tab .use-percentage {
 	min-height: 150px;
 	margin-top: 10px;
+	position: relative;
+	z-index: 2;
 }
 
 [data-page="anayltics"] .tabs .tab .cost {
@@ -457,6 +477,14 @@ a.analytics img {
 [data-page="analytics"] hr {
 	background: #CCC;
 	height: 1px;	
+}
+
+.consumed {
+	position: absolute;
+  	top: 55px;
+  	left: 50px;
+  	z-index: 99;
+  	font-size: 20px;
 }
 
 .cost {

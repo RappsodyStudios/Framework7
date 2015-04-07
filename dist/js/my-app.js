@@ -101,6 +101,23 @@ myApp.onPageInit('list', function(page){
 			//$$(this).removeAttr('value');
 		}
 	});
+	
+	$$('#item input[type=checkbox]').change(function(){
+		$$(this).each(function() {
+			if($$(this).is(':checked')) {
+				$$('#item').addClass('checked');
+				$$('#item .item-inner').addClass('strikeout');
+			} else {
+				$$('#item').removeClass('checked');
+				$$('#item .item-inner').removeClass('strikeout');
+			}
+		});
+	});
+	
+	$$('.coupon-alert').on('click', function() {
+		myApp.alert('Please share this mobile coupon with your cashier upon checkout', 'Coupon Applied Like a Boss');
+		$$(this).css({'opacity':'0.3'});
+	});
 });
 
 //Initializes the charts on the analytics page
@@ -224,4 +241,23 @@ myApp.onPageInit('signed-in', function(page){
     		myApp.alert('Your new password is: ' + password + '. An email has been forwarded to you. Keep it somewhere safe.', 'Nice!');
    		});
 	});
+});
+
+
+//Capturing barcodes with the native camera
+myApp.onPageInit('camera', function(page){
+	window.onload = function() {
+		if (navigator.getUserMedia) {
+			navigator.getUserMedia(
+				{
+				  video: true
+				},
+			
+				function(localMediaStream) {
+					var vid = document.getElementById('camera-stream');
+					vid.src = window.URL.createObjectURL(localMediaStream);
+				}
+			);
+		}
+	}
 });
