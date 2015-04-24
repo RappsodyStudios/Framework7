@@ -77,8 +77,12 @@ a { color: #444; }
 	top: 5px;
 }
 
-.searchbar input[type="search"] {
+[data-page="recipes"] .searchbar input[type="search"] {
 	width: 270px;
+}
+
+.searchbar input[type="search"] {
+	width: 308px;
 }
 
 .button-big {
