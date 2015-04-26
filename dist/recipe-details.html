@@ -16,9 +16,11 @@
 	<div data-page="recipe-details" class="page">
       
   	<div class="page-content">
-    	<i class="fa fa-heart fa-lg popularity">&nbsp; 32</i>
+    	
         
     	<div class="swiper-container">
+        	<i class="fa fa-heart fa-lg popularity">&nbsp; 32</i>
+            
             <div class="swiper-wrapper">
             	<div class="swiper-slide">
                 	<img src="http://kitchencloud.net/wp-content/uploads/2015/02/arugula-cheese-grinder.jpg" width="100%" height="auto">
@@ -229,7 +231,7 @@
                 </ul>
             </div><!-- End of .list-block -->
             
-            <button class="button button-big favorite">
+            <button class="button button-big favorite" onClick="favoriteAdd()">
             	<span class="pre-add"><i class="fa fa-heart fa-lg"></i>&nbsp;&nbsp;Add to Favorites</span>
                 <span class="added"><i class="fa fa-heart fa-check"></i>&nbsp;&nbsp;Added</span>
             </button>

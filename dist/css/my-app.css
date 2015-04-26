@@ -587,6 +587,7 @@ ul.legend li span.red { background: #dc5655; }
 	overflow: hidden;
 }*/
 
+.swiper-wrapper { margin-top: -50px; }
 .swiper-container { height: 200px; overflow: hidden; }
 .swiper-slide { background: #FFF; }
 .swiper-slide span {
@@ -597,7 +598,11 @@ ul.legend li span.red { background: #dc5655; }
 
 [data-page="recipe-details"] .popularity { 
 	color: #FFF;
-	display: none;
+  	display: block;
+  	position: relative;
+  	z-index: 99;
+  	top: 170px;
+  	left: 20px;
 }
 
 [data-page="recipe-details"] .detail {

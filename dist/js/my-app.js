@@ -33,7 +33,7 @@ var options = {
   'fontcolor': '#fff'
 }
 
-var welcomescreen = myApp.welcomescreen(welcomescreen_slides, options);
+//var welcomescreen = myApp.welcomescreen(welcomescreen_slides, options);
 
 // Add view
 var mainView = myApp.addView('.view-main', {
@@ -251,8 +251,13 @@ myApp.onPageInit('recipe-details', function(page){
 	
 	//Adding a Favorite
 	$$('.favorite').on('click', function() {
+		var favorites = 32;
+		
 		$$('.pre-add').hide();
 		$$('.added').show();
+		
+		favorites++;
+		$$('.popularity').text(' ' + favorites);
 	});
 });
 
@@ -274,6 +279,30 @@ myApp.onPageInit('signed-in', function(page){
 	});
 });
 
+//Paid versus Free Diets
+myApp.onPageInit('dietary', function(page){
+	$$('label.inactive').on('click', function() {
+		myApp.modal({
+		title:  'Sorry Chef',
+		text: 'To this diet requires an in-app purchase of $.99',
+		buttons: [
+		  {
+			text: 'Cancel',
+			onClick: function() {
+				//$$('label.inactive checkbox').attr('checked', false);
+			}
+		  },
+		  {
+			text: 'Buy',
+			onClick: function() {
+				//$$('label.inactive checkbox').attr('checked', true);
+			  	$$('label[for="$(this)"]').removeClass('inactive');
+			}
+		  },
+		]
+	  });
+	});
+});
 
 //Capturing barcodes with the native camera
 myApp.onPageInit('camera', function(page){
