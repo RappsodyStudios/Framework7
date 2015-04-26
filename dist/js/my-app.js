@@ -4,6 +4,37 @@ var myApp = new Framework7();
 // Export selectors engine
 var $$ = Dom7;
 
+//Defines Walkthrough Screens
+var welcomescreen_slides = [
+  {
+    id: 'slide0',
+    picture: '<img src="http://placehold.it/300x200" />',
+    text: 'Welcome to your Food Management System (FMS)'
+  },
+  {
+    id: 'slide1',
+    picture: '<div class="tutorialicon">✲</div>',
+    text: 'This is slide 2'
+  },
+  {
+    id: 'slide2',
+    picture: '<div class="tutorialicon">♫</div>',
+    text: 'This is slide 3'
+  },
+  {
+    id: 'slide3',
+    picture: '<div class="tutorialicon">☆</div>',
+    text: '<a id="tutorial-close-btn" href="#">Join us in the kitchen.</a>'
+  }
+];
+
+var options = {
+  'bgcolor': '#72A996',
+  'fontcolor': '#fff'
+}
+
+var welcomescreen = myApp.welcomescreen(welcomescreen_slides, options);
+
 // Add view
 var mainView = myApp.addView('.view-main', {
     // Because we use fixed-through navbar we can enable dynamic navbar

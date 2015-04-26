@@ -74,7 +74,7 @@ a { color: #444; }
 
 .searchbar .searchbar-clear {
 	right: 5px;
-	top: 5px;
+	top: 1px;
 }
 
 [data-page="recipes"] .searchbar input[type="search"] {
