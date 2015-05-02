@@ -203,6 +203,16 @@ a { color: #444; }
 	min-height: 40px;
 }
 
+.popup {
+	height: 78%;
+	top: auto !important;
+	bottom: 0 !important;
+	box-shadow: 4px 0 6px #666;
+	padding: 20px;
+}
+
+.popup-overlay { visibility: hidden !important; }
+
 /* Main Screen */
 #food_catalog li .item-inner {
 	border: none;
@@ -416,6 +426,8 @@ a.analytics img {
 
 [data-page="list"] .coupons { padding: 10px; }
 
+.schedule-delivery .item-input { border: none; }
+
 /* Analytics Page */
 [data-page="anayltics"] .tabs, [data-page="anayltics"] .buttons-row a.active {
 	background-color: #F1F1F1;
@@ -588,7 +600,7 @@ ul.legend li span.red { background: #dc5655; }
 }*/
 
 .swiper-wrapper { margin-top: -50px; }
-.swiper-container { height: 200px; overflow: hidden; }
+.swiper-container { height: 200px; overflow: hidden; margin-top: -15px; }
 .swiper-slide { background: #FFF; }
 .swiper-slide span {
   	text-align:center;
@@ -603,6 +615,7 @@ ul.legend li span.red { background: #dc5655; }
   	z-index: 99;
   	top: 170px;
   	left: 20px;
+	text-shadow: 0 0 4px #696969;
 }
 
 [data-page="recipe-details"] .detail {

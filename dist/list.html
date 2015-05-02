@@ -31,6 +31,47 @@
         </button>
   	</form>
     
+    <div class="popup schedule-delivery">
+            	<div class="content-block">
+                	<small class="left">Powered by Lazy Delivery</small>
+                    <a href="" class="right close-popup"><i class="fa fa-close fa-lg"></i></a>
+                    
+                    <div class="clear" style="height: 10px;"></div>
+                    
+                    <div class="list-block">
+                    	<ul>
+                    		<li>
+      							<div class="item-content">
+                                	<div class="item-title label">When</div>
+          							<div class="item-input">
+            							<input type="datetime-local">
+          							</div>
+      							</div>
+    						</li>
+                      
+                            <li>
+      							<div class="item-content">
+          							<div class="item-title label">Store</div>
+          							<div class="item-input">
+                                   		<select class="store">
+              								<option value="Winn Dixie"selected>Winn Dixie</option>
+              								<option value="Publix">Publix</option>
+                                            <!--<option value="AddStore">Add a Store...</option>-->
+            							</select>
+          							</div>
+      							</div>
+    						</li>
+                    	</ul>
+                	</div>
+                    
+                    <div class="clear" style="height: 5px;"></div>
+                    
+                    <button class="button button-big close-popup">Schedule</button>
+                    
+                    <small>By tapping the "Schedule" button you accept the terms and conditions outlined by Kitchen Cloud on our website. The card associated with your account will be charged the market price defined by the grocer you've selected for this purchase.</small>
+                </div>
+            </div>
+    
     <!-- Scrollable page content-->
     <div class="page-content">
     
@@ -40,8 +81,8 @@
        		<form id="item_form" action="" method="put">
            		<div class="list-block">
                 	<ul>
-                    	<li id="item">
-                        	<label class="label-checkbox item-content">
+                    	<li id="item" class="swipeout">
+                        	<label class="label-checkbox item-content swipeout-content">
                             	<input type="checkbox" name="my-checkbox" value="Milk">
                                     
                                     <div class="item-media">
@@ -52,10 +93,14 @@
                                       <div class="item-title">Arugula</div>
                                     </div>
                               </label>
+                              
+                              <div class="swipeout-actions-right">
+          							<a href="#" class="swipeout-delete">Remove</a>
+      						  </div>
                      	</li>
                         
-                    	<li id="item">
-                        	<label class="label-checkbox item-content">
+                    	<li id="item" class="swipeout">
+                        	<label class="label-checkbox item-content swipeout-content">
                             	<input type="checkbox" name="my-checkbox" value="Milk">
                                     
                                     <div class="item-media">
@@ -67,10 +112,14 @@
                                       <div class="item-after">&nbsp;50&cent;</div>
                                     </div>
                               </label>
+                              
+                              <div class="swipeout-actions-right">
+          							<a href="#" class="swipeout-delete">Remove</a>
+      						  </div>
                      	</li>
                             
-                       	<li id="item">
-                            	<label class="label-checkbox item-content">
+                       	<li id="item" class="swipeout">
+                            	<label class="label-checkbox item-content swipeout-content">
                                     <input type="checkbox" name="my-checkbox" value="Bread" class="checkbox">
                                     
                                     <div class="item-media">
@@ -81,12 +130,17 @@
                                       <div class="item-title">Bread</div>
                                     </div>
                               </label>
+                              
+                              <div class="swipeout-actions-right">
+          							<a href="#" class="swipeout-delete">Remove</a>
+      						  </div>
                        	</li>
                 	</ul>
     			</div><!-- End of list-block -->
           	</form>
             
-            <!--<button class="button button-big">Schedule a Pickup</button>-->
+            <button class="button button-big schedule">Schedule a Pickup</button>
+            
             
             <div class="content-block coupons">
             	<h4>Available Coupons</h4>	

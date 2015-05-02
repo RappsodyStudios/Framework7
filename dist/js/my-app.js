@@ -136,11 +136,9 @@ myApp.onPageInit('list', function(page){
 	$$('#item input[type=checkbox]').change(function(){
 		$$(this).each(function() {
 			if($$(this).is(':checked')) {
-				$$('#item').addClass('checked');
-				$$('#item .item-inner').addClass('strikeout');
+				$$(this).parent().addClass('checked');
 			} else {
-				$$('#item').removeClass('checked');
-				$$('#item .item-inner').removeClass('strikeout');
+				$$(this).parent().removeClass('checked');
 			}
 		});
 	});
@@ -148,6 +146,16 @@ myApp.onPageInit('list', function(page){
 	$$('.coupon-alert').on('click', function() {
 		myApp.alert('Please share this mobile coupon with your cashier upon checkout', 'Coupon Applied Like a Boss');
 		$$(this).css({'opacity':'0.3'});
+	});
+	
+	$$('.schedule').on('click', function() {
+  		myApp.popup('.schedule-delivery');
+	});  
+	
+	$$('button.close-popup').on('click', function() {
+		$$('#item input[type=checkbox]').attr('checked', true);
+		$$('#item input[type=checkbox]').parent().addClass('checked');
+		myApp.alert('Your card will not be charged until the groceries are picked up', 'Groceries are on Their Way');
 	});
 });
 
@@ -244,9 +252,6 @@ myApp.onPageInit('recipe-details', function(page){
    
 	$$('.missing').on('click', function() {
 		myApp.alert('Missing ingredients have been added to your shopping list', 'Experience Points Earned!'); 
-		/*function() {
-			myApp.actions(buttons);
-		});*/
 	});
 	
 	//Adding a Favorite
