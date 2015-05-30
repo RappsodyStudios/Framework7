@@ -14,6 +14,13 @@
 
 <div class="pages">
 	<div data-page="recipe-details" class="page">
+    
+    <div class="popup schedule-meal">
+    	<div class="content-block">
+        	<a href="" class="right close-popup"><i class="fa fa-close fa-lg"></i></a>
+        </div>
+	</div>
+            
       
   	<div class="page-content">
     	
@@ -231,12 +238,16 @@
                 </ul>
             </div><!-- End of .list-block -->
             
-            <button class="button button-big favorite" onClick="favoriteAdd()">
+            <button class="button button-big favorite left" onClick="favoriteAdd()">
             	<span class="pre-add"><i class="fa fa-heart fa-lg"></i>&nbsp;&nbsp;Add to Favorites</span>
                 <span class="added"><i class="fa fa-heart fa-check"></i>&nbsp;&nbsp;Added</span>
             </button>
             
-            <!--<div class="clear" style="height: 20px;"></div>-->
+            <button class="button button-big plan right">
+				<i class="fa fa-calendar fa-lg"></i>
+            </button>
+            
+            <div class="clear" style="height: 5px;"></div>
             
             <div class="list-block accordion-list">
                 <ul>

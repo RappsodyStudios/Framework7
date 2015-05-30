@@ -672,6 +672,9 @@ h3.heading small {
 [data-page="recipe-details"] button { background: #dbbc94; border: none !important; padding: 0 0 5px 0; }
 [data-page="recipe-details"] button i { padding-top: 5px; }
 
+[data-page="recipe-details"] .favorite { width: 75%; }
+[data-page="recipe-details"] .plan { width: 20%; }
+
 [data-page="recipe-details"] a.item-link .heading { font-size: 17px; }
 [data-page="recipe-details"] .accordion-item-content { padding: 0 10px !important; }
 [data-page="recipe-details"] .accordian-item-content p { margin: 0 0 10px 0; }

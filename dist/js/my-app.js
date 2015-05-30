@@ -264,6 +264,11 @@ myApp.onPageInit('recipe-details', function(page){
 		favorites++;
 		$$('.popularity').text(' ' + favorites);
 	});
+		
+	//Meal Planning
+	$$('.plan').on('click', function() {
+		myApp.popup('.schedule-meal');
+	});
 });
 
 //Interactions for the Sign-up Page
