@@ -255,7 +255,7 @@ myApp.onPageInit('recipe-details', function(page){
 	});
 	
 	//Adding a Favorite
-	$$('.favorite').on('click', function() {
+	$$('.favorite, .popularity').on('click', function() {
 		var favorites = 32;
 		
 		$$('.pre-add').hide();
