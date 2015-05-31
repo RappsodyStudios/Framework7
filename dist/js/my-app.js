@@ -148,8 +148,15 @@ myApp.onPageInit('list', function(page){
 	$$('.add-btn').hide();
 	
 	$$('#add_item').focus(function() {
-		$$('#speech_input').hide();
+		$$('.camera-activate').hide();
 		$$('.add-btn').show();
+	});
+	
+	$$('#add_item').focusout(function() {
+		$$('.add-btn').hide();
+		$$('.camera-activate').show();
+		
+		$$(this).value = "";
 	});
 	
 	$$('.add-btn').on('click', function(e) {
@@ -160,8 +167,7 @@ myApp.onPageInit('list', function(page){
 		if($$('#add_item').val().length === 0){
 			myApp.alert('It appears you forgot to add your item', 'Item not Added');
 		} else {
-			$$('ul').append(listItem);
-			//$$(this).removeAttr('value');
+			$$('ul.grocery-list').append(listItem);
 		}
 	});
 	
@@ -245,7 +251,8 @@ myApp.onPageInit('anayltics', function(page){
 
 //Particular function for the recipes screen
 myApp.onPageInit('recipes', function(page){
-	$$('#speech_input').on('click', function() {
+	$$('.vocal-search .activate').on('click', function(e) {
+		e.preventDefault();
 		myApp.popup('.voice-search');
 	});
 });
@@ -316,6 +323,12 @@ myApp.onPageInit('sign-up', function(page){
     	myApp.modalPassword('Enter a new password please:', 'Lets change things', function (password) {
     		myApp.alert('Your new password is: ' + password + '. An email has been forwarded to you. Keep it somewhere safe.', 'Nice!');
    		});
+	});
+	
+	$$('.sign-up').on('click', function(e) {
+		e.preventDefault();
+		
+		myApp.popup('.signing-up');
 	});
 });
 

@@ -77,8 +77,25 @@ a { color: #444; }
 	top: 1px;
 }
 
+.camera-activate {
+	display: block;
+	border: 0;
+    background-color: transparent;
+	float: right;
+    padding: 0 5px 0 0;
+	position: relative;
+	right: 5px;
+	z-index: 99;
+}
+
+.camera-activate a {
+	color: #c35e10;
+}
+
 [data-page="recipes"] .searchbar input[type="search"] {
-	width: 265px;
+	width: 268px;
+	position: relative;
+	z-index: 3;
 }
 
 [data-page="recipes"] .searchbar .categories {
@@ -805,7 +822,7 @@ h3.heading small {
 	Wishlist Items
 =========================================================================*/
 
-#speech_input {
+.vocal-search {
 	display: block;
 	border: 0;
     background-color:transparent;
@@ -813,11 +830,85 @@ h3.heading small {
 	float: right;
     padding: 0 5px 0 0;
 	position: relative;
-	right: 15px;
+	right: 5px;
+	z-index: 99;
 }
 
-#speech_input a { 
+.vocal-search .activate { 
 	color: #CCC;
+	padding: 40px;
 	position: relative;
-  	top: 2px;
+  	top: 0;
+}
+
+.voice-search .fa-microphone { 
+	position: relative;
+	top: 70px;
+	z-index: 99; 
+}
+
+.dot {
+	border: 10px solid #999;
+	background: transparent;
+	-webkit-border-radius: 60px;
+	-moz-border-radius: 60px;
+	border-radius: 60px;
+	height: 80px;
+	width: 80px;
+	-webkit-animation: pulse 3s ease-out;
+	-moz-animation: pulse 3s ease-out;
+	animation: pulse 3s ease-out;
+	-webkit-animation-iteration-count: infinite;
+	-moz-animation-iteration-count: infinite;
+	animation-iteration-count: infinite;
+	position: absolute;
+	top: 32.5%;
+  	left: 34.5%;
+	z-index: 1;
+	opacity: 0;
+}
+
+@-moz-keyframes pulse {
+ 0% {
+	-moz-transform: scale(0);
+	opacity: 0.0;
+ }
+ 25% {
+	-moz-transform: scale(0);
+	opacity: 0.1;
+ }
+ 50% {
+	-moz-transform: scale(0.1);
+	opacity: 0.3;
+ }
+ 75% {
+	-moz-transform: scale(0.5);
+	opacity: 0.5;
+ }
+ 100% {
+	-moz-transform: scale(1);
+	opacity: 0.0;
+ }
+}
+@-webkit-keyframes "pulse" {
+ 0% {
+	-webkit-transform: scale(0);
+	opacity: 0.0;
+ }
+ 25% {
+	-webkit-transform: scale(0);
+	opacity: 0.1;
+ }
+ 50% {
+	-webkit-transform: scale(0.1);
+	opacity: 0.3;
+ }
+ 75% {
+	-webkit-transform: scale(0.5);
+	opacity: 0.5;
+ }
+ 100% {
+	-webkit-transform: scale(1);
+	opacity: 0.0;
+ }
 }

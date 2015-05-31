@@ -3,7 +3,7 @@
 <div class="navbar">
   <div class="navbar-inner">
     <div class="left"><a href="#" class="back link"> <i class="icon icon-back"></i><span>Back</span></a></div>
-    <div class="center sliding">User Settings</div>
+    <div class="center sliding">KITCHEN CLOUD</div>
   </div>
 </div>
 
@@ -12,9 +12,71 @@
   	<div data-page="sign-up" class="page">
     	<!-- Scrollable page content-->
     	<div class="page-content" style="margin:0 10px;">
+        
+        	<div class="popup signing-up">
+            	<div class="content-block">
+                	We'd like to welcome you to the kitchen
+                    
+                    <form id="sign_up_form" action="" method="put">
+                    	<div class="list-block">
+                        	<ul>
+                            	<li>
+                                	<div class="item-content">
+                                        <div class="item-inner">
+                                          <div class="item-input">
+                                            <input type="text" placeholder="Name">
+                                          </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                
+                                <li>
+                                	<div class="item-content">
+                                        <div class="item-inner">
+                                          <div class="item-input">
+                                            <input type="text" placeholder="Email">
+                                          </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                
+                                <li>
+                                	<div class="item-content">
+                                        <div class="item-inner">
+                                          <div class="item-input">
+                                            <input type="text" placeholder="Password">
+                                          </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                
+                                <li>
+                                	<div class="item-content">
+                                        <div class="item-inner">
+                                          <div class="item-input">
+                                            <select class="prowess">
+                                            	<option selected>Select a Culinary Aptitude</option>
+                                                <option value="Beginner">Beginner</option>
+                                                <option value="Moderate">I'm a Good Cook</option>
+                                                <option value="Expert">Expert Chef</option>
+                                            </select>
+          								  </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                            
+                            <div class="clear" style="height: 20px;"></div>
+                            
+                            <button class="button button-big">Sign-Up</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
         	<h2>Sign-In to Your Account</h2>
             
-            <form id="sign_in_form" action="" method="put">
+            <form id="sign_in_form" action="" method="get">
         	<div class="list-block">
   				<ul>
     				<li>
@@ -45,6 +107,8 @@
             </form>
             
             <p align="center"><a href="" style="font-size:16px; color:#999;" class="password-modal">Forgot your password?</a></p>
+            
+            <p align="center"><a class="sign-up" href="" style="font-size:16px; color:#999;">Don't have an account? Sign up today!</a></p>
             
             <!--<div class="divide">
             	<span class="left-divide"></span>

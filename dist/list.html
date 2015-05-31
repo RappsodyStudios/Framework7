@@ -19,16 +19,14 @@
   	<!-- Search bar -->
   	<form data-search-list="list-block-search" data-search-in="item-title" class="searchbar">
     	<div class="searchbar-input">	
-      		<input type="search" placeholder="Add an Item" id="add_item"><a href="#" class="searchbar-clear"></a>
+      		<input type="search" placeholder="Add an Item" id="add_item" value=""><a href="#" class="searchbar-clear"></a>
     	</div>
     	
-        <button id="speech_input">
+        <button class="camera-activate">
     		<a href="camera.html"><i class="fa fa-barcode fa-3x"></i></a>
    		</button>
         
-        <button class="add-btn">
-        	Add
-        </button>
+        <input type="reset" class="add-btn" value="Add">
   	</form>
     
     <div class="popup schedule-delivery">
@@ -80,7 +78,7 @@
         <div class="content-block">
        		<form id="item_form" action="" method="put">
            		<div class="list-block">
-                	<ul>
+                	<ul class="grocery-list">
                     	<li id="item" class="swipeout">
                         	<label class="label-checkbox item-content swipeout-content">
                             	<input type="checkbox" name="my-checkbox" value="Milk">
