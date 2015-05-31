@@ -33,6 +33,38 @@ var options = {
   'fontcolor': '#fff'
 }
 
+/*var monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August' , 'September' , 'October', 'November', 'December'];
+ 
+var calendarInline = myApp.calendar({
+    container: '#calendar-inline-container',
+    value: [new Date()],
+    weekHeader: false,
+    toolbarTemplate: 
+        '<div class="toolbar calendar-custom-toolbar">' +
+            '<div class="toolbar-inner">' +
+                '<div class="left">' +
+                    '<a href="#" class="link icon-only"><i class="icon icon-back"></i></a>' +
+                '</div>' +
+                '<div class="center"></div>' +
+                '<div class="right">' +
+                    '<a href="#" class="link icon-only"><i class="icon icon-forward"></i></a>' +
+                '</div>' +
+            '</div>' +
+        '</div>',
+    onOpen: function (p) {
+        $$('.calendar-custom-toolbar .center').text(monthNames[p.currentMonth] +', ' + p.currentYear);
+        $$('.calendar-custom-toolbar .left .link').on('click', function () {
+            calendarInline.prevMonth();
+        });
+        $$('.calendar-custom-toolbar .right .link').on('click', function () {
+            calendarInline.nextMonth();
+        });
+    },
+    onMonthYearChangeStart: function (p) {
+        $$('.calendar-custom-toolbar .center').text(monthNames[p.currentMonth] +', ' + p.currentYear);
+    }
+});  
+*/
 //var welcomescreen = myApp.welcomescreen(welcomescreen_slides, options);
 
 // Add view
@@ -212,6 +244,13 @@ myApp.onPageInit('anayltics', function(page){
 });
 
 //Particular function for the recipes screen
+myApp.onPageInit('recipes', function(page){
+	$$('#speech_input').on('click', function() {
+		myApp.popup('.voice-search');
+	});
+});
+
+//Particular function for the recipe details screen
 myApp.onPageInit('recipe-details', function(page){
 	  //Hidden Objects and Elements
 	  $$('.added').hide();
