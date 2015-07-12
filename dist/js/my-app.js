@@ -247,6 +247,25 @@ myApp.onPageInit('anayltics', function(page){
 	
 	var ctxDoughnut = document.getElementById("chart_area").getContext("2d");
 	window.myDoughnut = new Chart(ctxDoughnut).Doughnut(doughnutData, {responsive : true});
+	
+	$$('.timeline').on('change', function(){
+		//Updates the information
+		if (this.value == 'day') {
+			$$('p.amount').html('$18<sup>.23</sup>');
+			$$('.cost small').html('A Day');
+			$$('span.consumed').html('21%');
+			
+		} else if (this.value == 'week') {
+			$$('p.amount').html('$36<sup>.15</sup>');
+			$$('.cost small').html('A Week');
+			$$('span.consumed').html('42%');
+			
+		} else if (this.value == 'month') {
+			$$('p.amount').html('$82<sup>.75</sup>');
+			$$('.cost small').html('A Month');
+			$$('span.consumed').html('77%');
+		}
+	});
 });
 
 //Particular function for the recipes screen

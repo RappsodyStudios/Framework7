@@ -18,26 +18,24 @@
   <div data-page="anayltics" class="page">
     <!-- Scrollable page content-->
     <div class="page-content">
-    
-    	<div class="clear">&nbsp;</div>
         
-      	<div class="buttons-row">
-            <a class="tab-link active button" href="#tab1">
-                Day
-            </a><!-- End of Tab 1 -->
-            
-            <a class="tab-link button" href="#tab2">
-                Week
-            </a><!-- End of Tab 2 -->
-            
-            <a class="tab-link button" href="#tab3">
-                Month
-            </a><!-- End of Tab 3 -->
-            
-            <a class="tab-link button custom" href="#tab4">
-                <i class="fa fa-plus fa-lg"></i>
-            </a><!-- End of Tab 4 -->
-      	</div><!-- tabs -->
+        <div class="list-block" style="margin: 10px 0;">
+        	<ul>
+                <li>
+                    <div class="item-content">
+                    	<div class="item-title label">Timeline</div>
+                        
+                        <div class="item-input">
+                            <select class="timeline">
+                                <option value="day" selected>Day</option>
+                                <option value="week">Week</option>
+                                <option value="month">Month</option>                            
+                            </select>
+                        </div>
+                    </div>
+                </li>
+           	</ul>
+        </div>
         
         <div class="tabs">
         	<div id="tab1" class="tab active">
@@ -77,79 +75,6 @@
                 </div>
             </div>
             
-            <div id="tab2" class="tab">
-            	<div class="content-block">
-            		<div class="activity">
-                    	<canvas id="line_chart" height="150" width="200"></canvas>
-                    </div>
-                    
-                    <hr>
-                    
-                    <div class="use-percentage" id="canvas-holder">
-                    	<div style="width: 40%; float: left;">
-                    		<canvas id="chart_area" width="100" height="100"/>
-                        </div>
-                        
-                        <ul class="legend">
-                        	<li><span class="blue"></span>2% Whole Milk</li>
-                            <li><span class="yellow"></span>Tartar Sauce</li>
-                            <li><span class="orange"></span>Cantaloupe</li>
-                            <li><span class="teal"></span>Fish</li>
-                            <li><span class="red"></span>French Fries</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="cost">
-                    	<h2>Wholesale Average Cost</h2>
-                        
-                        <h3>Couple</h3>
-                        
-                        <img src="img/icon-couple.png" width="55" height="auto" />
-                        
-                        <p class="amount">$85<sup>.61</sup></p>
-                        
-                        <small>A Week</small>
-                    </div>
-                </div>
-            </div>
-            
-            <div id="tab3" class="tab">
-            	<div class="content-block">
-                	<div class="activity">
-                    	<canvas id="line_chart" height="150" width="200"></canvas>
-                    </div>
-                    
-                    <div class="use-percentage">
-                    </div>
-                    
-                    <div class="cost">
-                    	<h2>Wholesale Average Cost</h2>
-                        
-                        <h3>Single Family</h3>
-                        
-                        <img src="img/icon-family.png" width="70" height="auto" />
-                        
-                        <p class="amount" style="right: 30px;">$242<sup>.83</sup></p>
-                        
-                        <small style="right: 20px;">A Month</small>
-                    </div>
-                </div>
-            </div>
-            
-            <div id="tab4" class="tab">
-            	<div class="content-block">
-                	<div class="activity">
-                    	Custom
-                    </div>
-                    
-                    <div class="use-percentage">
-                    </div>
-                    
-                    <div class="cost">
-                    	<h2>Wholesale Average Cost</h2>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
     
