@@ -33,7 +33,9 @@ var options = {
   'fontcolor': '#fff'
 }
 
-/*var monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August' , 'September' , 'October', 'November', 'December'];
+//var welcomescreen = myApp.welcomescreen(welcomescreen_slides, options);
+
+var monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August' , 'September' , 'October', 'November', 'December'];
  
 var calendarInline = myApp.calendar({
     container: '#calendar-inline-container',
@@ -64,8 +66,6 @@ var calendarInline = myApp.calendar({
         $$('.calendar-custom-toolbar .center').text(monthNames[p.currentMonth] +', ' + p.currentYear);
     }
 });  
-*/
-//var welcomescreen = myApp.welcomescreen(welcomescreen_slides, options);
 
 // Add view
 var mainView = myApp.addView('.view-main', {
