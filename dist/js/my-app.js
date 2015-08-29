@@ -101,12 +101,21 @@ $$("#scan_btn").on('click', function() {
 });
 	
 //Notification functions
-$$('.empty-message').hide();
-/*if($$('.notification:visible').length === 0){
-	$$('.empty-message').show();
-} else {
+if($$('.notification')[0]) {
 	$$('.empty-message').hide();
-};*/
+} else {
+	$$('.empty-message').show();
+	$$('.num-notices').hide();
+	$$('.panel-right').removeClass('active');
+	$$('.panel-right').css({'display':'none'});
+}
+
+/*if($$('.panel-right .content-block').is(':empty')) {
+	$$('.num-notices').hide();
+	$$('.panel-right').removeClass('active');
+	$$('.panel-right').css({'display':'none'});
+}*/
+
 
 //Interaction for the list items
 $$(".checkbox").click(function(){
@@ -226,7 +235,8 @@ myApp.onPageInit('anayltics', function(page){
 			
 
     var randomScalingFactor = function(){ return Math.round(Math.random()*12)};
-    var lineChartData = {
+	
+    var lineChartData1 = {
         labels : ["8am","10am","12pm","2pm","4pm","6pm","8pm"],
         datasets : [
             {
@@ -241,26 +251,76 @@ myApp.onPageInit('anayltics', function(page){
             }
         ]
     }
+	
+	var lineChartData2 = {
+        labels : ['Sun','Mon','Tues','Wed','Thurs','Fri','Sat'],
+        datasets : [
+            {
+                label: "Activity for: ",
+                fillColor : "rgba(250,221,153,0.2)",
+                strokeColor : "rgba(224,143,80,1)",
+                pointColor : "rgba(220,220,220,1)",
+                pointStrokeColor : "#e08f50",
+                pointHighlightFill : "#fff",
+                pointHighlightStroke : "rgba(220,220,220,1)",
+                data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor()]
+            }
+        ]
+    }
+	
+	var lineChartData3 = {
+        labels : ['08/2015','09/2015'],
+        datasets : [
+            {
+                label: "Activity for: ",
+                fillColor : "rgba(250,221,153,0.2)",
+                strokeColor : "rgba(224,143,80,1)",
+                pointColor : "rgba(220,220,220,1)",
+                pointStrokeColor : "#e08f50",
+                pointHighlightFill : "#fff",
+                pointHighlightStroke : "rgba(220,220,220,1)",
+                data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor()]
+            }
+        ]
+    }
 
-    var ctxLine = document.getElementById("line_chart").getContext("2d");
-    window.myLine = new Chart(ctxLine).Line(lineChartData, {responsive: true});
+    var ctxLine1 = document.getElementById("line_chart_day").getContext("2d");
+    window.myLine1 = new Chart(ctxLine1).Line(lineChartData1, {responsive: true});
+	
+	var ctxLine2 = document.getElementById("line_chart_week").getContext("2d");
+    window.myLine2 = new Chart(ctxLine2).Line(lineChartData2, {responsive: true});
+	
+	var ctxLine3 = document.getElementById("line_chart_month").getContext("2d");
+    window.myLine3 = new Chart(ctxLine3).Line(lineChartData3, {responsive: true});
 	
 	var ctxDoughnut = document.getElementById("chart_area").getContext("2d");
 	window.myDoughnut = new Chart(ctxDoughnut).Doughnut(doughnutData, {responsive : true});
 	
+	$$('#line_chart_week').hide();
+	$$('#line_chart_month').hide();
+	
 	$$('.timeline').on('change', function(){
 		//Updates the information
 		if (this.value == 'day') {
+			$$('#line_chart_day').show();
+			$$('#line_chart_week').hide();
+			$$('#line_chart_month').hide();
 			$$('p.amount').html('$18<sup>.23</sup>');
 			$$('.cost small').html('A Day');
 			$$('span.consumed').html('21%');
 			
 		} else if (this.value == 'week') {
+			$$('#line_chart_day').hide();
+			$$('#line_chart_week').show();
+			$$('#line_chart_month').hide();
 			$$('p.amount').html('$36<sup>.15</sup>');
 			$$('.cost small').html('A Week');
 			$$('span.consumed').html('42%');
 			
 		} else if (this.value == 'month') {
+			$$('#line_chart_day').hide();
+			$$('#line_chart_week').hide();
+			$$('#line_chart_month').show();
 			$$('p.amount').html('$82<sup>.75</sup>');
 			$$('.cost small').html('A Month');
 			$$('span.consumed').html('77%');

@@ -3,6 +3,10 @@
 	background-size: 50%;
 }
 
+.statusbar-overlay {
+    background: #74baa2 !important;
+}
+
 .navbar {
 	color: #fff;
 	left: 0;
@@ -629,6 +633,12 @@ a.analytics img {
 [data-page="analytics"] hr {
 	background: #CCC;
 	height: 1px;	
+}
+
+.food-waste-heading {
+	color: #444;
+	font-weight: 400;
+	margin: 0 0 5px 0;
 }
 
 .consumed {
