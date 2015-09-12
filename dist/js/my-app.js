@@ -4,78 +4,10 @@ var myApp = new Framework7();
 // Export selectors engine
 var $$ = Dom7;
 
-//Defines Walkthrough Screens
-var welcomescreen_slides = [
-  {
-    id: 'slide0',
-    picture: '<img src="http://placehold.it/300x200" />',
-    text: 'Welcome to your Food Management System (FMS)'
-  },
-  {
-    id: 'slide1',
-    picture: '<div class="tutorialicon">✲</div>',
-    text: 'This is slide 2'
-  },
-  {
-    id: 'slide2',
-    picture: '<div class="tutorialicon">♫</div>',
-    text: 'This is slide 3'
-  },
-  {
-    id: 'slide3',
-    picture: '<div class="tutorialicon">☆</div>',
-    text: '<a id="tutorial-close-btn" href="#">Join us in the kitchen.</a>'
-  }
-];
-
-var options = {
-  'bgcolor': '#72A996',
-  'fontcolor': '#fff'
-}
-
-//var welcomescreen = myApp.welcomescreen(welcomescreen_slides, options);
-
-var monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August' , 'September' , 'October', 'November', 'December'];
- 
-var calendarInline = myApp.calendar({
-    container: '#calendar-inline-container',
-    value: [new Date()],
-    weekHeader: false,
-    toolbarTemplate: 
-        '<div class="toolbar calendar-custom-toolbar">' +
-            '<div class="toolbar-inner">' +
-                '<div class="left">' +
-                    '<a href="#" class="link icon-only"><i class="icon icon-back"></i></a>' +
-                '</div>' +
-                '<div class="center"></div>' +
-                '<div class="right">' +
-                    '<a href="#" class="link icon-only"><i class="icon icon-forward"></i></a>' +
-                '</div>' +
-            '</div>' +
-        '</div>',
-    onOpen: function (p) {
-        $$('.calendar-custom-toolbar .center').text(monthNames[p.currentMonth] +', ' + p.currentYear);
-        $$('.calendar-custom-toolbar .left .link').on('click', function () {
-            calendarInline.prevMonth();
-        });
-        $$('.calendar-custom-toolbar .right .link').on('click', function () {
-            calendarInline.nextMonth();
-        });
-    },
-    onMonthYearChangeStart: function (p) {
-        $$('.calendar-custom-toolbar .center').text(monthNames[p.currentMonth] +', ' + p.currentYear);
-    }
-});  
-
 // Add view
 var mainView = myApp.addView('.view-main', {
     // Because we use fixed-through navbar we can enable dynamic navbar
     dynamicNavbar: true
-});
-
-//Swiping Media Content Left to Right
-var mySwiper = myApp.swiper('.swiper-container', {
-    pagination:'.swiper-pagination'
 });
 
 //Push Notifications 
@@ -101,7 +33,7 @@ $$("#scan_btn").on('click', function() {
 });
 	
 //Notification functions
-if($$('.notification')[0]) {
+if($$('.panel-right .notification') < 1) {
 	$$('.empty-message').hide();
 } else {
 	$$('.empty-message').show();
@@ -109,12 +41,6 @@ if($$('.notification')[0]) {
 	$$('.panel-right').removeClass('active');
 	$$('.panel-right').css({'display':'none'});
 }
-
-/*if($$('.panel-right .content-block').is(':empty')) {
-	$$('.num-notices').hide();
-	$$('.panel-right').removeClass('active');
-	$$('.panel-right').css({'display':'none'});
-}*/
 
 
 //Interaction for the list items
