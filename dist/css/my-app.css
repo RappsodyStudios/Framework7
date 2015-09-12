@@ -13,6 +13,7 @@
 	top: 0;
 	background: #74baa2;
 	border-bottom: 4px solid #699c8b;
+	height: 35px;
 }
 
 .navbar a.icon-only {
@@ -28,10 +29,14 @@
 	text-transform: uppercase;
 }
 
+.navbar-through .page-content { padding-top:35px !important; }
+
 .panel {
 	background: #fff;
 	color: #444;
 }
+
+.modal { background: rgba(0,0,0,.6) !important;}
 
 a { color: #444; }
 
@@ -342,6 +347,8 @@ a { color: #444; }
 .multi-line {
 	min-height: 40px;
 }
+
+html.with-statusbar-overlay .popup { height: calc(92% - 20px) !important; }
 
 .popup {
 	height: 78%;

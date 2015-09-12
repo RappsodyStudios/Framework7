@@ -19,10 +19,21 @@ var mainView = myApp.addView('.view-main', {
 	});
 });*/
 
+//Variable for notifications
+var notices = 2;
+
 //Remove Items 
 $$(".fa-times").on('click', function() {
+	'use strict';
 	$$(this).parent().remove();
+	$$('.num-notices').hide();
 });
+
+//Notification functions
+if(notices < 1) {
+	alert('Heyo');
+	$$('.navbar-inner .right .num-notices').hide();
+}
 
 //Camera Basic UI
 $$(".viewport").addClass("hide");
@@ -31,16 +42,6 @@ $$("#scan_btn").on('click', function() {
 	$$(".viewport").removeClass("show");
 	$$(this).hide();
 });
-	
-//Notification functions
-if($$('.panel-right .notification') < 1) {
-	$$('.empty-message').hide();
-} else {
-	$$('.empty-message').show();
-	$$('.num-notices').hide();
-	$$('.panel-right').removeClass('active');
-	$$('.panel-right').css({'display':'none'});
-}
 
 
 //Interaction for the list items
