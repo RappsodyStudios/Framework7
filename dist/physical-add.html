@@ -1,46 +1,23 @@
-<!-- Top Navbar-->
 <div class="navbar">
   <div class="navbar-inner">
-    <div class="center">KITCHEN CLOUD</div>
-    <div class="right">
-    	<a href="#" data-panel="right" class="link icon-only open-panel">
-        	<div class="num-notices"><span>2</span></div>
-           	<i class="fa fa-bullhorn fa-lg"></i>
-       	</a>
-  	</div>
+  		<div class="left"><a href="#" class="back link"><i class="icon icon-back"></i><span>Back</span></a></div>
+  		<div class="center sliding">KITCHEN CLOUD</div>
   </div>
 </div>
 
-<div class="pages navbar-through toolbar-fixed">
+<div class="pages right-view">
   <!-- Page, data-page contains page name-->
   <div data-page="addition" class="page">
-    <!-- Scrollable page content-->
-    <div class="page-content">
-      <div class="content-block">
-        <div class="content-block-inner">
-          
-          	<div id="addition">
-                <form class="searchbar">
-                    <div class="searchbar-input">
-                        <input type="search" placeholder="Search for Food"> 
-                        <a href="#" class="searchbar-clear"></a>
-                    </div>
-                </form>
-               
-                <div class="scan">    
-                    <a class="button active link" id="scan_btn" href="camera.html"><i class="fa fa-barcode fa-lg">&nbsp;&nbsp;Scan It</i></a>
-                </div><!-- End of Scan -->
-                
-                <div id="interactive" class="viewport hide">
-                	<a class="link">DONE</a>
-                </div>
-        	</div><!-- End of Addition -->
-        </div>
+  		<div class="page-content">
         
-        <div class="clear"></div>
+  		<form data-search-list="list-block-search" data-search-in="item-title" class="searchbar">
+            <div class="searchbar-input">	
+                <input type="search" placeholder="Search for Items" class="search-history"><a href="#" class="searchbar-clear"></a>
+            </div>
+        </form>
         
-        <div class="list-block">
-        	<ul>
+        <div class="list-block list-block-search searchbar-found">
+        	<ul id="history">
             	<li class="item-content" onClick="remove()">
           			<div class="item-inner">
             			<div class="item-title">2% Whole Milk</div>
@@ -63,8 +40,23 @@
         		</li>
             </ul>
        	</div>
+    	
+        <!-- Scrollable page content-->
+      	<div class="content-block">
+        	<div class="content-block-inner">
         
+          	<div id="addition">
+            	<div class="scan">    
+                    <a class="button active link" id="scan_btn" href="camera.html"><i class="fa fa-barcode fa-lg">&nbsp;&nbsp;Scan Receipt</i></a>
+                </div><!-- End of Scan -->
+                
+                <div id="interactive" class="viewport hide">
+                	<a class="link">DONE</a>
+                </div>
+        	</div><!-- End of Addition -->
+        </div>
         
+        <div class="clear"></div>
       </div>
     </div>
     

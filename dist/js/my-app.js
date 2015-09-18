@@ -79,6 +79,16 @@ myApp.onPageInit('details', function(page){
 	
 });
 
+//Interactions for the Physically Adding Items
+myApp.onPageInit('addition', function(page){
+	'use strict';
+	if($$('.search-history').is(':focus')) {
+ 		$$('div.list-block-search').show();
+	} else {
+		$$('div.list-block-search').hide();
+	}
+});
+
 //UI Functionality for the grocery list
 myApp.onPageInit('list', function(page){
 	$$('.add-btn').hide();

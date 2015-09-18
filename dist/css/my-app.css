@@ -75,7 +75,7 @@ a { color: #444; }
 	border: none;
 }
 
-.searchbar {
+.page > .searchbar, .searchbar {
 	background-color: #e08f50;
 	height: 50px;
 	padding: 5px;
@@ -100,6 +100,8 @@ a { color: #444; }
 .camera-activate a {
 	color: #c35e10;
 }
+
+[data-page="recipes"] .searchbar { top: 35px !important; }
 
 [data-page="recipes"] .searchbar input[type="search"] {
 	width: 268px;
@@ -517,7 +519,7 @@ a.analytics img {
 }
 
 /* List Page */
-[data-page="list"] .searchbar { margin-top: 0; }
+[data-page="list"] .searchbar { margin-top: 0; top: 35px !important; }
 [data-page="list"] input[type="search"] { width: 95%; }
 [data-page="list"] .add-btn { 
 	background: transparent;
