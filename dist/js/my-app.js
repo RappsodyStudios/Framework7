@@ -10,6 +10,40 @@ var mainView = myApp.addView('.view-main', {
     dynamicNavbar: true
 });
 
+// Dummy Content
+//var songs = ['Yellow Submarine', 'Don\'t Stop Me Now', 'Billie Jean', 'Californication'];
+//var authors = ['Beatles', 'Queen', 'Michael Jackson', 'Red Hot Chili Peppers'];
+ 
+// Pull to refresh content
+/*var ptrContent = $$('.pull-to-refresh-content');
+ 
+// Add 'refresh' listener on it
+ptrContent.on('refresh', function (e) {
+    // Emulate 2s loading
+    setTimeout(function () {
+        // Random image
+        var picURL = 'http://hhhhold.com/88/d/jpg?' + Math.round(Math.random() * 100);
+        // Random song
+        var song = songs[Math.floor(Math.random() * songs.length)];
+        // Random author
+        var author = authors[Math.floor(Math.random() * authors.length)];
+        // List item html
+        var itemHTML = '<li class="item-content">' +
+                          '<div class="item-media"><img src="' + picURL + '" width="44"/></div>' +
+                          '<div class="item-inner">' +
+                            '<div class="item-title-row">' +
+                              '<div class="item-title">' + song + '</div>' +
+                            '</div>' +
+                            '<div class="item-subtitle">' + author + '</div>' +
+                          '</div>' +
+                        '</li>';
+        // Prepend new list element
+        ptrContent.find('ul').prepend(itemHTML);
+        // When loading done, we need to reset it
+        myApp.pullToRefreshDone();
+    }, 2000);
+*/
+
 //Push Notifications 
 /*$$(this).on('load', function () {
 	myApp.addNotification({
@@ -53,6 +87,13 @@ $$(".checkbox").click(function(){
 	}
 });
 	
+//Particular function for the index screen
+myApp.onPageInit('index', function(page){
+	'use strict';
+	$$('.fa-plus').on('click', function(){
+		myApp.popup('.schedule-meal');
+	});
+});
 
 //Particular function for the item details screen
 myApp.onPageInit('details', function(page){
@@ -267,6 +308,7 @@ myApp.onPageInit('anayltics', function(page){
 
 //Particular function for the recipes screen
 myApp.onPageInit('recipes', function(page){
+	'use-strict';
 	$$('.vocal-search .activate').on('click', function(e) {
 		e.preventDefault();
 		myApp.popup('.voice-search');
@@ -399,3 +441,27 @@ myApp.onPageInit('camera', function(page){
 		}
 	}
 });
+
+function cameraAccess() {
+	'use strict';
+	
+	navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+
+	if (navigator.getUserMedia) {
+	   navigator.getUserMedia({ audio: true, video: { width: 1280, height: 720 } },
+		  function(stream) {
+			 var video = document.querySelector('video');
+			 video.src = window.URL.createObjectURL(stream);
+			 video.onloadedmetadata = function(e) {
+				e.preventDefault();
+			 	video.play();
+			 };
+		  },
+		  function(err) {
+			 console.log("The following error occurred: " + err.name);
+		  }
+	   );
+	} else {
+	   console.log("getUserMedia not supported");
+	}
+}

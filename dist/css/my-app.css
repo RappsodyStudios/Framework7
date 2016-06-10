@@ -4,9 +4,13 @@
 }
 
 .statusbar-overlay {
-    background: #74baa2 !important;
+    background-color: #74baa2 !important;
 }
 
+
+/*=========================================================================
+	Navigation
+=========================================================================*/
 .navbar {
 	color: #fff;
 	left: 0;
@@ -17,7 +21,6 @@
 }
 
 .navbar a.icon-only {
-	right: 5px;
 	top: 1px;
 }
 
@@ -35,6 +38,51 @@
 	background: #fff;
 	color: #444;
 }
+
+.panel-left {
+	background: #725f50;
+	-webkit-box-shadow: inset -3px 0px 5px 0px rgba(0,0,0,0.75);
+	-moz-box-shadow: inset -3px 0px 5px 0px rgba(0,0,0,0.75);
+	box-shadow: inset -3px 0px 5px 0px rgba(0,0,0,0.75);
+	color: #FFF !important;
+}
+
+.panel-left h2 {
+	color: #A08871;
+	font-size: 24px;
+	font-weight: normal;
+	text-align: center;
+}
+
+.panel-left h2:before { content: "-"; }
+.panel-left h2:after { content: "-"; }
+
+.menu {
+	position: absolute;
+	left: -40px;
+	top: 50px;
+	width: 100%;
+}
+
+.menu li { 
+	border-bottom: 1px solid #A08871;
+	list-style-type: none;
+	text-decoration: none;
+	padding: 10px 20px; 
+	width: 100%;
+}
+
+.menu li, .menu li span { color: #FFF; }
+.menu li span { 
+	font-size: 18px;
+	position: relative;
+	top: -5px;
+	left: 10px;
+}
+
+.navbar .left a img {
+}
+
 
 .modal { background: rgba(0,0,0,.6) !important;}
 
@@ -61,7 +109,8 @@ a { color: #444; }
 }
 
 .toolbar {
-	background: #725f50;
+	background: #74BAA2;
+	color: #fff;
 	position: fixed;
 	bottom:0;
 }
@@ -104,8 +153,10 @@ a { color: #444; }
 [data-page="recipes"] .searchbar { top: 35px !important; }
 
 [data-page="recipes"] .searchbar input[type="search"] {
-	width: 268px;
+	min-width: 320px;
+	width: 100%;
 	position: relative;
+	left: 5px;
 	z-index: 3;
 }
 
@@ -229,7 +280,7 @@ a { color: #444; }
 
 
 .searchbar input[type="search"] {
-	width: 308px;
+	width: 100%;
 }
 
 .button-big {
@@ -295,6 +346,10 @@ a { color: #444; }
 }
 
 /* Notifications */
+.notices {
+	margin-top: 330px;
+}
+
 .fa-bullhorn {
 	position: relative;
 	z-index: 3;
@@ -322,6 +377,7 @@ a { color: #444; }
 }
 
 .notification {
+	clear: both;
 	padding: 10px;
 	margin-bottom: 10px;
 	min-height: 20px;
@@ -412,14 +468,14 @@ ul#food_catalog li {
 
 .toolbar-inner a.analytics {
 	background-color: #725f50;
-	border-radius: 71px;
+	border-radius: 300px;
 	padding-top: 0px;
 	padding-right: 0px;
 	padding-left: 0px;
 	padding-bottom: 0px;
 	position: relative;
 	top: -5px;
-	height: 60px;
+	height: 70px;
 }
 
 a.analytics img {
@@ -520,7 +576,6 @@ a.analytics img {
 
 /* List Page */
 [data-page="list"] .searchbar { margin-top: 0; top: 35px !important; }
-[data-page="list"] input[type="search"] { width: 95%; }
 [data-page="list"] .add-btn { 
 	background: transparent;
 	border: none;
@@ -553,8 +608,11 @@ a.analytics img {
 }
 
 [data-page="list"] input[type="text"] {
+	border: none;
 	float: left;
-	width: 60%;
+	font-size:14px;
+	height: 22px;
+	width: 92%;
 }
 
 [data-page="list"] button.button-big {
@@ -836,6 +894,27 @@ h3.heading small {
 [data-page="recipe-details"] .accordian-item-content .commenter { color: #999; }
 
 [data-page="recipe-details"] .add-comment { margin-top: 10px; }
+
+
+/*=========================================================================
+	Julia
+=========================================================================*/
+
+.julia-icon {
+	background: #699c8b;
+	border-radius: 90px;
+	bottom: 10px;
+	height: 70px;
+	padding: 20px;
+	position: relative;
+	right: 15px;
+	width: 70px;
+}
+
+.julia-icon i {
+	position: relative;
+	left: 18px;
+}
 
 /*=========================================================================
 	Wishlist Items
