@@ -6,7 +6,7 @@ var $$ = Dom7;
 
 //Julia API Machine Learning AI
 
-var accessToken = "dafc86bb648b4deca941ac934deda6e2",
+/*var accessToken = "dafc86bb648b4deca941ac934deda6e2",
     subscriptionKey = "4c62f0fa-adf8-4ec0-ba8b-098271ca3361",
     baseUrl = "https://api.api.ai/v1/",
     $speechInput,
@@ -126,3 +126,54 @@ var accessToken = "dafc86bb648b4deca941ac934deda6e2",
       }
       
 	  $("#spokenResponse").addClass("is-active").find(".spoken-response__text").html(val);
+*/
+
+var hello = jQuery.parseJSON({
+  "id": "3c0585ef-b3eb-4e3b-b1f2-a3c3fb9a61bb",
+  "timestamp": "2016-11-16T13:07:48.759Z",
+  "result": {
+    "source": "agent",
+    "resolvedQuery": "hello Julie",
+    "action": "Hello",
+    "actionIncomplete": false,
+    "parameters": {
+      "given-name": "Julie"
+    },
+    "contexts": [],
+    "metadata": {
+      "intentId": "a81fc3fd-1c60-406a-b5d5-ad5cdda0a972",
+      "webhookUsed": "false",
+      "intentName": "Hi Julia"
+    },
+    "fulfillment": {
+      "speech": "Hi there. Where would you like to get started?",
+      "messages": [
+        {
+          "type": 0,
+          "speech": "Hi there. Where would you like to get started?"
+        }
+      ]
+    },
+    "score": 1
+  },
+  "status": {
+    "code": 200,
+    "errorType": "success"
+  },
+  "sessionId": "18114b6f-1601-461a-9974-75046ff67720"
+});
+
+
+if (annyang) {
+  // Let's define our first command. First the text we expect, and then the function it should call
+  var commands = {
+	'use strict';  
+    'hello julia': function() {hello}
+  }
+
+  // Add our commands to annyang
+  annyang.addCommands(commands);
+
+  // Start listening. You can call this here, or attach this call to an event, button, etc.
+  annyang.start();
+}

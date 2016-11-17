@@ -2,27 +2,71 @@
 <!-- Top Navbar-->
 <div class="navbar">
 	<div class="navbar-inner">
-    	<div class="center sliding">Kitchen Cloud</div>
-    	
-        <div class="right">
-        	<a href="#" data-panel="right" class="link icon-only open-panel">
-           		<div class="num-notices"><span>2</span></div>
-              	<i class="fa fa-bullhorn fa-lg"></i>
-        	</a>
-     	</div>
+    	<div class="left">
+            	<a href="#" data-panel="left" class="link open-panel">
+            		<img src="img/icon-menu.png" id="nav_menu" width="24" height="24" alt="Hamburger Menu" />
+               	</a>
+            </div>
+            <div class="center sliding">Kitchen Cloud</div>
+            <div class="right">
+              <a href="#" data-panel="right" class="link icon-only open-panel">
+              		<i class="fa fa-microphone fa-lg"></i>
+              	</a>
+            </div>
   	</div>
 </div>
 
 <div class="pages toolbar-through">
   <!-- Page, data-page contains page name-->
   <div data-page="settings" class="page">
+   
+   		<div class="popup signing-up">
+   			<a href="" class="right close-popup"><i class="fa fa-close fa-lg"></i></a>
+    		<form id="sign_in_form" action="" method="get">
+        	<div class="list-block">
+  				<ul>
+    				<li>
+                   		<div class="item-content">
+                            <div class="item-inner">
+                              <div class="item-input">
+                                <input type="text" placeholder="Username or Email">
+                              </div>
+                            </div>
+                     	</div>
+                  	</li>
+                    <li>
+                   		<div class="item-content">
+                            <div class="item-inner">
+                              <div class="item-input">
+                                <input type="password" placeholder="Password">
+                              </div>
+                            </div>
+                     	</div>
+                  	</li>
+              	</ul>
+        	</div>
+            
+            <a href="user-settings-signed-in.html">
+            	<button class="button button-big">Sign-In</button>
+            </a>
+            
+            </form>
+            
+            <button class="button button-big facebook-btn">Sign-In with Facebook</button>
+            
+            <p align="center"><a href="" style="font-size:16px; color:#999;" class="password-modal">Forgot your password?</a></p>
+            
+            <p align="center"><a class="sign-up" style="font-size:16px; color:#999;">Don't have an account? Sign up today!</a></p>  
+  		</div>
+  		
     <!-- Scrollable page content-->
     <div class="page-content">
+   
    		<div class="list-block">
   			<ul>
     			<li>
-      				<a href="sign-up.html" class="item-link item-content">
-        				<div class="item-inner">
+      				<a href="" class="item-link item-content">
+        				<div class="item-inner sign-in">
           					<div class="item-title">Sign-In</div>
         				</div>
       				</a>
@@ -76,17 +120,6 @@
     			</li><!-- End of List Item -->
     		</ul>
     	</div><!-- End of list-block -->
-    
-    <!-- Bottom Toolbar-->
-        <div class="toolbar tabbar">
-          	<div class="toolbar-inner">
-       			<a href="index.html" class="link active"><img src="img/icon-pantry.png" width="25" height="29"></a>
-             	<a href="list.html" class="link"><img src="img/icon-list.png" width="21" height="29"></a>
-              	<a href="analytics.html" class="link analytics"><img src="img/icon-analytics.png" width="40" height="40"></a>
-             	<a href="recipes.html" class="link"><img src="img/icon-recipes.png" width="29" height="29"></a>
-             	<a href="user-settings.html" class="link"><img src="img/icon-user.png" width="29" height="29"></a>
-          	</div>
-        </div>
          
   </div>
 </div>

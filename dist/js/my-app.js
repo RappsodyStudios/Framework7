@@ -53,6 +53,17 @@ ptrContent.on('refresh', function (e) {
 	});
 });*/
 
+//Hamburger Menu Animate
+var image = new Image();
+
+image.src = '../img/icon-menu.gif';
+//image.src = 'gs://kitchencloud-polymer.appspot.com/ui/icon-menu.gif';
+
+$$("#nav_menu").click(function(){
+	'use strict';
+    $$(this).attr('src',image.src);
+});
+
 //Variable for notifications
 var notices = 2;
 
@@ -309,9 +320,19 @@ myApp.onPageInit('anayltics', function(page){
 //Particular function for the recipes screen
 myApp.onPageInit('recipes', function(page){
 	'use-strict';
-	$$('.vocal-search .activate').on('click', function(e) {
-		e.preventDefault();
-		myApp.popup('.voice-search');
+	
+	// Init slider and store its instance in mySwiper variable
+	var mySwiper = myApp.swiper('.swiper-container', {
+    	pagination:'.swiper-pagination'
+	});
+	
+	$$('.swiper-content small.close').on('click', function() {
+		'use strict';
+		$$('.swiper-container').hide();
+	});
+	
+	$$('.category-link').on('click', function() {
+		myApp.popup('.food-categories');
 	});
 });
 
@@ -375,18 +396,20 @@ myApp.onPageInit('recipe-details', function(page){
 	});
 });
 
+//Settings Page
+myApp.onPageInit('settings', function(page){
+	'use strict';
+	$$('.sign-in').on('click', function() {
+		myApp.popup('.signing-up');
+	});
+});
+
 //Interactions for the Sign-up Page
 myApp.onPageInit('sign-up', function(page){
 	$$('.password-modal').on('click', function () {
     	myApp.modalPassword('Enter a new password please:', 'Lets change things', function (password) {
     		myApp.alert('Your new password is: ' + password + '. An email has been forwarded to you. Keep it somewhere safe.', 'Nice!');
    		});
-	});
-	
-	$$('.sign-up').on('click', function(e) {
-		e.preventDefault();
-		
-		myApp.popup('.signing-up');
 	});
 });
 
@@ -421,6 +444,16 @@ myApp.onPageInit('dietary', function(page){
 		  },
 		]
 	  });
+	});
+});
+
+//Paid versus Free Diets
+myApp.onPageInit('cards', function(page){
+	'use strict';
+	$$('.not-found').hide();
+	
+	$$('.item-content').on('remove', function(){
+		$$('.not-found').show();
 	});
 });
 

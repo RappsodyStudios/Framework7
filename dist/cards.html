@@ -2,17 +2,16 @@
 <!-- We don't need full layout here, because this page will be parsed with Ajax-->
 <!-- Top Navbar-->
 <div class="navbar">
-  <div class="navbar-inner">
-  		<div class="left"><a href="#" class="back link"><i class="icon icon-back"></i><span>Back</span></a></div>
-      	<div class="center" id="title">KITCHEN CLOUD</div>
-      	<div class="right">
+	<div class="navbar-inner">
+    	<div class="left"><a href="#" class="back link"><i class="icon icon-back"></i><span>Back</span></a></div>	
+        <div class="center sliding">Kitchen Cloud</div>
+        <div class="right">
         	<a href="#" data-panel="right" class="link icon-only open-panel">
-           		<div class="num-notices"><span>2</span></div>
-              	<i class="fa fa-bullhorn fa-lg"></i>
-        	</a>
+            	<i class="fa fa-microphone fa-lg"></i>
+            </a>
      	</div>
-  </div>
-</div><!-- End of .navbar -->
+  	</div>
+</div>
 
 <div class="pages">
 <!-- Page, data-page contains page name-->
@@ -23,11 +22,7 @@
     	<div class="clear">&nbsp;</div>
 		
         <div class="content-block">
-        	<div class="content-block searchbar-not-found">
-                	There are currently no cards listed on this account.
-        	</div>
-                
-       		<form id="item_form" action="" method="put">
+        	<form id="item_form" action="" method="put">
            		<div class="list-block" style="margin-top: 0;">
                 	<ul>
                     	<li class="item-content swipeout">
@@ -53,6 +48,14 @@
                 	</ul>
     			</div><!-- End of list-block -->
           	</form>
+          	
+          	<div class="content-block not-found">
+                	There are currently no cards listed on this account.
+        	</div>
+          	
+          	<div class="content-block">
+            	You can add and manage available cards associated with your account via the desktop application. Visit Account Settings > Cards.
+        	</div>
      
  		</div><!-- End of .content-block -->
   	</div><!-- End of .page-content -->

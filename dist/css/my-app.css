@@ -7,6 +7,7 @@
     background-color: #74baa2 !important;
 }
 
+.hidden { display: none;}
 
 /*=========================================================================
 	Navigation
@@ -17,6 +18,7 @@
 	top: 0;
 	background: #74baa2;
 	border-bottom: 4px solid #699c8b;
+	box-shadow: 0px 0px 10px #333;
 	height: 35px;
 }
 
@@ -57,10 +59,12 @@
 .panel-left h2:before { content: "-"; }
 .panel-left h2:after { content: "-"; }
 
+.panel-right { width: 90%; }
+
 .menu {
 	position: absolute;
 	left: -40px;
-	top: 50px;
+	top: 70px;
 	width: 100%;
 }
 
@@ -77,11 +81,19 @@
 	font-size: 18px;
 	position: relative;
 	top: -5px;
-	left: 10px;
+	left: 15px;
 }
 
-.navbar .left a img {
+.menu-title {margin-top: 15px;}
+
+.settings {
+	color: #FFF;
+	position: absolute;
+	bottom: 15px;
 }
+
+.settings img { width: 20px; height: 20px; position: relative; top: 4px; }
+.settings span { padding: 10px; color: #FFF; }
 
 
 .modal { background: rgba(0,0,0,.6) !important;}
@@ -346,9 +358,8 @@ a { color: #444; }
 }
 
 /* Notifications */
-.notices {
-	margin-top: 330px;
-}
+.notices { margin-top: 250px; }
+.notices h3 { color: #A08871; }
 
 .fa-bullhorn {
 	position: relative;
@@ -377,6 +388,7 @@ a { color: #444; }
 }
 
 .notification {
+	border-radius: 4px 0px 4px 4px;
 	clear: both;
 	padding: 10px;
 	margin-bottom: 10px;
@@ -395,7 +407,6 @@ a { color: #444; }
 
 .urgent {
 	background: #f3d1d0;
-	border: 1px solid red;
 }
 
 .standard {
@@ -409,7 +420,7 @@ a { color: #444; }
 html.with-statusbar-overlay .popup { height: calc(92% - 20px) !important; }
 
 .popup {
-	height: 78%;
+	height: 90%;
 	top: auto !important;
 	bottom: 0 !important;
 	box-shadow: 4px 0 6px #666;
@@ -571,7 +582,8 @@ a.analytics img {
 
 .facebook-btn {
 	background: #367298 !important;
-	display: none;
+	margin-top: 15px;
+	margin-bottom: 40px;
 }
 
 /* List Page */
@@ -689,7 +701,7 @@ a.analytics img {
 [data-page="anayltics"] .tabs .tab .cost {
 	border-top: 8px solid #fadd99;
 	background-color: #e08f50;
-	min-height: 150px;
+	min-height: 195px;
 	margin-top: 10px;
 	padding: 5px 20px;
 	position: relative;
@@ -914,6 +926,73 @@ h3.heading small {
 .julia-icon i {
 	position: relative;
 	left: 18px;
+}
+
+
+/*=========================================================================
+	Initial Recipes Taste Profile
+=========================================================================*/
+
+.swiper-container h2,.swiper-container h3, .swiper-container small { font-weight: normal; }
+
+.swiper-container h2 { font-size: 23px; }
+.swiper-container h3 { font-size: 18px; }
+
+.swiper-container small { font-size: 18px; left: 45%; position: absolute; bottom: 45%; }
+
+.swiper-container {
+	background: #e08f50;
+	color: #FFF;
+	height: 100vh;
+  	position: absolute;
+  	top: 50px;
+	width: 100vw;
+  	z-index: 9999;
+}
+
+.swiper-container #content {
+	margin: 15% auto;
+	width: 80%;
+}
+
+.swiper-slide {
+	background: transparent;
+  	width: 100%;
+  	clear: both;
+}
+
+.swiper-slide span {
+  text-align:center;
+  display:block;
+  margin:20px;
+  font-size:21px;
+}
+
+#cuisines { margin-left: -35px; }
+
+li.cuisine { 
+	background: #55B69D;
+	border-radius: 60px;
+	width: 120px;
+	height: 120px;
+	margin: 0 27px 27px 0;
+	text-align: center;
+	float: left;
+	list-style-type: none;
+}
+
+li.cuisine:nth-child { margin-left: 0; }
+
+li.cuisine span { font-size: 14px !important; margin-top: 40%; }
+
+li.cuisine .american:before { 
+	opacity: 0.6;
+	background: url(http://files.worldoftaste.webnode.hu/200000016-75e3476d65/prague%20american%20cuisine.png);
+}
+
+li.cuisine > .mexican { 
+	background-color:rgba(57,143,126,1.00);
+	background: url(http://rjmexicancuisine.com/wp-content/uploads/2015/08/mex1.jpg);
 }
 
 /*=========================================================================

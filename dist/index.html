@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html class="with-statusbar-overlay">
-<head>
+<html class="with-statusbar-overlay"><head>
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     
     <title>Kitchen Cloud Mobile</title>
+    
+    <link rel="shortcut icon" href="http://kitchencloud.net/wp-content/themes/SocialChef/images/favicon.ico">
     
     <!-- Link to the touch icon -->
     <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
@@ -26,46 +27,41 @@
     <!-- Left panel with reveal effect-->
     <div class="panel panel-left panel-reveal">
       <div class="content-block">
-      		<h2>The Menu</h2>
+      		<img src="img/ui_menu_title.png" class="menu-title" width="225" alt="Menu Title">
             
             <ul class="menu">
             	<li>
-                	<a href="index.html" class="link active ">
-                    	<img src="img/icon-pantry.png" width="25" height="29">
+                	<a href="index.html" class="link active close-panel">
+                    	<img src="img/icon_pantry.png" width="25" height="29">
                         <span>Pantry</span>
                      </a>
                 </li>
                 
                 <li>
+                	<a href="recipes.html" class="link close-panel">
+                    	<img src="img/icon_recipes.png" width="29" height="29">
+                        <span>Recipes</span>
+                    </a>
+                </li>
+                
+                <li>
                 	<a href="list.html" class="link close-panel">
-                    	<img src="img/icon-list.png" width="21" height="29">
+                    	<img src="img/icon_list.png" width="21" height="29">
                         <span>Shopping List</span>
                     </a>
                 </li>
              	
                 <li>
                 	<a href="analytics.html" class="link analytics close-panel">
-                    	<img src="img/icon-analytics.png" width="40" height="40">
+                    	<img src="img/icon-analytics.png" width="29" height="29">
                         <span>Waste Tracker</span>
                    	</a>
                 </li>
-                
-                <li>
-                	<a href="recipes.html" class="link close-panel">
-                    	<img src="img/icon-recipes.png" width="29" height="29">
-                        <span>Recipes</span>
-                    </a>
-                </li>
-                
-                <li>
-             		<a href="user-settings.html" class="link">
-                    	<img src="img/icon-user.png" width="29" height="29">
-                        <span>Settings</span>
-                   	</a>
-               	</li>
            	</ul><!-- End of Navigation Menu -->
             
             <div class="notices clear">
+            	<h3>Notifications</h3>
+                
                 <div class="notification urgent">
                     <p>Your 2% milk has spoiled</p>
                     <i class="fa fa-times fa-lg"></i>
@@ -76,21 +72,21 @@
                     <i class="fa fa-times fa-lg"></i>
                 </div>
            	</div>
+            
+            <div class="settings clear">
+            	<a href="user-settings.html" class="link close-panel">
+            		<img src="img/icon_settings.png" width="29" height="29">
+                	<span>Settings</span>
+                </a>
+            </div>
       </div>
     </div>
     <!-- Right panel with cover effect-->
     <div class="panel panel-right panel-cover">
-      <div class="content-block">
-        <h4>Notifications</h4>
-            <div class="notification urgent">
-                <p>Your 2% milk has spoiled</p>
-                <i class="fa fa-times fa-lg"></i>
-            </div>
-            <div class="notification standard multi-line">
-                <p>The cucumbers need to be used soon before they rot</p>
-                <i class="fa fa-times fa-lg"></i>
-            </div>
-      </div>
+      	<div class="content-block">
+        	<h4>Ask Julia a Question</h4>
+        
+		</div>
     </div>
     <!-- Views-->
     <div class="views">
@@ -102,7 +98,7 @@
             <!-- We have home navbar without left link-->
             <div class="left">
             	<a href="#" data-panel="left" class="link open-panel">
-            		<img src="img/icon-menu.png" width="24" height="24" alt="Hamburger Menu" />
+            		<img id="nav_menu" src="img/icon-menu.png" width="24" height="24" alt="Hamburger Menu" />
                	</a>
             </div>
             <div class="center sliding">Kitchen Cloud</div>
@@ -159,7 +155,7 @@
                                     	<td><h4 class="item-title">2% Whole Milk</h4></td>
                                   	</tr>
                                    	<tr>
-                                   		<td class="item-subtitle">Purchased on 05/15/2015</td>
+                                   		<td class="item-subtitle">Purchased 11/03/2016</td>
                                    	</tr>
                                    	<tr>
                                     	<td class="item-text">13 days old</td>
@@ -185,7 +181,7 @@
                             			<td><h4 class="item-title">Cucumbers</h4></td>
                                    	</tr>
                                     <tr>
-                            			<td class="item-subtitle">Purchased on 05/19/2015</td>
+                            			<td class="item-subtitle">Purchased on 11/07/2016</td>
                                     </tr>
                                     <tr>
                             			<td class="item-text">9 days old</td>
@@ -211,7 +207,7 @@
                             			<td><h4 class="item-title">Havarti Cheese</h4></td>
                                     </tr>
                                     <tr>
-                            			<td class="item-subtitle">Purchased on 05/25/2015</td>
+                            			<td class="item-subtitle">Purchased on 11/13/2016</td>
                                     </tr>
                                     <tr>
                             			<td class="item-text">3 days old</td>
@@ -246,11 +242,55 @@
     <!-- Path to Framework7 Library JS-->
     <script type="text/javascript" src="js/framework7.min.js"></script>
     <script type="text/javascript" src="js/chart.js"></script>
-    <script type="text/javascript" src="js/welcomescreen.js?nc=3"></script>
+    <!--<script type="text/javascript" src="js/welcomescreen.js?nc=3"></script>-->
     <script src="http://code.jquery.com/mobile/1.1.2/jquery.mobile-1.1.2.min.js"></script>
     
     <!-- Path to your app js-->
     <script type="text/javascript" src="js/my-app.js"></script>
+	
+	<!-- Julia test run -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/annyang/2.5.0/annyang.min.js"></script>
+	
+	<script type="text/javascript">
+			if (annyang) {
+			  // Let's define our first command. First the text we expect, and then the function it should call
+			  var commands = { 
+				'hello': recipes_redirect
+			  };
+				
+				var recipes_redirect = function(){
+					alert('no!');
+					//$(location).attr('href', 'recipes.html');
+				}
+
+			  // Add our commands to annyang
+			  annyang.addCommands(commands);
+
+			  // Start listening. You can call this here, or attach this call to an event, button, etc.
+			  annyang.start();
+			}
+		</script>    
+	
+<!--
+	<script type="text/javascript">
+		var obj = jQuery(parseJSON( '{ "name": "John" }' ));
+		
+		if (annyang) {
+		  // Let's define our first command. First the text we expect, and then the function it should call
+		  var commands = { 
+			'hey': function(){
+				alert( obj.name === "John" );
+			}
+		  };
+
+		  // Add our commands to annyang
+		  annyang.addCommands(commands);
+
+		  // Start listening. You can call this here, or attach this call to an event, button, etc.
+		  annyang.start();
+		}
+	</script>
+-->
     
     <!-- Google Analytics -->
     <script>
