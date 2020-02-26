@@ -21,7 +21,11 @@
   <div data-page="settings" class="page">
    
    		<div class="popup signing-up">
-   			<a href="" class="right close-popup"><i class="fa fa-close fa-lg"></i></a>
+   			<div class="popup-actions">
+				<h3>Sign-In</h3>
+        		<a href="" class="right close-popup">Cancel</a>
+			</div>
+   		
     		<form id="sign_in_form" action="" method="get">
         	<div class="list-block">
   				<ul>
@@ -54,72 +58,35 @@
             
             <button class="button button-big facebook-btn">Sign-In with Facebook</button>
             
-            <p align="center"><a href="" style="font-size:16px; color:#999;" class="password-modal">Forgot your password?</a></p>
+            <p align="center"><a href="" style="font-size:16px; color:#999;" class="forgotten-password">Forgot your password?</a></p>
             
             <p align="center"><a class="sign-up" style="font-size:16px; color:#999;">Don't have an account? Sign up today!</a></p>  
   		</div>
   		
     <!-- Scrollable page content-->
     <div class="page-content">
-   
+    	<div class="swiper-container settings-slpash" style="min-height: 480px;">
+    		<div class="swiper-wrapper">
+      			<div class="swiper-slide"><span>Something.</span></div>
+      			<div class="swiper-slide"><span><img src="img/cards/settings-card-sharing.png" width="100%" height="auto" /></span></div>
+      			<div class="swiper-slide"><span>Hello.</span></div>
+    		</div>
+    		
+    		<div class="swiper-pagination"></div>
+  		</div>
+  		
    		<div class="list-block">
   			<ul>
     			<li>
-      				<a href="" class="item-link item-content">
+      				<a href="" class="item-content">
         				<div class="item-inner sign-in">
           					<div class="item-title">Sign-In</div>
+          					<div class="item-after"><i class="fa fa-lock"></i></div>
         				</div>
       				</a>
     			</li>
     		</ul>
-    	</div><!-- End of list-block -->
-        
-        <div class="list-block">
-  			<ul>
-    			<li>
-                <div class="item-content">
-                  <div class="item-inner"> 
-                  	<div class="item-media"><i class="fa fa-facebook fa-lg"></i></div>
-                    <div class="item-title label" style="width: 180px;">Facebook</div>
-                    <div class="item-input" style="float: right; width: 55px;">
-                      <label class="label-switch">
-                        <input type="checkbox"/>
-                        <div class="checkbox"></div>
-                      </label>
-                    </div>
-                  </div>
-                </div>
-              </li><!-- End of List Item -->
-                <li>
-      				<div class="item-content">
-        				<div class="item-inner">
-                        	<div class="item-media"><i class="fa fa-twitter fa-lg"></i></div>
-          					<div class="item-title label" style="width: 180px;">Twitter</div>
-          					<div class="item-input" style="float: right; width: 55px;">
-            					<label class="label-switch">
-              						<input type="checkbox" data-role="slider">
-              						<div class="checkbox"></div>
-            					</label>
-          					</div>
-        				</div>
-      				</div>
-    			</li><!-- End of List Item -->
-                <li>
-      				<div class="item-content">
-        				<div class="item-inner">
-                        	<div class="item-media"><i class="fa fa-pinterest fa-lg"></i></div>
-          					<div class="item-title label" style="width: 180px;">Pinterest</div>
-          					<div class="item-input" style="float: right; width: 55px;">
-            					<label class="label-switch">
-              						<input type="checkbox">
-              						<div class="checkbox"></div>
-            					</label>
-          					</div>
-        				</div>
-      				</div>
-    			</li><!-- End of List Item -->
-    		</ul>
-    	</div><!-- End of list-block -->
-         
-  </div>
+    	</div><!-- End of list-block -->       
+  	</div>
+</div>
 </div>

@@ -10,48 +10,48 @@ var mainView = myApp.addView('.view-main', {
     dynamicNavbar: true
 });
 
-// Dummy Content
-//var songs = ['Yellow Submarine', 'Don\'t Stop Me Now', 'Billie Jean', 'Californication'];
-//var authors = ['Beatles', 'Queen', 'Michael Jackson', 'Red Hot Chili Peppers'];
+//Calendar
+var monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August' , 'September' , 'October', 'November', 'December'];
  
-// Pull to refresh content
-/*var ptrContent = $$('.pull-to-refresh-content');
- 
-// Add 'refresh' listener on it
-ptrContent.on('refresh', function (e) {
-    // Emulate 2s loading
-    setTimeout(function () {
-        // Random image
-        var picURL = 'http://hhhhold.com/88/d/jpg?' + Math.round(Math.random() * 100);
-        // Random song
-        var song = songs[Math.floor(Math.random() * songs.length)];
-        // Random author
-        var author = authors[Math.floor(Math.random() * authors.length)];
-        // List item html
-        var itemHTML = '<li class="item-content">' +
-                          '<div class="item-media"><img src="' + picURL + '" width="44"/></div>' +
-                          '<div class="item-inner">' +
-                            '<div class="item-title-row">' +
-                              '<div class="item-title">' + song + '</div>' +
-                            '</div>' +
-                            '<div class="item-subtitle">' + author + '</div>' +
-                          '</div>' +
-                        '</li>';
-        // Prepend new list element
-        ptrContent.find('ul').prepend(itemHTML);
-        // When loading done, we need to reset it
-        myApp.pullToRefreshDone();
-    }, 2000);
-*/
+var calendarInline = myApp.calendar({
+    container: '#calendar-inline-container',
+    value: [new Date()],
+    weekHeader: false,
+    toolbarTemplate: 
+        '<div class="toolbar calendar-custom-toolbar">' +
+            '<div class="toolbar-inner">' +
+                '<div class="left">' +
+                    '<a href="#" class="link icon-only"><i class="icon icon-back"></i></a>' +
+                '</div>' +
+                '<div class="center"></div>' +
+                '<div class="right">' +
+                    '<a href="#" class="link icon-only"><i class="icon icon-forward"></i></a>' +
+                '</div>' +
+            '</div>' +
+        '</div>',
+    onOpen: function (p) {
+		'use strict';
+        $$('.calendar-custom-toolbar .center').text(monthNames[p.currentMonth] +', ' + p.currentYear);
+        $$('.calendar-custom-toolbar .left .link').on('click', function () {
+            calendarInline.prevMonth();
+        });
+        $$('.calendar-custom-toolbar .right .link').on('click', function () {
+            calendarInline.nextMonth();
+        });
+    },
+    onMonthYearChangeStart: function (p) {
+		'use strict';
+        $$('.calendar-custom-toolbar .center').text(monthNames[p.currentMonth] +', ' + p.currentYear);
+    }
+});          
 
-//Push Notifications 
-/*$$(this).on('load', function () {
-	myApp.addNotification({
-		title: 'Spilt Milk',
-		message: 'This is a simple notification message with custom icon and subtitle',
-		media: '<i class="fa fa-cloud fa-2x" style="color: orange;"></i>'
-	});
-});*/
+//Intial Load of Julia 
+$$('.julia-load').show();
+
+$$('.close').on('click', function(){
+	'use strict';
+	$$(this).parent().hide();
+});
 
 //Hamburger Menu Animate
 var image = new Image();
@@ -101,9 +101,14 @@ $$(".checkbox").click(function(){
 //Particular function for the index screen
 myApp.onPageInit('index', function(page){
 	'use strict';
-	$$('.fa-plus').on('click', function(){
-		myApp.popup('.schedule-meal');
-	});
+	
+	$$('.empty-pantry-message').hide();
+	
+	if($$('.pantry-item').length < 1){
+   		$$('.empty-pantry-message').show();
+	} else {
+		$$('.empty-pantry-message').hide();
+	}
 });
 
 //Particular function for the item details screen
@@ -124,7 +129,7 @@ myApp.onPageInit('details', function(page){
                 data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor()]
             }
         ]
-    }
+    };
 
     var ctxPurchase = document.getElementById("purchase_chart").getContext("2d");
     window.myLine = new Chart(ctxPurchase).Line(purchaseChartData, {responsive: true});
@@ -192,6 +197,29 @@ myApp.onPageInit('list', function(page){
 		$$('#item input[type=checkbox]').attr('checked', true);
 		$$('#item input[type=checkbox]').parent().addClass('checked');
 		myApp.alert('Your card will not be charged until the groceries are picked up', 'Groceries are on Their Way');
+	});
+	
+	$$('.fa-check-circle-o').hide();
+	
+	$$('#milk').on('click', function() {
+		$$(this).hide('drop', {direction: 'down'}, 'slow');
+		$$('#coupon_price').css({'border':'none', 'background':'#43CD3F', 'color':'white'});
+		
+		$$('#arugula .coupon').removeClass('right');
+		$$('#arugula .coupon').addClass('left');
+		
+		$$('.label-checkbox').addClass('checked');
+		$$('input type="checkbox').attr('checked', 'checked');
+	});
+	
+	$$('#coupon_price').on('click', function() { 
+		$$(this).css({'border':'2px dashed #CCC', 'background':'#FFF', 'color':'#8e8e93'});
+		$$('#milk').show('drop', {direction: 'up'}, 'slow');
+		
+		$$('input type="checkbox').removeAttr('checked');
+		
+		$$('#arugula .coupon').removeClass('left');
+		$$('#arugula .coupon').addClass('right');
 	});
 });
 
@@ -322,14 +350,6 @@ myApp.onPageInit('recipes', function(page){
 	'use-strict';
 	
 	// Init slider and store its instance in mySwiper variable
-	var mySwiper = myApp.swiper('.swiper-container', {
-    	pagination:'.swiper-pagination'
-	});
-	
-	$$('.swiper-content small.close').on('click', function() {
-		'use strict';
-		$$('.swiper-container').hide();
-	});
 	
 	$$('.category-link').on('click', function() {
 		myApp.popup('.food-categories');
@@ -387,13 +407,14 @@ myApp.onPageInit('recipe-details', function(page){
 		$$('.added').show();
 		
 		favorites++;
-		$$('.popularity').text(' ' + favorites);
+		$$('#card .popularity').html('<i class="fa fa-heart"></i> &nbsp;' + favorites);
+		$$('.swiper-container .popularity').html(' ' + favorites);
 	});
 		
 	//Meal Planning
 	$$('.plan').on('click', function() {
 		myApp.popup('.schedule-meal');
-	});
+	});  
 });
 
 //Settings Page
@@ -402,15 +423,14 @@ myApp.onPageInit('settings', function(page){
 	$$('.sign-in').on('click', function() {
 		myApp.popup('.signing-up');
 	});
-});
-
-//Interactions for the Sign-up Page
-myApp.onPageInit('sign-up', function(page){
-	$$('.password-modal').on('click', function () {
-    	myApp.modalPassword('Enter a new password please:', 'Lets change things', function (password) {
-    		myApp.alert('Your new password is: ' + password + '. An email has been forwarded to you. Keep it somewhere safe.', 'Nice!');
-   		});
-	});
+	
+	$$('.forgotten-password').on('click', function () {
+		myApp.prompt('What is the email associated with your account?', 'Jog Our Memory', 
+			function (value) {
+				myApp.alert('An email has been sent to that email with a password reset. Make sure to check if the email was sent to your spam folder.', 'Success!');
+		  	}
+		);
+	});          
 });
 
 //Interactions for the Signed In User
@@ -447,7 +467,7 @@ myApp.onPageInit('dietary', function(page){
 	});
 });
 
-//Paid versus Free Diets
+//Cards associated with the Account
 myApp.onPageInit('cards', function(page){
 	'use strict';
 	$$('.not-found').hide();

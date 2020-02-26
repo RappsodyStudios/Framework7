@@ -59,7 +59,7 @@
 .panel-left h2:before { content: "-"; }
 .panel-left h2:after { content: "-"; }
 
-.panel-right { width: 90%; }
+.panel-right { width: 90%; box-shadow: 3px 3px 8px 2px rgba(0,0,0,0.75); }
 
 .menu {
 	position: absolute;
@@ -95,6 +95,15 @@
 .settings img { width: 20px; height: 20px; position: relative; top: 4px; }
 .settings span { padding: 10px; color: #FFF; }
 
+[data-page="settings"] .navbar {
+	box-shadow: 0 0 0 0 #74baa2;
+	border: none;
+}
+
+
+/*======================================
+	Global Styles 
+======================================*/
 
 .modal { background: rgba(0,0,0,.6) !important;}
 
@@ -115,7 +124,10 @@ a { color: #444; }
 .strikeout { text-decoration: line-through; }
 .checked { background: #E7E7E7; }
 
-/* General UI */
+/* ===============================
+	General UI 
+================================*/
+
 #title {
 	color: #fff;
 }
@@ -162,11 +174,14 @@ a { color: #444; }
 	color: #c35e10;
 }
 
+.fa-camera {
+	color: #c35e10;
+	padding: 0 10px;
+}
+
 [data-page="recipes"] .searchbar { top: 35px !important; }
 
 [data-page="recipes"] .searchbar input[type="search"] {
-	min-width: 320px;
-	width: 100%;
 	position: relative;
 	left: 5px;
 	z-index: 3;
@@ -292,7 +307,7 @@ a { color: #444; }
 
 
 .searchbar input[type="search"] {
-	width: 100%;
+	width: 97%;
 }
 
 .button-big {
@@ -344,7 +359,7 @@ a { color: #444; }
 }
 
 #addition .scan a i.fa-barcode {
-	color: #fff;
+	color: #c35e10;
 	position: relative;
 	top: 4px;
 }
@@ -417,14 +432,41 @@ a { color: #444; }
 	min-height: 40px;
 }
 
-html.with-statusbar-overlay .popup { height: calc(92% - 20px) !important; }
+html.with-statusbar-overlay .popup { height: calc(94% - 20px) !important; }
 
 .popup {
-	height: 90%;
+	height: 95%;
 	top: auto !important;
 	bottom: 0 !important;
 	box-shadow: 4px 0 6px #666;
 	padding: 20px;
+}
+
+.popup-actions {
+	background: #CD7631;
+	color: #FFF;
+	height: 48px;
+	left: -20px;
+	position: relative;
+    top: -18px;
+    width: 112%;
+}
+
+.popup-actions a { 
+	color: #FFF;
+	position: relative;
+    top: 15px;
+    right: 15px;
+}
+
+.popup-actions h3 {
+	margin:0;
+	font-weight:400;
+	width: 75%;
+    float: left;
+    position: absolute;
+    top: 15px;
+    left: 10px;
 }
 
 .popup-overlay { visibility: hidden !important; }
@@ -538,6 +580,10 @@ a.analytics img {
 	background: #FFF;
 }
 
+.settings-splash {
+	height: 400px;
+}
+
 .item-media i {
 	padding: 0 5px;
 }
@@ -645,6 +691,59 @@ a.analytics img {
 
 [data-page="list"] .coupons { padding: 10px; }
 
+.coupon, #coupon_details {
+	background:#F8F8F8;
+	border: 2px dashed #BFBFBF;
+	box-shadow: 0 0 0 4px #f8f8f8, 2px 1px 6px 4px rgba(10, 10, 0, 0.5);
+	padding: 10px;
+}
+
+.coupon {
+	width: 40%;
+	position: relative;
+	z-index: 3;
+}
+
+.coupons .deals {
+	background: #BE484A;
+	color: #FFF;
+	padding: 5px;
+	position: absolute;
+    top: 57%;
+    right: -6%;
+}
+
+.coupon img {
+	margin: 0 30%;
+	max-height: 60px;
+}
+
+.coupon p { margin: 0; }
+
+.coupon p.savings {
+	color: #444;
+	font-size: 18px;
+}
+
+.coupon small { line-height: 16px; }
+
+.milk .fa-check-circle-o {
+	color:#43CD3F;
+	position: absolute;
+    left: 15%;
+    top: 65%;
+    z-index: 4;
+}
+
+#coupon_details {
+	width: 88%;
+    margin: 0 10px;
+}
+
+#coupon_details td img { max-width: 100px; }
+
+#coupon_details p.savings { font-size: 22px; }
+
 .schedule-delivery .item-input { border: none; }
 
 /* Analytics Page */
@@ -707,6 +806,26 @@ a.analytics img {
 	position: relative;
 	left: -20px;
 	width: 100%;
+}
+
+[data-page="anayltics"] .savings, [data-page="anayltics"] .coupons {
+	color: #fff;
+	min-height: 90px;
+	padding: 5px 20px;
+	position: relative;
+	width: 44%;
+}
+
+
+[data-page="anayltics"] .savings {
+	background-color: #CD7631;
+	left: -19px;
+}
+
+[data-page="anayltics"] .coupons {
+	background-color: #B1672D;
+	right: -20px;
+    top: -100px;
 }
 
 [data-page="analytics"] hr {
@@ -928,11 +1047,91 @@ h3.heading small {
 	left: 18px;
 }
 
+.julia-load {
+	background:rgba(0,0,0,0.75);
+	padding-top: 35vh;
+	padding-left: 45px;
+	padding-right: 45px;
+	padding-bottom: 45px;
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	z-index: 9999;
+}
+
+.julia-load button {
+	margin-top: 20px;
+	width: 75%;
+}
+
+#julia_avatar .active { display: block; }
+#julia_avatar .broken { display: none; }
+
+#julia_avatar .active img {
+	margin: 20px 11%;
+    position: relative;
+	width: 80%;
+	z-index: 4;
+}
+
+#julia_avatar .active .pulse { 
+	animation: pulse 3s infinite ease-in-out;
+	background-color: #7D5E92;
+    border-radius: 150px;
+    padding: 120px;
+    z-index: 2;
+    position: absolute;
+    top: 82px;
+    left: 14vw;
+}
+
+#julia_avatar .broken img { 
+	margin: 25px 9%;
+    z-index: 4;
+    position: relative;
+    width: 83%;
+}
+
+#julia_avatar .broken .pulse { 
+	background-color: #7D5E92;
+    border-radius: 150px;
+    padding: 120px;
+    z-index: 2;
+    position: absolute;
+    top: 82px;
+    left: 14vw;
+}
+
+@keyframes pulse {
+	0% { opacity: .5; }
+	50% { opacity: 1.0; }
+	100% { opacity: .5; }
+}
+
+
+/*=========================================================================
+	Tooltips and Cards
+=========================================================================*/
+.card { 
+	background: rgba(123,182,158,1.00);
+	border-radius: 0 0 8px 8px;
+	color: #FFF;
+	padding: 10px;
+	width: 70%;
+}
+
+.card img {
+	position: absolute;
+    left: 45px;
+    top: 60px;
+    width: 65.8%;
+}
 
 /*=========================================================================
 	Initial Recipes Taste Profile
 =========================================================================*/
 
+/*
 .swiper-container h2,.swiper-container h3, .swiper-container small { font-weight: normal; }
 
 .swiper-container h2 { font-size: 23px; }
@@ -967,6 +1166,7 @@ h3.heading small {
   margin:20px;
   font-size:21px;
 }
+*/
 
 #cuisines { margin-left: -35px; }
 

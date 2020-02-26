@@ -15,7 +15,7 @@
 <div class="pages">
   	<div data-page="recipes" class="page">
         <!-- Search bar -->
-        <!--<form data-search-list="list-block-search" data-search-in="item-title" class="searchbar">
+        <form data-search-list="list-block-search" data-search-in="item-title" class="searchbar">
         	<div class="categories">
        			<a href="#" data-panel="left" class="link icon-only open-panel">
         			<i class="fa fa-th-large fa-2x"></i>
@@ -31,7 +31,7 @@
           			<i class="fa fa-microphone fa-lg"></i>
                	</a>
           	</div>
-        </form>-->
+        </form>
   
         <div class="popup voice-search">
             <div class="content-block">
@@ -51,22 +51,30 @@
     <!-- This block will be displayed if anything found, and this list block is used a searbar target -->
     <div class="list-block">
     	<?php
-			include(PATH . 'http://imagincorp.com/kitchencloud/wp-load.php'); // Source material
-			
-			if (have_posts()) : the_post(); {
-	
-				echo 	'<div id="card" class="left">';
-				echo 	'<img src="http://placehold.it/300x300" />';
-				echo 	'<div class="information">
-							<h4>'. the_title() .'</h4>
-							<div class="dificulty left">
-								<i class="fa fa-signal">&nbsp;'. $recipe_difficulty->name .'</i>
-							</div>';
-				echo	'</div>';//End of information DIV
-				echo 	'</div>';//End of Card
-			}
-			
-			endif;
+		
+			require( 'http://kitchencloud.net/recipes/' ); // This is where my blog is.
+
+			// define query arguments
+			$args = array(
+				'posts_per_page' => 8
+				// possibly more arguments here
+			);
+		
+			// set up new query
+			$recipe_query = new WP_Query( $args );
+		
+			// loop through found posts
+			while ( $recipe_query->have_posts() ) : $recipe_query->the_post();
+				echo '<div id="card" class="left">'.
+					 '<a href="' . get_permalink() . '"> 
+					 <img src="http://placehold.it/180x180">'. get_the_title() . '</a><p>'.
+					 get_the_excerpt().
+					 '</p></div>';
+			endwhile;
+		
+			// reset post data
+			wp_reset_postdata();
+
 		?>
     </div>
     

@@ -85,9 +85,41 @@
     <div class="panel panel-right panel-cover">
       	<div class="content-block">
         	<h4>Ask Julia a Question</h4>
-        
+        	
+        	<div id="julia_avatar">
+        		<div class="active">
+        			<img src="img/julia-standard.gif"/>
+					<!--<div class="pulse"></div>-->
+        			
+					<p>Ask the burning questions:</p>
+				
+        			<ul class="question-list">
+						<li>What's for dinner?</li>
+						<li>What can I make with [food item]?</li>
+						<li>Add [item] to my shopping list.</li>
+					</ul>
+				</div>
+       		
+       			<div class="broken">
+       				<img src="img/julia-error.png"/>
+       				<div class="pulse"></div>
+       				
+       				<p>Everything's a bit of a mess at the moment. Give us a moment to clean up.</p>
+				</div>
+			</div>
 		</div>
     </div>
+    
+    <div class="julia-load">   	
+		<div class="card" id="julia-card">
+			<img src="img/cards/julia-access.png"/>
+			
+			<p>Utilize <strong>Julia</strong> your personal food assitant at any point while using Kitchen Cloud by pressing the <i class="fa fa-microphone fa-lg"></i> button at the top right.</p>
+		</div>
+		
+		<button class="button button-big close">Ok I got it</button>
+	</div>
+	  
     <!-- Views-->
     <div class="views">
       <!-- Your main view, should have "view-main" class-->
@@ -103,9 +135,9 @@
             </div>
             <div class="center sliding">Kitchen Cloud</div>
             <div class="right">
-              <a href="#" data-panel="right" class="link icon-only open-panel">
-              		&nbsp;
-              	</a>
+    			<a href="#" data-panel="right" class="link icon-only open-panel">
+                    <i class="fa fa-microphone fa-lg"></i>
+                </a>
             </div>
           </div>
         </div>
@@ -124,9 +156,11 @@
              	<!-- Search bar -->
               	<form class="searchbar searchbar-init" data-search-list=".list-block-search" data-search-in=".item-title" data-found=".searchbar-found" data-not-found=".searchbar-not-found">
                 	<div class="searchbar-input searchbar-init">	
-                  		<input type="search" placeholder="Filter Pantry Items" width="100%">
+                  		<input type="search" placeholder="Filter Pantry Items" width="80%">
                         <a href="#" class="searchbar-clear"></a>
                 	</div>
+                	
+					<i class="fa fa-camera fa-2x"></i>
               	</form>
              
               	<div class="clear" style="height: 8px;"></div>
@@ -137,14 +171,14 @@
   				</div>-->
                 
                 <div class="content-block searchbar-not-found">
-                	You can add an item by scanning it. Just press the '+' button at the top left of your screen and scan using your devices camera.
+					You can add pantry item(s) by scanning your receipt or the barcode on the food item. Just press the <i class="fa fa-camera"></i> button in the searhbar and scan using your devices camera.
         		</div>
                 
               <!-- Catalog Items -->
               <div class="list-block list-block-search searchbar-found pull-to-refresh-content" style="margin: 0;">
                 <ul id="food_catalog">
                 	<!-- Item 001 -->
-                	<li class="swipeout bad">
+                	<li class="swipeout pantry-item bad">
                     	<a href="item-details.html" class="item-link" data-transition="flip">
                       		<div class="item-content swipeout-content">
                             	<div class="item-media">
@@ -170,7 +204,7 @@
                    	</li>
                     
                     <!-- Item 002 -->
-                	<li class="swipeout soon">
+                	<li class="swipeout pantry-item soon">
                     	<a href="item-details.html" class="item-link">
                       		<div class="item-content swipeout-content">
                             	<div class="item-media">
@@ -196,7 +230,7 @@
                    	</li>
                     
                     <!-- Item 003 -->
-                	<li class="swipeout">
+                	<li class="swipeout pantry-item">
                     	<a href="item-details.html" class="item-link">
                       		<div class="item-content swipeout-content">
                             	<div class="item-media">
@@ -222,18 +256,14 @@
                    	</li>
                 </ul>
               </div>
+              
+              <div class="content-block empty-pantry-message hidden">
+				  <p>There doesn't appear to be any pantry items at the moment.</p>
+              		
+				  <p>You can add pantry item(s) by scanning your receipt or the barcode on the food item. Just press the <i class="fa fa-camera"></i> button in the searhbar and scan using your devices camera.</p>
+        	  </div>
         </div>
-        
-        <!-- Bottom Toolbar-->
-        <div class="toolbar">
-          	<div class="toolbar-inner">
-            	<div class="left julia-icon">
-                	<i class="fa fa-microphone fa-3x"></i>
-                </div>
-       			
-                <p class="right">Say Hello to Julia!</p>
-          	</div>
-        </div>
+       
       </div>
     </div>
     
@@ -248,49 +278,9 @@
     <!-- Path to your app js-->
     <script type="text/javascript" src="js/my-app.js"></script>
 	
-	<!-- Julia test run -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/annyang/2.5.0/annyang.min.js"></script>
-	
-	<script type="text/javascript">
-			if (annyang) {
-			  // Let's define our first command. First the text we expect, and then the function it should call
-			  var commands = { 
-				'hello': recipes_redirect
-			  };
-				
-				var recipes_redirect = function(){
-					alert('no!');
-					//$(location).attr('href', 'recipes.html');
-				}
-
-			  // Add our commands to annyang
-			  annyang.addCommands(commands);
-
-			  // Start listening. You can call this here, or attach this call to an event, button, etc.
-			  annyang.start();
-			}
-		</script>    
-	
-<!--
-	<script type="text/javascript">
-		var obj = jQuery(parseJSON( '{ "name": "John" }' ));
-		
-		if (annyang) {
-		  // Let's define our first command. First the text we expect, and then the function it should call
-		  var commands = { 
-			'hey': function(){
-				alert( obj.name === "John" );
-			}
-		  };
-
-		  // Add our commands to annyang
-		  annyang.addCommands(commands);
-
-		  // Start listening. You can call this here, or attach this call to an event, button, etc.
-		  annyang.start();
-		}
-	</script>
--->
+	<!-- Julia Integration -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/annyang/2.5.0/annyang.min.js"></script>   
+		  <script src="js/julia.js"></script>
     
     <!-- Google Analytics -->
     <script>

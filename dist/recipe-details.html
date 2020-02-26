@@ -16,36 +16,45 @@
 	<div data-page="recipe-details" class="page">
     
     <div class="popup schedule-meal">
-    	<div class="content-block">
-        	<a href="" class="right close-popup"><i class="fa fa-close fa-lg"></i></a>
-            	<div style="padding:0; margin-right:-15px; width:auto" class="content-block-inner">
-           			<div id="calendar-inline-container"></div>
-               	</div>
-        </div>
+    	<div class="popup-actions">
+           	<h3>Schedule a Meal</h3>
+        	<a href="" class="right close-popup">Cancel</a>
+		</div>
+    	
+       	<div class="list-block">
+			<ul>
+				<li>
+				  <div class="item-content">
+					<div class="item-inner">
+					  <div class="item-input">
+						<input type="text" placeholder="Select date" readonly id="calendar-date-format">
+					  </div>
+					</div>
+				  </div>
+				</li>
+			</ul>
+		</div>          
 	</div>
             
       
   	<div class="page-content">
     	
         
-    	<div class="swiper-container">
-        	<i class="fa fa-heart fa-lg popularity">&nbsp; 32</i>
-            
-            <div class="swiper-wrapper">
-            	<div class="swiper-slide">
-                	<img src="http://kitchencloud.net/wp-content/uploads/2015/02/arugula-cheese-grinder.jpg" width="100%" height="auto">
-                </div>
-                
-                <div class="swiper-slide">
-                	Hello Josh
-                </div>
-                
-                <div class="swiper-slide">
-                	<img src="http://kitchencloud.net/wp-content/uploads/2015/02/arugula-cheese-grinder.jpg" width="100%" height="auto">
-                </div>
-         	</div>
-            
-            <div class="swiper-pagination"></div>
+    	<div class="swiper-container swiper-init">
+			<i class="fa fa-heart fa-lg popularity">&nbsp; 32</i>
+        
+    		<div class="swiper-wrapper">
+				<div class="swiper-slide">
+			  		<span><img src="http://kitchencloud.net/wp-content/uploads/2015/02/arugula-cheese-grinder.jpg" width="100%" height="auto"></span>
+			  	</div>
+				<div class="swiper-slide">
+			  		<span><img src="http://kitchencloud.net/wp-content/uploads/2017/01/havarti-grinder2.jpg" width="100%" height="auto"></span>
+			  	</div>
+				  <div class="swiper-slide"><span>Slide 3</span></div>
+				  <div class="swiper-slide"><span>Slide 4</span></div>
+    			</div>
+    			
+    			<div class="swiper-pagination"></div>
         </div><!-- End of .swiper-container -->
         
         <div class="content-block">
